@@ -1,4 +1,5 @@
 import { DataSource } from "typeorm";
+import { config } from "dotenv";
 
 // Entities
 import { User } from "./src/entity/user";
@@ -9,7 +10,6 @@ import { SportProgram } from "./src/entity/sportProgram";
 import { Coach } from "./src/entity/coach";
 import { UserSportProgram } from "./src/entity/userSportProgram";
 import { SessionBooking } from "./src/entity/sessionBooking";
-import { config } from "dotenv";
 import { UserDetails } from "./src/entity/userDetails";
 import { UserDetailsHasSports } from "./src/entity/userdetailshassports";
 import { Role } from "./src/entity/role";
@@ -31,6 +31,12 @@ import { MuscleMass } from "./src/controllers/muscleMass";
 import { Height } from "./src/entity/height";
 
 config();
+
+console.log("PGHOST:", process.env.PGHOST);
+console.log("PGPORT:", process.env.PGPORT);
+console.log("POSTGRES_USER:", process.env.POSTGRES_USER);
+console.log("POSTGRES_PASSWORD:", process.env.POSTGRES_PASSWORD);
+console.log("PGDATABASE:", process.env.PGDATABASE);
 
 export const AppDataSource = new DataSource({
 	type: "postgres",
@@ -70,7 +76,6 @@ export const AppDataSource = new DataSource({
 		MuscleMass,
 		Height,
 	],
-
 	migrations: ["src/migration/**/*.ts"],
 	subscribers: ["src/subscriber/**/*.ts"],
 });
