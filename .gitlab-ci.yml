@@ -1,0 +1,41 @@
+stages:
+  - install
+  - lint
+  - build
+  - test
+
+variables:
+  NODE_ENV: 'development'
+
+before_script:
+  - npm install -g pnpm
+
+install_dependencies:
+  stage: install
+  script:
+    - pnpm install
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - node_modules/
+  artifacts:
+    paths:
+      - node_modules/
+
+lint:
+  stage: lint
+  script:
+    - pnpm run lint
+
+build:
+  stage: build
+  script:
+    - pnpm run build
+  artifacts:
+    paths:
+      - dist/
+
+test:
+  stage: test
+  script:
+    - pnpm run test

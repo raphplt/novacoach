@@ -1,0 +1,43 @@
+{
+	"$schema": "https://turbo.build/schema.json",
+	"ui": "tui",
+	"tasks": {
+		"build": {
+			"dependsOn": [
+				"^build"
+			],
+			"env": [
+				"NEXT_PUBLIC_API_URL"
+			],
+			"inputs": [
+				"$TURBO_DEFAULT$",
+				".env*"
+			],
+			"outputs": [
+				".next/**",
+				"!.next/cache/**"
+			]
+		},
+		"lint": {
+			"dependsOn": [
+				"^lint"
+			]
+		},
+		"dev": {
+			"cache": false,
+			"persistent": true
+		},
+		"test": {
+			"dependsOn": [
+				"^test"
+			]
+		},
+		"seed": {
+			"cache": false,
+			"persistent": false,
+			"dependsOn": [
+				"^seed"
+			]
+			}
+	}
+}

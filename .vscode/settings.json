@@ -1,0 +1,25 @@
+{
+	"eslint.workingDirectories": [
+		{
+			"mode": "auto"
+		}
+	],
+	"cSpell.words": [
+		"cloudinary",
+		"CLOUDINARY",
+		"conv",
+		"graylight",
+		"hookform",
+		"jose",
+		"nextui",
+		"novacoach",
+		"openapi",
+		"ormconfig",
+		"postgres",
+		"tailwindcss",
+		"tanstack",
+		"typeorm",
+		"userdetails",
+		"uuidv"
+	]
+}
