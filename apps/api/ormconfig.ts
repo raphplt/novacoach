@@ -1,6 +1,9 @@
 import { DataSource } from "typeorm";
 import { config } from "dotenv";
 
+// Charger les variables d'environnement depuis le fichier .env
+config();
+
 // Entities
 import { User } from "./src/entity/user";
 import { Structure } from "./src/entity/structure";
@@ -30,13 +33,12 @@ import { FatMass } from "./src/entity/fatMass";
 import { MuscleMass } from "./src/controllers/muscleMass";
 import { Height } from "./src/entity/height";
 
-config();
-
 console.log("PGHOST:", process.env.PGHOST);
 console.log("PGPORT:", process.env.PGPORT);
 console.log("POSTGRES_USER:", process.env.POSTGRES_USER);
 console.log("POSTGRES_PASSWORD:", process.env.POSTGRES_PASSWORD);
 console.log("PGDATABASE:", process.env.PGDATABASE);
+console.log("CLOUDINARY_CLOUD_NAME:", process.env.CLOUDINARY_CLOUD_NAME);
 
 export const AppDataSource = new DataSource({
 	type: "postgres",
