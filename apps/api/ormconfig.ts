@@ -33,13 +33,6 @@ import { FatMass } from "./src/entity/fatMass";
 import { MuscleMass } from "./src/controllers/muscleMass";
 import { Height } from "./src/entity/height";
 
-console.log("PGHOST:", process.env.PGHOST);
-console.log("PGPORT:", process.env.PG_PORT);
-console.log("POSTGRES_USER:", process.env.POSTGRES_USER);
-console.log("POSTGRES_PASSWORD:", process.env.POSTGRES_PASSWORD);
-console.log("PGDATABASE:", process.env.PGDATABASE);
-console.log("CLOUDINARY_CLOUD_NAME:", process.env.CLOUDINARY_CLOUD_NAME);
-
 export const AppDataSource = new DataSource({
 	type: "postgres",
 	host: process.env.PGHOST,
