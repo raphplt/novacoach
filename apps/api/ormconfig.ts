@@ -34,7 +34,7 @@ import { MuscleMass } from "./src/controllers/muscleMass";
 import { Height } from "./src/entity/height";
 
 console.log("PGHOST:", process.env.PGHOST);
-console.log("PGPORT:", process.env.PGPORT);
+console.log("PGPORT:", process.env.PG_PORT);
 console.log("POSTGRES_USER:", process.env.POSTGRES_USER);
 console.log("POSTGRES_PASSWORD:", process.env.POSTGRES_PASSWORD);
 console.log("PGDATABASE:", process.env.PGDATABASE);
