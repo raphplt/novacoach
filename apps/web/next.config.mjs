@@ -1,13 +1,18 @@
+const path = require("path");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	reactStrictMode: true,
-	output: "export", // Si vous voulez générer une application statique
-	distDir: "./dist", // Change le répertoire de build en './dist/'
+	distDir: "./dist",
 	images: {
 		domains: ["res.cloudinary.com"],
 	},
-	experimental: {
-		turbotrace: false,
+	webpack: (config) => {
+		config.resolve.alias = {
+			...config.resolve.alias,
+			"@": path.resolve(__dirname),
+		};
+		return config;
 	},
 };
 
