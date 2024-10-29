@@ -1,9 +1,8 @@
 {
 	"build": {
 		"env": {
-			"NODE_VERSION": "18.x"
-		},
-		"installCommand": "npm install",
-		"command": "npm run build"
+			"PNPM_VERSION": "9.12.3",
+			"use": "next build"
+		}
 	}
 }
