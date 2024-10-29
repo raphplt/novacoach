@@ -5,6 +5,8 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 import { setupSocketHandlers } from "./socketHandler";
 
+
+console.log(process.env.PGHOST);
 const port = process.env.PORT || 3002;
 
 const server = createServer(app);
