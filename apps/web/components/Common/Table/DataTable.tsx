@@ -19,7 +19,7 @@ export type DataTableProps = {
 	columnsHeaders: ColumnHeaderProps[];
 	rows: any[];
 	isLoading: boolean;
-	renderCell?: (data: any, columnKey: string) => React.ReactNode; // Ajoutez cette prop
+	renderCell?: (data: any, columnKey: string) => React.ReactNode;
 };
 
 export default function DataTable({

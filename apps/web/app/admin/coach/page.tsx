@@ -2,10 +2,11 @@
 import { useState, useEffect } from "react";
 import { Button } from "@nextui-org/react";
 import AdminNavigation from "../adminNavigation/AdminNavigation";
+
+import TableModal from "@components/Common/Modal/TableModal";
 import DataTable, {
 	ColumnHeaderProps,
 } from "@components/Common/Table/DataTable";
-import TableModal from "@components/Common/Modal/TableModal";
 
 // Types
 type Coach = {
@@ -42,7 +43,6 @@ export default function CoachPage() {
 	const [isStructuresLoading, setIsStructuresLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 
-	const itemsPerPage = 5;
 	const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 	// Fonction pour récupérer les coachs
@@ -203,7 +203,6 @@ export default function CoachPage() {
 		description: coach.description,
 		structure: coach.structure?.name || "N/A",
 	}));
-
 
 	return (
 		<div>

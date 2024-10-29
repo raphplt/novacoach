@@ -2,6 +2,7 @@
 	"extends": "@repo/typescript-config/nextjs.json",
 	"compilerOptions": {
 		"jsx": "preserve",
+		"declaration": false,
 		"declarationMap": false,
 		"baseUrl": ".",
 		"paths": {
@@ -23,8 +24,7 @@
 		"next.config.mjs",
 		"**/*.ts",
 		"**/*.tsx",
-		".next/types/**/*.ts",
-		"app/student/dashboard/accept-invitation"
+		".next/types/**/*.ts"
 	],
 	"exclude": ["node_modules"]
 }
