@@ -4,12 +4,7 @@ import { Button, Input } from "@nextui-org/react";
 import { useState, useEffect } from "react";
 
 import PageLoader from "@components/Common/Loaders/PageLoader";
-import {
-    FieldValues,
-    FormProvider,
-    SubmitHandler,
-    useForm,
-} from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { editAccountSchema } from "@utils/schemas/editAccount.schema";
 import Account from "./Account";

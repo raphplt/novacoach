@@ -11,7 +11,7 @@ import {
 import { ChangeEvent } from "react";
 import { StructureType } from "type/structure";
 
-export default function TableModal({
+export default function TableModale({
 	isModalOpen,
 	closeModal,
 	editingCoach,

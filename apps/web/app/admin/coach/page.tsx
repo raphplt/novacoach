@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 import { Button } from "@nextui-org/react";
 import AdminNavigation from "../adminNavigation/AdminNavigation";
 
-import TableModal from "@components/Common/Modal/TableModal";
+import TableModale from "@components/Common/Modal/TableModale";
 import DataTable, {
 	ColumnHeaderProps,
-} from "@components/Common/Table/DataTable";
+} from "@components/Common/Table/DataTableCustom";
 
 // Types
 type Coach = {
@@ -231,7 +231,7 @@ export default function CoachPage() {
           page={currentPage}
           onChange={handlePageChange}
         /> */}
-				<TableModal
+				<TableModale
 					isModalOpen={isModalOpen}
 					closeModal={closeModal}
 					editingCoach={editingCoach}

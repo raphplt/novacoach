@@ -1,5 +1,5 @@
-import { Button, TableCell } from "@nextui-org/react";
-import { ColumnHeaderProps } from "./DataTable";
+import { Button } from "@nextui-org/react";
+import { ColumnHeaderProps } from "./DataTableCustom";
 
 export default function renderCell({
 	data,

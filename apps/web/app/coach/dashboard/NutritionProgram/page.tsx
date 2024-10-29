@@ -1,5 +1,5 @@
 "use client";
-import useFetchData from "@hooks/useFetchData";
+import useFetchData from "@hooks/useFetchDatas";
 import { useAuth } from "contexts/AuthProvider";
 import React, { useEffect, useState } from "react";
 import { NutritionProgramType } from "type/nutritionProgram";

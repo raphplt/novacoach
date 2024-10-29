@@ -1,5 +1,5 @@
 "use client";
-import useFetchData from "@hooks/useFetchData";
+import useFetchData from "@hooks/useFetchDatas";
 import { useAuth } from "contexts/AuthProvider";
 import React, { useEffect, useState } from "react";
 import { UserType } from "type/user";
@@ -17,11 +17,7 @@ const Page = () => {
 		}
 	}, [user]);
 
-	const {
-		data: studentsData,
-		isLoading,
-		isError,
-	} = useFetchData({
+	const { data: studentsData } = useFetchData({
 		url: `/user/studentsByCoachId/${coachId}`,
 		enabled: !!coachId,
 	});

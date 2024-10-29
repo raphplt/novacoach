@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import useFetchData from "@hooks/useFetchData";
+import useFetchData from "@hooks/useFetchDatas";
 import { useAuth } from "contexts/AuthProvider";
 import { SportProgramType } from "type/sportProgram";
 import { Link } from "@nextui-org/react";

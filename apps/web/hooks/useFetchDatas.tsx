@@ -10,7 +10,7 @@ export interface FetchOptions {
 
 type Method = "GET" | "POST" | "PUT" | "DELETE";
 
-const useFetchData = ({
+const useFetchDatas = ({
 	url,
 	method = "GET",
 	body = null,
@@ -48,4 +48,4 @@ const useFetchData = ({
 	return { isLoading, isError, data, error };
 };
 
-export default useFetchData;
+export default useFetchDatas;

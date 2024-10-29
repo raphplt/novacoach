@@ -22,7 +22,7 @@ export type DataTableProps = {
 	renderCell?: (data: any, columnKey: string) => React.ReactNode;
 };
 
-export default function DataTable({
+export default function DataTableCustom({
 	name,
 	columnsHeaders,
 	rows,

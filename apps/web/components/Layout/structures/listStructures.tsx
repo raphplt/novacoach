@@ -74,6 +74,7 @@ export default function ListStructures({
 									</p>
 								)}
 								{structure.logo && (
+									// eslint-disable-next-line @next/next/no-img-element
 									<img
 										src={structure.logo}
 										alt={`Logo de ${structure.name}`}
