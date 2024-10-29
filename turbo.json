@@ -11,7 +11,7 @@
 				"NEXT_PUBLIC_API_SOCKET_URL",
 				"SESSION_SECRET",
 				"NODE_ENV",
-				"COREPACK_HOME"
+				"ENABLE_EXPERIMENTAL_COREPACK"
 			],
 			"inputs": [
 				"$TURBO_DEFAULT$",
@@ -42,6 +42,6 @@
 			"dependsOn": [
 				"^seed"
 			]
-			}
+		}
 	}
 }
