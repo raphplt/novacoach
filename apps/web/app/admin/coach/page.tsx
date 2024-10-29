@@ -1,12 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
 import { Button } from "@nextui-org/react";
-import AdminNavigation from "../adminNavigation/AdminNavigation";
 
 import TableModale from "@components/Common/Modal/TableModale";
 import DataTable, {
 	ColumnHeaderProps,
 } from "@components/Common/Table/DataTableCustom";
+import AdminNavigation from "../adminNavigation/AdminNavigation";
 
 // Types
 type Coach = {
