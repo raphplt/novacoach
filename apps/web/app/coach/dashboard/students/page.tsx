@@ -89,28 +89,31 @@ const Page = () => {
 									</td>
 									<td className="px-4 py-2 text-center align-middle">
 										{Number(
-											student.userDetails?.mass || 0,
-										).toFixed(2)}
-									</td>
-									<td className="px-4 py-2 text-center align-middle">
-										{Number(
-											student.userDetails?.muscleMass ||
+											student.userDetails?.weights[0] ||
 												0,
 										).toFixed(2)}
 									</td>
 									<td className="px-4 py-2 text-center align-middle">
 										{Number(
-											student.userDetails?.height || 0,
+											student.userDetails
+												?.muscleMasses[0] || 0,
 										).toFixed(2)}
 									</td>
 									<td className="px-4 py-2 text-center align-middle">
 										{Number(
-											student.userDetails?.fatMass || 0,
+											student.userDetails?.heights[0] ||
+												0,
 										).toFixed(2)}
 									</td>
 									<td className="px-4 py-2 text-center align-middle">
 										{Number(
-											student.userDetails?.bmi || 0,
+											student.userDetails?.fatMasses[0] ||
+												0,
+										).toFixed(2)}
+									</td>
+									<td className="px-4 py-2 text-center align-middle">
+										{Number(
+											student.userDetails?.bmis[0] || 0,
 										).toFixed(2)}
 									</td>
 									<td className="px-4 py-2 text-center align-middle">

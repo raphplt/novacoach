@@ -9,6 +9,7 @@ import {
 	Button,
 } from "@nextui-org/react";
 import { ChangeEvent } from "react";
+import { StructureType } from "type/structure";
 
 export default function TableModal({
 	isModalOpen,
@@ -39,7 +40,7 @@ export default function TableModal({
 					placeholder="Description"
 					value={editingCoach.description}
 					onChange={(e: ChangeEvent<HTMLInputElement>) =>
-						setEditingCoach((prevCoach) => ({
+						setEditingCoach((prevCoach: any) => ({
 							...prevCoach,
 							description: e.target.value,
 						}))
@@ -58,13 +59,13 @@ export default function TableModal({
 						const structureId = selectedId
 							? parseInt(selectedId, 10)
 							: null;
-						setEditingCoach((prevCoach) => ({
+						setEditingCoach((prevCoach: any) => ({
 							...prevCoach,
 							structureId,
 						}));
 					}}
 				>
-					{structures.map((structure: Structure) => (
+					{structures.map((structure: StructureType) => (
 						<SelectItem
 							key={structure.id.toString()}
 							value={structure.id.toString()}

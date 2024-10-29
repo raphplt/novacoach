@@ -52,7 +52,7 @@ export default function DataTable({
 			>
 				{(row) => (
 					<TableRow key={row.id}>
-						{(columnKey) => (
+						{(columnKey: any) => (
 							<TableCell key={columnKey}>
 								{renderCell
 									? renderCell(row, columnKey)

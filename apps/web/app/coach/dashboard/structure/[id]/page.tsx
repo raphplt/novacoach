@@ -122,7 +122,6 @@ const Page = () => {
 		}
 	}, [coaches]);
 
-
 	return (
 		<div className="flex flex-col justify-center items-center min-h-screen bg-gray-100 p-10 space-y-8">
 			{/* Card 1: Structure Information */}
@@ -214,11 +213,12 @@ const Page = () => {
 								</h2>
 								<p className="text-lg font-light text-center leading-relaxed">
 									<strong className="font-semibold">
-										Coach:{" "}
+										Structure:{" "}
 									</strong>
-									{student.coach?.user.firstName}{" "}
-									{student.coach?.user.lastName}{" "}
+									{student.coach?.structure?.name}{" "}
+									{/* {student.coach?.user.lastName}{" "} */}
 								</p>
+								{/* TODO: ajouter les infos du coach */}
 							</div>
 						);
 					})
