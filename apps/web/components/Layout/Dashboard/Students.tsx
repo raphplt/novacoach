@@ -1,5 +1,4 @@
 "use client";
-import { Icon } from "@iconify/react/dist/iconify.js";
 import { useRouter } from "next/navigation";
 import PanelBox from "@components/Common/Box/PanelBox";
 

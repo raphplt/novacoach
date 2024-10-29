@@ -7,7 +7,10 @@
 				"^build"
 			],
 			"env": [
-				"NEXT_PUBLIC_API_URL"
+				"NEXT_PUBLIC_API_URL",
+				"NEXT_PUBLIC_API_SOCKET_URL",
+				"SESSION_SECRET",
+				"NODE_ENV"
 			],
 			"inputs": [
 				"$TURBO_DEFAULT$",
