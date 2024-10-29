@@ -1,6 +1,6 @@
 "use client";
 import ButtonAction from "@components/Common/Buttons/ButtonAction";
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { Icon } from "@iconify/react";
 import { deleteSession } from "@lib/session";
 
 export default function UserActions() {

@@ -2,7 +2,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Input } from "@nextui-org/react";
 import { invitationSchema } from "@utils/schemas/invitation.schema";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
 	FieldValues,
 	FormProvider,
@@ -10,17 +10,13 @@ import {
 	useForm,
 } from "react-hook-form";
 import axios from "axios";
-import { getUser } from "@lib/dal";
-import { UserType } from "type/user";
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { Icon } from "@iconify/react";
 import { useAuth } from "contexts/AuthProvider";
 
 const urlBase = process.env.NEXT_PUBLIC_API_URL;
 
 export default function CreateInvitationForm() {
 	const { user } = useAuth();
-
-	// console.log(infosUser);
 
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [error, setError] = useState<string | null>(null);

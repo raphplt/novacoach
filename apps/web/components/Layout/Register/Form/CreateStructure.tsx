@@ -3,7 +3,7 @@
 import FormWrapper from "@components/Common/Container/FormWrapper";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useRegisterForm from "@hooks/useRegisterForm";
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { Icon } from "@iconify/react";
 import { Button, Input, Link } from "@nextui-org/react";
 import { structureSchema } from "@utils/schemas/structure.schema";
 import { useRegister } from "contexts/RegisterProvider";

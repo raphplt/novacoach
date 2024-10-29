@@ -1,4 +1,4 @@
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { Icon } from "@iconify/react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
@@ -23,10 +23,12 @@ export default function MessageList({
 	}, [messages]);
 
 	// Trier les messages par date d'envoi
-	const sortedMessages = messages && messages.sort(
-		(a, b) =>
-			new Date(a.sendDate).getTime() - new Date(b.sendDate).getTime(),
-	);
+	const sortedMessages =
+		messages &&
+		messages.sort(
+			(a, b) =>
+				new Date(a.sendDate).getTime() - new Date(b.sendDate).getTime(),
+		);
 
 	return (
 		<>

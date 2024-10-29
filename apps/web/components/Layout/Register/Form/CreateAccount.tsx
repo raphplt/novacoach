@@ -13,7 +13,7 @@ import { Button, Input } from "@nextui-org/react";
 import useRegisterForm from "@hooks/useRegisterForm";
 import { RegisterData } from "type/register";
 import { useRegister } from "contexts/RegisterProvider";
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { Icon } from "@iconify/react";
 import FormWrapper from "@components/Common/Container/FormWrapper";
 import Link from "next/link";
 
