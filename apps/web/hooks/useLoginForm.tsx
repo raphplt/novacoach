@@ -2,7 +2,6 @@
 
 import { createSession } from "@/lib/session";
 import { loginSchema } from "@/utils/schemas/login.schema";
-import { redirect } from "next/navigation";
 import { UseFormReturn, FieldValues } from "react-hook-form";
 import { LoginData } from "type/login";
 

@@ -10,7 +10,8 @@
 				"NEXT_PUBLIC_API_URL",
 				"NEXT_PUBLIC_API_SOCKET_URL",
 				"SESSION_SECRET",
-				"NODE_ENV"
+				"NODE_ENV",
+				"COREPACK_HOME"
 			],
 			"inputs": [
 				"$TURBO_DEFAULT$",
