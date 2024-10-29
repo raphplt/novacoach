@@ -7,11 +7,12 @@
 		"baseUrl": ".",
 		"paths": {
 			"@app/*": ["app/*"],
-			"@components/*": ["components/*"],
-			"@hooks/*": ["hooks/*"],
-			"@lib/*": ["lib/*"],
-			"@utils/*": ["utils/*"],
-			"@public/*": ["public/*"]
+			"@/components/*": ["components/*"],
+			"@/hooks/*": ["hooks/*"],
+			"@/lib/*": ["lib/*"],
+			"@/utils/*": ["utils/*"],
+			"@public/*": ["public/*"],
+			"@/contexts/*": ["contexts/*"]
 		},
 		"plugins": [
 			{

@@ -1,4 +1,4 @@
-import DataGraph from "@components/Common/Graphs/DataGraph";
+import DataGraph from "@/components/Common/Graphs/DataGraph";
 import Invitations from "./Invitations";
 import MyCoach from "./MyCoach";
 import UserDetails from "./UserDetails";

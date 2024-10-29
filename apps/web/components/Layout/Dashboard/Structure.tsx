@@ -2,7 +2,7 @@
 import { Icon } from "@iconify/react";
 import { useAuth } from "contexts/AuthProvider";
 import { useRouter } from "next/navigation";
-import PanelBox from "@components/Common/Box/PanelBox";
+import PanelBox from "@/components/Common/Box/PanelBox";
 
 export default function DashboardStructure() {
 	const { coachRoleData, loadingCoachData } = useAuth();

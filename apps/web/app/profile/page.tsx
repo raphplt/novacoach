@@ -1,5 +1,5 @@
-import UserActions from "@components/Layout/Profile/Actions";
-import UserSection from "@components/Layout/Profile/UserSection";
+import UserActions from "@/components/Layout/Profile/Actions";
+import UserSection from "@/components/Layout/Profile/UserSection";
 
 export default function Profile() {
 	return (

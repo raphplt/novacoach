@@ -1,4 +1,4 @@
-import CreateInvitationForm from "@components/Layout/Forms/CreateInvitationForm";
+import CreateInvitationForm from "@/components/Layout/Forms/CreateInvitationForm";
 import ListInvitations from "./ListInvitations";
 
 export default function CreateInvitation() {

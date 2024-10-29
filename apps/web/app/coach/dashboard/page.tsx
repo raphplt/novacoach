@@ -1,8 +1,8 @@
-import DashboardInvitation from "@components/Layout/Dashboard/Invitations";
-import DashboardProgram from "@components/Layout/Dashboard/NutritionProgram";
-import DashboardSportProgram from "@components/Layout/Dashboard/SportProgram";
-import DashboardStructure from "@components/Layout/Dashboard/Structure";
-import Students from "@components/Layout/Dashboard/Students";
+import DashboardInvitation from "@/components/Layout/Dashboard/Invitations";
+import DashboardProgram from "@/components/Layout/Dashboard/NutritionProgram";
+import DashboardSportProgram from "@/components/Layout/Dashboard/SportProgram";
+import DashboardStructure from "@/components/Layout/Dashboard/Structure";
+import Students from "@/components/Layout/Dashboard/Students";
 import React from "react";
 
 export default async function Dashboard() {

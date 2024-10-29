@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import QueryClientProvider from "providers/QueryClientProvider";
-import Header from "@components/Layout/Header/Header";
-import { verifySession } from "@lib/dal";
+import Header from "@/components/Layout/Header/Header";
+import { verifySession } from "@/lib/dal";
 import { AuthProvider } from "contexts/AuthProvider";
-import Footer from "@components/Layout/Footer/Footer";
+import Footer from "@/components/Layout/Footer/Footer";
 import { Raleway } from "next/font/google";
 import { NextFont } from "next/dist/compiled/@next/font";
 

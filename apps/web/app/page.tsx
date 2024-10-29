@@ -1,4 +1,4 @@
-import AuthBlock from "@components/Layout/Home/AuthBlock";
+import AuthBlock from "@/components/Layout/Home/AuthBlock";
 import HomeBg from "../public/images/home-bg.jpg";
 
 export default function Home() {

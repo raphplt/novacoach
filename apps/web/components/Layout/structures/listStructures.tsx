@@ -2,7 +2,7 @@ import { StructureData } from "type/structure";
 import axios from "axios";
 import {Button} from "@nextui-org/react";
 import {useEffect, useState} from "react";
-import {verifySession} from "@lib/dal";
+import { verifySession } from "@/lib/dal";
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export default function ListStructures({

@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import useFetchData from "@hooks/useFetchDatas";
+import useFetchData from "@/hooks/useFetchDatas";
 import { useAuth } from "contexts/AuthProvider";
 import { SportProgramType } from "type/sportProgram";
 import { Link } from "@nextui-org/react";
-import PageLoader from "@components/Common/Loaders/PageLoader";
+import PageLoader from "@/components/Common/Loaders/PageLoader";
 
 const Page = () => {
 	const { user, coachRoleData } = useAuth();

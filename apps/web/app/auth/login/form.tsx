@@ -1,8 +1,8 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import useLoginForm from "@hooks/useLoginForm";
+import useLoginForm from "@/hooks/useLoginForm";
 import { Input, Button, Link } from "@nextui-org/react";
-import { loginSchema } from "@utils/schemas/login.schema";
+import { loginSchema } from "@/utils/schemas/login.schema";
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { LoginData } from "type/login";

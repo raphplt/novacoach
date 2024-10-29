@@ -1,8 +1,7 @@
 "use client";
 
-import useFetchData from "@hooks/useFetchDatas";
+import useFetchData from "@/hooks/useFetchDatas";
 import { useAuth } from "contexts/AuthProvider";
-import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { CoachType } from "type/coach";
 import { StructureType } from "type/structure";
@@ -10,7 +9,6 @@ import { UserType } from "type/user";
 
 const Page = () => {
 	const { user } = useAuth();
-	const router = useRouter();
 
 	const urlbase = process.env.NEXT_PUBLIC_API_URL;
 

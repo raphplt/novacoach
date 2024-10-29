@@ -1,5 +1,5 @@
 import { Avatar, Chip } from "@nextui-org/react";
-import { maj } from "@utils/functions/text";
+import { maj } from "@/utils/functions/text";
 
 export default function Account({
 	infosUser,

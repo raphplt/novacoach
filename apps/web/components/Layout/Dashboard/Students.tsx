@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import PanelBox from "@components/Common/Box/PanelBox";
+import PanelBox from "@/components/Common/Box/PanelBox";
 
 export default function DashboardStudents() {
 	const router = useRouter();

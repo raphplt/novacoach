@@ -1,5 +1,5 @@
 "use client";
-import PanelBox from "@components/Common/Box/PanelBox";
+import PanelBox from "@/components/Common/Box/PanelBox";
 import { useAuth } from "contexts/AuthProvider";
 import { useEffect, useState } from "react";
 import axios from "axios";

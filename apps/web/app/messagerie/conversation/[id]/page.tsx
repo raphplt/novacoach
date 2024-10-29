@@ -1,11 +1,11 @@
 "use client";
 
-import useFetchData from "@hooks/useFetchDatas";
+import useFetchData from "@/hooks/useFetchDatas";
 import { useAuth } from "contexts/AuthProvider";
 import { useParams } from "next/navigation";
 import io from "socket.io-client";
 import { useEffect, useState } from "react";
-import PageLoader from "@components/Common/Loaders/PageLoader";
+import PageLoader from "@/components/Common/Loaders/PageLoader";
 import SideBar from "../SideBar";
 import MessageList from "./MessageList";
 

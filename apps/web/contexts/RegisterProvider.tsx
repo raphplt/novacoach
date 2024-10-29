@@ -1,6 +1,6 @@
 "use client";
 
-import { initialUser } from "@utils/data/register.data";
+import { initialUser } from "@/utils/data/register.data";
 import {createContext, ReactNode, useContext, useEffect, useState} from "react";
 import { Role } from "type/role";
 import { UserType } from "type/user";

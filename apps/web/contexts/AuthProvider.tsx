@@ -1,6 +1,6 @@
 "use client";
-import { getUser } from "@lib/dal";
-import { initialUser } from "@utils/data/register.data";
+import { getUser } from "@/lib/dal";
+import { initialUser } from "@/utils/data/register.data";
 import {
 	createContext,
 	useContext,

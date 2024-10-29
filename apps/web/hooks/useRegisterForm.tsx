@@ -1,10 +1,10 @@
 "use client";
-import { createSession } from "@lib/session";
-import { registerSchema } from "@utils/schemas/register.schema";
+import { createSession } from "@/lib/session";
+import { registerSchema } from "@/utils/schemas/register.schema";
 import {
 	registerInitialState,
 	structureSchema,
-} from "@utils/schemas/structure.schema";
+} from "@/utils/schemas/structure.schema";
 import axios from "axios";
 import { useRegister } from "contexts/RegisterProvider";
 import { useState } from "react";

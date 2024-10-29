@@ -8,13 +8,13 @@ import {
 	FieldValues,
 } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { registerSchema } from "@utils/schemas/register.schema";
+import { registerSchema } from "@/utils/schemas/register.schema";
 import { Button, Input } from "@nextui-org/react";
-import useRegisterForm from "@hooks/useRegisterForm";
+import useRegisterForm from "@/hooks/useRegisterForm";
 import { RegisterData } from "type/register";
 import { useRegister } from "contexts/RegisterProvider";
 import { Icon } from "@iconify/react";
-import FormWrapper from "@components/Common/Container/FormWrapper";
+import FormWrapper from "@/components/Common/Container/FormWrapper";
 import Link from "next/link";
 
 export default function CreateAccount() {

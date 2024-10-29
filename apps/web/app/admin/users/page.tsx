@@ -1,10 +1,8 @@
 "use client";
-import useFetchData from "@hooks/useFetchDatas";
+import useFetchDatas from "@/hooks/useFetchDatas";
 
 export default function UserPage() {
-	const { data, error, isError } = useFetchData({ url: "/users" });
-
-	console.log(data);
+	const { data, error, isError } = useFetchDatas({ url: "/users" });
 
 	return (
 		<div>

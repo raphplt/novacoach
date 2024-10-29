@@ -1,6 +1,6 @@
 "use client";
-import CreateAccount from "@components/Layout/Register/Form/CreateAccount";
-import JoinStructure from "@components/Layout/Register/Form/JoinStructure";
+import CreateAccount from "@/components/Layout/Register/Form/CreateAccount";
+import JoinStructure from "@/components/Layout/Register/Form/JoinStructure";
 import { useRegister } from "contexts/RegisterProvider";
 
 export default function RegisterStudentSteps() {

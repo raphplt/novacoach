@@ -1,7 +1,7 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Input } from "@nextui-org/react";
-import { invitationSchema } from "@utils/schemas/invitation.schema";
+import { invitationSchema } from "@/utils/schemas/invitation.schema";
 import { useState } from "react";
 import {
 	FieldValues,

@@ -1,5 +1,5 @@
 "use client";
-import { deleteSession } from "@lib/session";
+import { deleteSession } from "@/lib/session";
 import { Button, Link } from "@nextui-org/react";
 import { useAuth } from "contexts/AuthProvider";
 

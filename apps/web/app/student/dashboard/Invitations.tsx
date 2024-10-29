@@ -1,5 +1,5 @@
 "use client";
-import PanelBox from "@components/Common/Box/PanelBox";
+import PanelBox from "@/components/Common/Box/PanelBox";
 import axios from "axios";
 import { useAuth } from "contexts/AuthProvider";
 import Link from "next/link";

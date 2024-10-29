@@ -1,13 +1,13 @@
 "use client";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import PageLoader from "@components/Common/Loaders/PageLoader";
-import SportSelect from "@components/Common/Select/sportSelect";
+import PageLoader from "@/components/Common/Loaders/PageLoader";
+import SportSelect from "@/components/Common/Select/sportSelect";
 import {useAuth} from "../../../../../contexts/AuthProvider";
 import {FieldValues, SubmitHandler, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {handleValidationErrors} from "@utils/functions/validation";
-import {sportProgramSchema} from "@utils/schemas/sportProgram.schema";
+import { handleValidationErrors } from "@/utils/functions/validation";
+import { sportProgramSchema } from "@/utils/schemas/sportProgram.schema";
 import {Button, Input} from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 

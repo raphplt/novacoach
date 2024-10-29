@@ -1,4 +1,4 @@
-import ChoiceBlock from "@components/Layout/Register/ChoiceBlock";
+import ChoiceBlock from "@/components/Layout/Register/ChoiceBlock";
 
 export default function Page() {
 	return (

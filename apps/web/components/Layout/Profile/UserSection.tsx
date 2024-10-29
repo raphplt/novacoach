@@ -3,14 +3,14 @@
 import { Button, Input } from "@nextui-org/react";
 import { useState, useEffect } from "react";
 
-import PageLoader from "@components/Common/Loaders/PageLoader";
+import PageLoader from "@/components/Common/Loaders/PageLoader";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { editAccountSchema } from "@utils/schemas/editAccount.schema";
+import { editAccountSchema } from "@/utils/schemas/editAccount.schema";
 import Account from "./Account";
-import ButtonEdit from "@components/Common/Buttons/ButtonEdit";
-import { handleValidationErrors } from "@utils/functions/validation";
-import useMutate from "@hooks/useMutation";
+import ButtonEdit from "@/components/Common/Buttons/ButtonEdit";
+import { handleValidationErrors } from "@/utils/functions/validation";
+import useMutate from "@/hooks/useMutation";
 import { useAuth } from "contexts/AuthProvider";
 
 export default function UserSection() {

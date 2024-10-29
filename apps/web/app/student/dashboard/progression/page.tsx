@@ -1,4 +1,4 @@
-import DataGraph from "@components/Common/Graphs/DataGraph";
+import DataGraph from "@/components/Common/Graphs/DataGraph";
 
 export default function Page() {
 	return (

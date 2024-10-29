@@ -1,7 +1,7 @@
 "use client";
-import ButtonAction from "@components/Common/Buttons/ButtonAction";
+import ButtonAction from "@/components/Common/Buttons/ButtonAction";
 import { Icon } from "@iconify/react";
-import { deleteSession } from "@lib/session";
+import { deleteSession } from "@/lib/session";
 
 export default function UserActions() {
 	const handleLogout = async () => {

@@ -1,4 +1,4 @@
-import PanelBox from "@components/Common/Box/PanelBox";
+import PanelBox from "@/components/Common/Box/PanelBox";
 import Link from "next/link";
 import React from "react";
 

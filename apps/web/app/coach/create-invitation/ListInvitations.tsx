@@ -1,8 +1,8 @@
 "use client";
 
-import PageLoader from "@components/Common/Loaders/PageLoader";
-import DataTable from "@components/Common/Table/DataTableCustom";
-import useFetchData from "@hooks/useFetchDatas";
+import PageLoader from "@/components/Common/Loaders/PageLoader";
+import DataTable from "@/components/Common/Table/DataTableCustom";
+import useFetchData from "@/hooks/useFetchDatas";
 import { useAuth } from "contexts/AuthProvider";
 
 export default function ListInvitations() {

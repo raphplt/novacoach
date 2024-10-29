@@ -1,8 +1,8 @@
-import ListStructures from "@components/Layout/structures/listStructures";
-import { getAllStructures } from "@lib/dal";
+import ListStructures from "@/components/Layout/structures/listStructures";
+import { getAllStructures } from "@/lib/dal";
 import { useEffect, useState } from "react";
 import { StructureData } from "type/structure";
-import PageLoader from "@components/Common/Loaders/PageLoader";
+import PageLoader from "@/components/Common/Loaders/PageLoader";
 
 export default function JoinStructure() {
 	const [tStructures, setStructuresList] = useState<StructureData[] | null>(

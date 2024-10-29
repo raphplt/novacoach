@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@nextui-org/react";
 import DataTable, {
 	ColumnHeaderProps,
-} from "@components/Common/Table/DataTableCustom";
+} from "@/components/Common/Table/DataTableCustom";
 
 const urlBase = process.env.NEXT_PUBLIC_API_URL;
 
