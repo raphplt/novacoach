@@ -1,0 +1,11 @@
+{
+	"build": {
+		"env": {
+			"NEXT_PUBLIC_API_URL": "@next_public_api_url",
+			"NEXT_PUBLIC_API_SOCKET_URL": "@next_public_api_socket_url",
+			"SESSION_SECRET": "@session_secret",
+			"NODE_ENV": "production",
+			"ENABLE_EXPERIMENTAL_COREPACK": "1"
+		}
+	}
+}
