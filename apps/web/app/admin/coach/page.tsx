@@ -35,10 +35,10 @@ export default function CoachPage() {
 		description: "",
 		structureId: null,
 	});
-	const [currentPage, setCurrentPage] = useState(1);
+	// const [currentPage, setCurrentPage] = useState(1);
 	const [coaches, setCoaches] = useState<Coach[]>([]);
 	const [structures, setStructures] = useState<Structure[]>([]);
-	const [total, setTotal] = useState(0);
+	// const [total, setTotal] = useState(0);
 	const [isLoading, setIsLoading] = useState(true);
 	const [isStructuresLoading, setIsStructuresLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
@@ -63,7 +63,7 @@ export default function CoachPage() {
 				);
 			}
 			setCoaches(data || []); // data est un tableau de coachs
-			setTotal(data.length);
+			// setTotal(data.length);
 			setIsLoading(false);
 		} catch (error: any) {
 			console.error("Erreur lors de la récupération des coachs :", error);
@@ -110,9 +110,9 @@ export default function CoachPage() {
 		fetchStructures();
 	}, []);
 
-	const handlePageChange = (page: number) => {
-		setCurrentPage(page);
-	};
+	// const handlePageChange = (page: number) => {
+	// 	setCurrentPage(page);
+	// };
 
 	// Ouvrir le modal pour ajouter/éditer
 	const openModal = (coach: Coach | null = null) => {
@@ -134,20 +134,20 @@ export default function CoachPage() {
 		setEditingCoach({ description: "", structureId: null });
 	};
 
-	// Supprimer un coach
-	const handleDelete = async (id: number) => {
-		try {
-			await fetch(`${apiUrl}/coaches/${id}`, {
-				method: "DELETE",
-				headers: {
-					"Content-Type": "application/json",
-				},
-			});
-			fetchCoaches();
-		} catch (error) {
-			console.error("Erreur lors de la suppression du coach", error);
-		}
-	};
+	// // Supprimer un coach
+	// const handleDelete = async (id: number) => {
+	// 	try {
+	// 		await fetch(`${apiUrl}/coaches/${id}`, {
+	// 			method: "DELETE",
+	// 			headers: {
+	// 				"Content-Type": "application/json",
+	// 			},
+	// 		});
+	// 		fetchCoaches();
+	// 	} catch (error) {
+	// 		console.error("Erreur lors de la suppression du coach", error);
+	// 	}
+	// };
 
 	// Sauvegarder les modifications ou ajouter un coach
 	const handleSave = async () => {

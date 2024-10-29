@@ -2,7 +2,7 @@
 
 import PageLoader from "@/components/Common/Loaders/PageLoader";
 import DataTable from "@/components/Common/Table/DataTableCustom";
-import useFetchData from "@/hooks/useFetchDatas";
+import useFetchData from "@/hooks/useFetchData";
 import { useAuth } from "contexts/AuthProvider";
 
 export default function ListInvitations() {

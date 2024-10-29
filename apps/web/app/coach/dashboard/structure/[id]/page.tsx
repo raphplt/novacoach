@@ -1,6 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
-import useFetchData from "@/hooks/useFetchDatas";
+import useFetchData from "@/hooks/useFetchData";
 import { useAuth } from "contexts/AuthProvider";
 import React, { useEffect, useState } from "react";
 import { CoachType } from "type/coach";

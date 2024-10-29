@@ -1,6 +1,6 @@
 "use client";
 
-import useFetchData from "@/hooks/useFetchDatas";
+import useFetchData from "@/hooks/useFetchData";
 import { useAuth } from "contexts/AuthProvider";
 import { useEffect, useState } from "react";
 import { UserType } from "type/user";

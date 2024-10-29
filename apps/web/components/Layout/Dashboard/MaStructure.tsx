@@ -1,10 +1,11 @@
 "use client";
+import { useAuth } from "@/contexts/AuthProvider";
+import { getUser, getStructureById } from "@/lib/dal";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { getStructureById, getUser } from "../../../lib/dal";
-import { useAuth } from "../../../contexts/AuthProvider";
-import { UserType } from "../../../type/user";
-import { StructureType } from "../../../type/structure";
+import { StructureType } from "type/structure";
+import { UserType } from "type/user";
+
 
 
 export default function DashboardStructure() {

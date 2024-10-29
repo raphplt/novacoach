@@ -1,6 +1,6 @@
 "use client";
 
-import useFetchData from "@/hooks/useFetchDatas";
+import useFetchData from "@/hooks/useFetchData";
 import { Icon } from "@iconify/react";
 import { useAuth } from "contexts/AuthProvider";
 import { useEffect, useState } from "react";
