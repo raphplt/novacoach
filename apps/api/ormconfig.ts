@@ -39,8 +39,6 @@ console.log(process.env.POSTGRES_USER);
 console.log(process.env.POSTGRES_PASSWORD);
 console.log(process.env.PGDATABASE);
 
-
-
 export const AppDataSource = new DataSource({
 	type: "postgres",
 	host: process.env.PGHOST,
