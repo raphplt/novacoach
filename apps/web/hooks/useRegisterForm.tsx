@@ -1,21 +1,19 @@
 "use client";
 import { createSession } from "@/lib/session";
 import { registerSchema } from "@/utils/schemas/register.schema";
-import {
-	registerInitialState,
-	structureSchema,
-} from "@/utils/schemas/structure.schema";
+import { structureSchema } from "@/utils/schemas/structure.schema";
 import axios from "axios";
 import { useRegister } from "contexts/RegisterProvider";
-import { useState } from "react";
 import { UseFormReturn, FieldValues } from "react-hook-form";
-import { RegisterData, RegisterState } from "type/register";
+import { RegisterData } from "type/register";
 import { Role } from "type/role";
 import { StructureData } from "type/structure";
 
 const urlBase = process.env.NEXT_PUBLIC_API_URL;
 
 const useRegisterForm = (methods: UseFormReturn<FieldValues>, role: Role) => {
+
+	console.log("urlBase", urlBase);
 	if (!methods) {
 		throw new Error("useRegisterForm must be used within a FormProvider");
 	}
