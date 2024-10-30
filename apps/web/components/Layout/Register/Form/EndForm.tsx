@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 export default function EndForm() {
 	const router = useRouter();
 	const goToHome = () => {
-		router.push("/");
+		router.push("/coach/dashboard");
 	};
 	return (
 		<div className="flex flex-col items-center justify-center w-full h-screen">

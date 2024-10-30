@@ -1,9 +1,9 @@
 "use client";
 
+import useFetchData from "@/hooks/useFetchData";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { UserType } from "type/user";
-import useFetchData from "@hooks/useFetchData";
 
 const UserProfile = () => {
 	const { id: userId } = useParams();
@@ -19,8 +19,6 @@ const UserProfile = () => {
 			setUser(userData.data as UserType);
 		}
 	}, [userData]);
-
-	console.log(user);
 
 	if (!user) return <div className="text-center mt-4">Loading...</div>;
 

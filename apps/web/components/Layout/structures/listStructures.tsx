@@ -45,7 +45,12 @@ export default function ListStructures({
 				Page d'accueil
 			</Button>
 
-			<h2 className="text-2xl font-bold mb-4">Liste des structures</h2>
+			<h2 className="text-3xl font-bold mb-4 text-center">
+				Liste des structures
+			</h2>
+			<p className="text-gray-600 font-semibold text-xl text-center py-4">
+				Trouvez votre structure idéale selon vos besoins.
+			</p>
 
 			<div className="h-full block relative">
 				{tStructures && tStructures.length > 0 ? (

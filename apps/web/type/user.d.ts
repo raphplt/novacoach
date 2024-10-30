@@ -18,5 +18,5 @@ export type UserType = {
 	userDetails?: UserDetailsType;
 	coach?: CoachType;
 	structure?: StructureType;
-	userSportPrograms?: UserSportProgramType;
+	userSportPrograms?: UserSportProgramType[];
 };

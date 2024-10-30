@@ -13,7 +13,6 @@ const useMutate = ({
 
 	const fetchData = async (data: any) => {
 		const userId = data.id;
-		console.log("data", data);
 		if (!userId) return { message: "User not found" };
 
 		const response = await fetch(`${baseUrl}${url}/${userId}`, {

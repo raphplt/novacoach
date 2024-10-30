@@ -129,8 +129,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		[],
 	);
 
-	console.log("userDetails", userDetails);
-
 	const contextValue = useMemo(
 		() => ({
 			isAuth,

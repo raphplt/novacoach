@@ -32,7 +32,6 @@ export default function SideBar() {
 			if (user?.coachRole?.id) {
 				setUsers(conversations.data as UserType[]);
 			} else {
-				console.log("is student");
 				setUsers([conversations.data.user] as UserType[]);
 			}
 		}

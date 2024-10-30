@@ -38,10 +38,10 @@ const Page = () => {
 	};
 
 	return (
-		<div className="container mx-auto p-6">
+		<div className="container mx-auto p- min-h-screen">
 			{/* Section Title */}
-			<h2 className="text-4xl font-extrabold text-gray-900 mt-6 text-center">
-				Liste des élèves
+			<h2 className="text-4xl font-extrabold text-gray-900 mt-10 text-center">
+				Mes élèves
 			</h2>
 
 			{/* Students Table */}
@@ -49,7 +49,9 @@ const Page = () => {
 				<table className="table-auto w-full text-left border-collapse">
 					<thead>
 						<tr className="bg-indigo-600 text-white">
-							<th className="px-4 py-2 text-center">Nom</th>
+							<th className="px-4 py-2 text-center">
+								Nom complet
+							</th>
 							<th className="px-4 py-2 text-center">Mass (kg)</th>
 							<th className="px-4 py-2 text-center">
 								Muscle Mass (kg)
@@ -85,32 +87,44 @@ const Page = () => {
 									</td>
 									<td className="px-4 py-2 text-center align-middle">
 										{Number(
-											student.userDetails?.weights[0] ||
+											(student.userDetails?.weights &&
+												student.userDetails?.weights[0]
+													?.value) ||
 												0,
-										).toFixed(2)}
+										)}
 									</td>
 									<td className="px-4 py-2 text-center align-middle">
 										{Number(
-											student.userDetails
-												?.muscleMasses[0] || 0,
-										).toFixed(2)}
-									</td>
-									<td className="px-4 py-2 text-center align-middle">
-										{Number(
-											student.userDetails?.heights[0] ||
+											(student.userDetails
+												?.muscleMasses &&
+												student.userDetails
+													?.muscleMasses[0]?.value) ||
 												0,
-										).toFixed(2)}
+										)}
 									</td>
 									<td className="px-4 py-2 text-center align-middle">
 										{Number(
-											student.userDetails?.fatMasses[0] ||
+											(student.userDetails?.heights &&
+												student.userDetails?.heights[0]
+													?.value) ||
 												0,
-										).toFixed(2)}
+										)}
 									</td>
 									<td className="px-4 py-2 text-center align-middle">
 										{Number(
-											student.userDetails?.bmis[0] || 0,
-										).toFixed(2)}
+											(student.userDetails?.fatMasses &&
+												student.userDetails
+													?.fatMasses[0]?.value) ||
+												0,
+										)}
+									</td>
+									<td className="px-4 py-2 text-center align-middle">
+										{Number(
+											(student.userDetails?.bmis &&
+												student.userDetails?.bmis[0]
+													?.value) ||
+												0,
+										)}
 									</td>
 									<td className="px-4 py-2 text-center align-middle">
 										<button
@@ -121,7 +135,7 @@ const Page = () => {
 											}
 											className="bg-indigo-600 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-indigo-700 transition-colors"
 										>
-											Nutrition Program
+											Programmes de nutrition
 										</button>
 										<button
 											onClick={() =>
@@ -131,7 +145,7 @@ const Page = () => {
 											}
 											className="bg-indigo-600 text-white px-4 py-2 ml-1 rounded-lg shadow-lg hover:bg-indigo-700 transition-colors"
 										>
-											Sport Program
+											Programmes de sports
 										</button>
 									</td>
 								</tr>

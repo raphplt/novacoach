@@ -6,7 +6,8 @@ import { usePathname } from "next/navigation";
 const Footer = () => {
 	const pathname = usePathname();
 
-	if (pathname.startsWith("/messagerie")) return null;
+	if (pathname.startsWith("/messagerie") || pathname.startsWith("/auth"))
+		return null;
 
 	return (
 		<footer className="bg-gray-800 text-white py-8">

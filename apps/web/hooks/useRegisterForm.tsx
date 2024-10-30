@@ -13,7 +13,6 @@ const urlBase = process.env.NEXT_PUBLIC_API_URL;
 
 const useRegisterForm = (methods: UseFormReturn<FieldValues>, role: Role) => {
 
-	console.log("urlBase", urlBase);
 	if (!methods) {
 		throw new Error("useRegisterForm must be used within a FormProvider");
 	}
@@ -73,7 +72,6 @@ const useRegisterForm = (methods: UseFormReturn<FieldValues>, role: Role) => {
 			// Set user in context
 			setUser(data);
 
-			console.log("User created", data);
 			if (role === "coach") {
 				// Create coach
 				const coachResponse = await fetch(`${urlBase}/coaches`, {
@@ -89,7 +87,6 @@ const useRegisterForm = (methods: UseFormReturn<FieldValues>, role: Role) => {
 				});
 
 				const coachData = await coachResponse.json();
-				console.log("Coach created", coachData);
 
 				if (!coachResponse.ok) {
 					throw new Error(

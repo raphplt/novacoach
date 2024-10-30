@@ -74,17 +74,27 @@ export class UserService {
 		return students;
 	}
 
-	async getStudentsByCoachId(structureId: string): Promise<User[]> {
-		const parsedId = parseInt(structureId, 10);
+	async getStudentsByCoachId(coachId: string): Promise<User[]> {
+		const parsedId = parseInt(coachId, 10);
 
 		const students = await this.userRepository.find({
 			where: {
 				coach: { id: parsedId },
 				role: { id: 3 },
 			},
-			relations: ["userDetails"],
+			relations: [
+				"userDetails",
+				"userDetails.weights",
+				"userDetails.fatMasses",
+				"userDetails.bmis",
+				"userDetails.heights",
+				"userDetails.muscleMasses",
+				"userDetails.sports",
+				"userDetails.goals",
+				"userDetails.licences",
+				"userDetails.bills",
+			],
 		});
-
 		return students;
 	}
 

@@ -79,7 +79,6 @@ export class CoachService {
 			}
 			newCoach.structure = structure;
 		}
-		console.log("newCoach", newCoach);
 
 		return this.coachRepository.save(newCoach);
 	}

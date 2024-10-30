@@ -26,7 +26,7 @@ export default function JoinStructure() {
 		return <PageLoader text="Chargement des structures" />;
 
 	return (
-		<main className="flex flex-col h-screen pt-20 mx-auto justify-start items-center bg-gradient-to-r from-gray-100 to-indigo-200">
+		<main className="flex flex-col min-h-screen pt-20 mx-auto justify-start items-center bg-gradient-to-r from-gray-100 to-indigo-200">
 			<ListStructures tStructures={tStructures} />
 		</main>
 	);

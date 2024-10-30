@@ -5,7 +5,7 @@ export class SportProgramServices {
 	private sportProgramRepository = AppDataSource.getRepository(SportProgram);
 
 	async getAllSportProgram(): Promise<SportProgram[]> {
-		return this.sportProgramRepository.find(); 
+		return this.sportProgramRepository.find();
 	}
 
 	async getSportProgramById(id: string): Promise<SportProgram | null> {
@@ -18,11 +18,10 @@ export class SportProgramServices {
 	async getSportProgramByStructureId(id: string): Promise<SportProgram[]| null> {
 		const parsedId = parseInt(id, 10);
 		const sportProgram = await this.sportProgramRepository.find({
-            where: { idStructure: parsedId },  
+            where: { idStructure: parsedId },
 			relations: ['sport']
         });
 
-		console.log(sportProgram)
 		return sportProgram;
 	}
 

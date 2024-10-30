@@ -50,9 +50,6 @@ export default function MainSection() {
 		return <div>Erreur lors du chargement des élèves</div>;
 	}
 
-	console.log(students);
-	console.log("user", user);
-
 	return (
 		<div className="w-10/12 mx-auto">
 			<h1 className="text-xl font-semibold mb-4">Section principale</h1>
