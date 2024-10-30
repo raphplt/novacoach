@@ -6,9 +6,11 @@ import { loginSchema } from "@/utils/schemas/login.schema";
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { LoginData } from "type/login";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
 	const [isSubmitting, setIsSubmitting] = useState(false);
+	const router = useRouter();
 
 	const methods = useForm({
 		resolver: zodResolver(loginSchema),
@@ -30,7 +32,13 @@ export default function LoginForm() {
 		try {
 			setIsSubmitting(true);
 			clearErrors("apiError");
-			await handleCreateAccount(data as LoginData);
+			const res = await handleCreateAccount(data as LoginData);
+			console.log("res", res);
+			if (Object.keys(errors).length === 0 && res) {
+				router.push("/");
+			} else {
+				console.error("error during login", res, errors);
+			}
 		} catch (error: any) {
 			console.error("error during login", error);
 			setError("apiError", {

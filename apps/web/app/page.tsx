@@ -4,7 +4,7 @@ import HomeBg from "../public/images/home-bg.jpg";
 export default function Home() {
 	return (
 		<main
-			className="flex items-center justify-start w-screen flex-col  h-screen"
+			className="flex items-center justify-start  flex-col min-h-screen"
 			style={{
 				backgroundImage: `url(${HomeBg.src})`,
 				backgroundSize: "cover",
