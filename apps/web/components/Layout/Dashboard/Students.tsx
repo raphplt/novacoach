@@ -7,7 +7,7 @@ export default function DashboardStudents() {
 
 	return (
 		<PanelBox onPress={() => router.push("/coach/dashboard/students")}>
-			<h2 className="font-semibold text-xl ">Students</h2>
+			<h2 className="font-semibold text-xl text-center">Students</h2>
 		</PanelBox>
 	);
 }

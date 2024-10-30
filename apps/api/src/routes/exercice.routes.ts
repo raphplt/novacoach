@@ -121,4 +121,9 @@ router.put("/exercices/:id", (req, res) => exerciceController.updateExercice(req
  */
 router.delete("/exercices/:id", (req, res) => exerciceController.deleteExercice(req, res));
 
+router.get("/exercices/sportProgramId/:sportProgramId", (req, res) =>
+	exerciceController.getExerciceBySportProgramId(req, res),
+);
+
+
 export default router;

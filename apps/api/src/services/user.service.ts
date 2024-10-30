@@ -1,5 +1,4 @@
 import * as bcrypt from "bcrypt";
-
 import { AppDataSource } from "../../ormconfig";
 import { User } from "../entity/user";
 import {
@@ -30,6 +29,7 @@ export class UserService {
 				"userSportPrograms",
 				"sessionBooking",
 				"structure",
+				"userSportPrograms.sportProgram",
 			],
 		});
 		if (!user) {
@@ -42,7 +42,7 @@ export class UserService {
 		return this.userRepository.findOneBy({ email });
 	}
 
-	async getUserByCoachID(id: string): Promise<{ user: User, coach: Coach }> {
+	async getUserByCoachID(id: string): Promise<{ user: User; coach: Coach }> {
 		const parsedId = parseInt(id, 10);
 
 		const coach = await this.coachRepository.findOne({
@@ -68,7 +68,7 @@ export class UserService {
 				structure: { id: parsedId },
 				role: { id: 3 },
 			},
-			relations: ['coach', 'coach.user'],
+			relations: ["coach", "coach.user"],
 		});
 
 		return students;
@@ -82,13 +82,11 @@ export class UserService {
 				coach: { id: parsedId },
 				role: { id: 3 },
 			},
-			relations: ['userDetails'],
+			relations: ["userDetails"],
 		});
 
 		return students;
 	}
-
-
 
 	async createUser(user: Partial<User>, roleName: string): Promise<User> {
 		const existingUser = await this.userRepository.findOne({

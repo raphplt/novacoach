@@ -2,6 +2,7 @@ import { RoleType } from "./role";
 import { CoachType } from "./coach";
 import { StructureType } from "./structure";
 import { UserDetailsType } from "./userDetails";
+import { UserSportProgramType } from "./userSportProgram";
 
 export type UserType = {
 	id: number;
@@ -17,4 +18,5 @@ export type UserType = {
 	userDetails?: UserDetailsType;
 	coach?: CoachType;
 	structure?: StructureType;
+	userSportPrograms?: UserSportProgramType;
 };
