@@ -3,23 +3,23 @@ import ActionsNutritionPrograms from "@components/Common/Buttons/ActionsNutritio
 import DataTable from "@components/Common/Table/DataTable";
 import useFetchData from "@hooks/useFetchData";
 import { useAuth } from "contexts/AuthProvider";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { NutritionProgramType } from "type/nutritionProgram";
 
 const TablePrograms = () => {
-    const [nutritionPrograms, setNutritionPrograms] = useState<
+	const [nutritionPrograms, setNutritionPrograms] = useState<
 		NutritionProgramType[]
 	>([]);
 	const { coachRoleData } = useAuth();
 
-    const { data: NutritionProgramData, isLoading } = useFetchData({
+	const { data: NutritionProgramData, isLoading } = useFetchData({
 		url: coachRoleData?.structure?.id
 			? `/nutritionProgram/structure/${coachRoleData?.structure?.id}`
 			: "",
 		enabled: !!coachRoleData?.structure?.id,
 	});
 
-    useEffect(() => {
+	useEffect(() => {
 		if (NutritionProgramData) {
 			setNutritionPrograms(
 				NutritionProgramData.data as NutritionProgramType[],
@@ -27,29 +27,30 @@ const TablePrograms = () => {
 		}
 	}, [NutritionProgramData]);
 
-    const columnsHeaders = [
+	const columnsHeaders = [
 		{ key: "name", label: "Nom du programme" },
 		{ key: "duration", label: "Durée" },
 		{ key: "frequency", label: "Fréquence" },
 		{ key: "actions", label: "Actions" },
 	];
 
-    const rows =
+	const rows =
 		nutritionPrograms &&
 		nutritionPrograms.map((program) => ({
 			id: program.id,
 			name: program.name,
 			duration: program.duration,
 			frequency: program.frequency,
-			meal: program.meal,
+			meal: program.nutritionProgramHasMeal,
 		}));
 
-    const renderCell = (data: NutritionProgramType, columnKey: string) => {
+	const renderCell = (data: NutritionProgramType, columnKey: string) => {
 		if (columnKey === "meal") {
 			return (
 				<p>
-					{data.meal && data.meal.length > 0
-						? data.meal
+					{data.nutritionProgramHasMeal &&
+					data.nutritionProgramHasMeal.length > 0
+						? data.nutritionProgramHasMeal
 								.map((meal: any) => meal.name)
 								.join(", ")
 								.slice(0, 5) + "..."
@@ -63,7 +64,7 @@ const TablePrograms = () => {
 		return data[columnKey as keyof NutritionProgramType];
 	};
 
-    return (
+	return (
 		<>
 			<DataTable
 				name="Programmes de nutrition"
