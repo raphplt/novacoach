@@ -7,9 +7,9 @@ export const seedBills = async (count: number) => {
 	const billRepository = AppDataSource.getRepository(Bill);
 	const userDetailsRepository = AppDataSource.getRepository(UserDetails);
 
-	const userDetails = await userDetailsRepository.find();
+	const user = await userDetailsRepository.find();
 
-	if (userDetails.length === 0) {
+	if (user.length === 0) {
 		console.error("No user details found. Please seed user details first.");
 		return;
 	}
@@ -20,7 +20,7 @@ export const seedBills = async (count: number) => {
 			dateIssued: faker.date.past(),
 			dateDue: faker.date.future(),
 			status: faker.helpers.arrayElement(["paid", "unpaid", "pending"]),
-			userDetails: faker.helpers.arrayElement(userDetails),
+			user: faker.helpers.arrayElement(user),
 		});
 		await billRepository.save(bill);
 	}
