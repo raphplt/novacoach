@@ -34,6 +34,12 @@ import { UserTrackProgram } from "./src/entity/userTrackProgram";
 
 config();
 
+console.log(process.env.PGHOST);
+console.log(process.env.PGPORT);
+console.log(process.env.POSTGRES_USER);
+console.log(process.env.POSTGRES_PASSWORD);
+console.log(process.env.PGDATABASE);
+
 
 export const AppDataSource = new DataSource({
 	type: "postgres",
