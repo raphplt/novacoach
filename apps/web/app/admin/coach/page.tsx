@@ -1,12 +1,11 @@
 "use client";
 import { useState, useEffect } from "react";
 import { Button } from "@nextui-org/react";
-
-import TableModale from "@/components/Common/Modal/TableModale";
+import AdminNavigation from "../adminNavigation/AdminNavigation";
 import DataTable, {
 	ColumnHeaderProps,
-} from "@/components/Common/Table/DataTableCustom";
-import AdminNavigation from "../adminNavigation/AdminNavigation";
+} from "@components/Common/Table/DataTable";
+import TableModal from "@components/Common/Modal/TableModal";
 
 // Types
 type Coach = {
@@ -35,14 +34,15 @@ export default function CoachPage() {
 		description: "",
 		structureId: null,
 	});
-	// const [currentPage, setCurrentPage] = useState(1);
+	const [currentPage, setCurrentPage] = useState(1);
 	const [coaches, setCoaches] = useState<Coach[]>([]);
 	const [structures, setStructures] = useState<Structure[]>([]);
-	// const [total, setTotal] = useState(0);
+	const [total, setTotal] = useState(0);
 	const [isLoading, setIsLoading] = useState(true);
 	const [isStructuresLoading, setIsStructuresLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 
+	const itemsPerPage = 5;
 	const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 	// Fonction pour récupérer les coachs
@@ -63,7 +63,7 @@ export default function CoachPage() {
 				);
 			}
 			setCoaches(data || []); // data est un tableau de coachs
-			// setTotal(data.length);
+			setTotal(data.length);
 			setIsLoading(false);
 		} catch (error: any) {
 			console.error("Erreur lors de la récupération des coachs :", error);
@@ -110,9 +110,9 @@ export default function CoachPage() {
 		fetchStructures();
 	}, []);
 
-	// const handlePageChange = (page: number) => {
-	// 	setCurrentPage(page);
-	// };
+	const handlePageChange = (page: number) => {
+		setCurrentPage(page);
+	};
 
 	// Ouvrir le modal pour ajouter/éditer
 	const openModal = (coach: Coach | null = null) => {
@@ -134,20 +134,20 @@ export default function CoachPage() {
 		setEditingCoach({ description: "", structureId: null });
 	};
 
-	// // Supprimer un coach
-	// const handleDelete = async (id: number) => {
-	// 	try {
-	// 		await fetch(`${apiUrl}/coaches/${id}`, {
-	// 			method: "DELETE",
-	// 			headers: {
-	// 				"Content-Type": "application/json",
-	// 			},
-	// 		});
-	// 		fetchCoaches();
-	// 	} catch (error) {
-	// 		console.error("Erreur lors de la suppression du coach", error);
-	// 	}
-	// };
+	// Supprimer un coach
+	const handleDelete = async (id: number) => {
+		try {
+			await fetch(`${apiUrl}/coaches/${id}`, {
+				method: "DELETE",
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+			fetchCoaches();
+		} catch (error) {
+			console.error("Erreur lors de la suppression du coach", error);
+		}
+	};
 
 	// Sauvegarder les modifications ou ajouter un coach
 	const handleSave = async () => {
@@ -204,6 +204,7 @@ export default function CoachPage() {
 		structure: coach.structure?.name || "N/A",
 	}));
 
+
 	return (
 		<div>
 			<AdminNavigation />
@@ -224,14 +225,7 @@ export default function CoachPage() {
 					isLoading={isLoading}
 				/>
 
-				{/* Pagination (à implémenter si nécessaire) */}
-				{/* <Pagination
-          total={Math.ceil(total / itemsPerPage)}
-          initialPage={1}
-          page={currentPage}
-          onChange={handlePageChange}
-        /> */}
-				<TableModale
+				<TableModal
 					isModalOpen={isModalOpen}
 					closeModal={closeModal}
 					editingCoach={editingCoach}

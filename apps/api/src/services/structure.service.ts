@@ -27,6 +27,7 @@ export class StructureService {
 			await this.structureRepository.save(newStructure);
 
 		const coach = await this.coachRepository.findOneBy({ id: coachId });
+
 		if (coach) {
 			coach.structure = savedStructure;
 			await this.coachRepository.save(coach);

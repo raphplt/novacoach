@@ -135,5 +135,22 @@ router.get("/nutritionProgram/structure/:structureId", (req, res) =>
 	nutritionProgramController.getNutritionProgramByStructureId(req, res),
 );
 
+router.get('/nutritionProgram/meal/:id', (req, res) => nutritionProgramController.getNutritionProgramMeal(req, res));
+
+
+router.post(
+	'/nutritionProgram/meal',
+	nutritionProgramController.addMealToProgram.bind(
+		nutritionProgramController,
+	),
+);
+
+router.delete("/nutritionProgramDelete/meal", (req, res) => {
+	nutritionProgramController.deleteNutritionProgramMeal(
+		req,
+		res,
+
+	);
+});
 
 export default router;

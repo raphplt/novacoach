@@ -1,4 +1,4 @@
-import { SportProgramType } from "./sportProgram";
+import { SportProgramType } from "./sportProgram"; 
 
 export type ExerciceType = {
 	id: number;
@@ -8,6 +8,6 @@ export type ExerciceType = {
 	reps?: number;
 	sets?: number;
 	breakTime?: number;
-	image?: string;
-	sportPrograms?: SportProgramType[];
+	image?: string; 
+	sportPrograms?: SportProgramType[]; 
 };

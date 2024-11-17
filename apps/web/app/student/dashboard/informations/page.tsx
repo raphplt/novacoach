@@ -96,8 +96,7 @@ export default function UserDetailsForm() {
 				throw new Error(errorData.message || "Registration failed");
 			}
 
-			const res = await response.json();
-			console.log("User details created successfully:", res);
+			await response.json();
 			setEditMode(false);
 		} catch (error) {
 			console.error("An error occurred:", error);
@@ -123,7 +122,7 @@ export default function UserDetailsForm() {
 					className="space-y-6"
 				>
 					<Input
-						label="Taille"
+						label="Taille (cm)"
 						type="number"
 						{...register("height", { valueAsNumber: true })}
 						errorMessage={String(errors.height?.message)}
@@ -133,7 +132,7 @@ export default function UserDetailsForm() {
 					/>
 
 					<Input
-						label="Masse"
+						label="Masse (kg)"
 						type="number"
 						{...register("weight", { valueAsNumber: true })}
 						errorMessage={String(errors.weight?.message)}
@@ -143,7 +142,7 @@ export default function UserDetailsForm() {
 					/>
 
 					<Input
-						label="BMI"
+						label="BMI (Indice de masse corporelle)"
 						type="number"
 						{...register("bmi", { valueAsNumber: true })}
 						errorMessage={String(errors.bmi?.message)}
@@ -153,7 +152,7 @@ export default function UserDetailsForm() {
 					/>
 
 					<Input
-						label="Masse musculaire"
+						label="Masse musculaire (kg)"
 						type="number"
 						{...register("muscleMass", { valueAsNumber: true })}
 						errorMessage={String(errors.muscleMass?.message)}
@@ -163,7 +162,7 @@ export default function UserDetailsForm() {
 					/>
 
 					<Input
-						label="Masse grasse"
+						label="Masse grasse (kg)"
 						type="number"
 						{...register("fatMass", { valueAsNumber: true })}
 						errorMessage={String(errors.fatMass?.message)}

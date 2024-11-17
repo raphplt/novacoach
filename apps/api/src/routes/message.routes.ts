@@ -16,10 +16,6 @@ router.get("/messages/:id", (req, res) =>
 	messageController.getMessageById(req, res),
 );
 
-// router.post("/messages", (req, res) =>
-// 	messageController.createMessage(req, res),
-// );
-
 router.post("/messages", upload.single("file"), (req, res) =>
 	messageController.createMessage(req, res),
 );

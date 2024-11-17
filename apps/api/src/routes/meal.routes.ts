@@ -123,4 +123,5 @@ router.delete("/meal/:id", (req, res) => mealController.deleteMeal(req, res));
 
 router.get('/meal/nutritionProgram/:nutritionProgramId', (req, res) => mealController.getMealsByNutritionProgramId(req, res));
 
+router.get('/meal/structure/:structureId', (req, res) => mealController.getMealByStructureId(req, res));
 export default router;

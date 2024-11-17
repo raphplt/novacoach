@@ -1,7 +1,8 @@
 "use client";
-import CreateAccount from "@/components/Layout/Register/Form/CreateAccount";
-import CreateStructure from "@/components/Layout/Register/Form/CreateStructure";
-import EndForm from "@/components/Layout/Register/Form/EndForm";
+
+import CreateAccount from "@components/Layout/Register/Form/CreateAccount";
+import CreateStructure from "@components/Layout/Register/Form/CreateStructure";
+import EndForm from "@components/Layout/Register/Form/EndForm";
 import { useRegister } from "contexts/RegisterProvider";
 
 export default function RegisterCoachSteps() {
@@ -11,7 +12,7 @@ export default function RegisterCoachSteps() {
 		case 0:
 			return <CreateAccount />;
 		case 1:
-			return <CreateStructure />;
+			return <CreateStructure  />;
 		case 2:
 			return <EndForm />;
 		default:

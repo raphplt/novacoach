@@ -13,10 +13,11 @@ export type UserType = {
 	address: string;
 	createDate: string;
 	updateDate: string;
+	profileImageUrl: string;
 	role: RoleType;
 	coachRole?: CoachType;
 	userDetails?: UserDetailsType;
 	coach?: CoachType;
 	structure?: StructureType;
-	userSportPrograms?: UserSportProgramType[];
+	userSportPrograms?: UserSportProgramType;
 };

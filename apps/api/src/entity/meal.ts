@@ -4,13 +4,18 @@ import {
 	Column,
 	CreateDateColumn,
 	OneToMany,
+	ManyToOne,
 } from "typeorm";
 import { NutritionProgramMeal } from "./nutritionProgramMeal";
+import { Structure } from "./structure";
 
 @Entity()
 export class Meal {
 	@PrimaryGeneratedColumn()
 	id!: number;
+
+	@Column({ nullable: true })
+	name!: string;
 
 	@Column()
 	mealStarter!: string;
@@ -21,14 +26,14 @@ export class Meal {
 	@Column()
 	mainDessert!: string;
 
-	@CreateDateColumn({ type: "timestamp" })
-	endDate!: Date;
-
 	@Column()
 	complements!: string;
 
 	@CreateDateColumn({ type: "time" })
 	dayTime!: Date;
+
+	@ManyToOne(() => Structure, (structure) => structure.meals)
+	structure?: Structure;
 
 	@OneToMany(
 		() => NutritionProgramMeal,

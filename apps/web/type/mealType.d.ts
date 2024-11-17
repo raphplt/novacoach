@@ -1,5 +1,6 @@
 export type MealType = {
     id: number;
+    name: string;
     mealStarter: string;
     mealMainCourse: string;
     mainDessert: string;

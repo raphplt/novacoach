@@ -1,5 +1,5 @@
 import { Avatar, Chip } from "@nextui-org/react";
-import { maj } from "@/utils/functions/text";
+import { maj } from "@utils/functions/text";
 
 export default function Account({
 	infosUser,
@@ -11,11 +11,12 @@ export default function Account({
 		role: {
 			name: string;
 		};
+		profileImageUrl?: string;
 	};
 }) {
 	if (!infosUser) return null;
 
-	const { firstName, lastName, email, role } = infosUser;
+	const { firstName, lastName, email, role, profileImageUrl } = infosUser;
 
 	if (!firstName || !lastName || !email || !role || !role.name) {
 		return null;
@@ -24,7 +25,7 @@ export default function Account({
 	return (
 		<div className="flex flex-row gap-5 items-center py-5">
 			<Avatar
-				src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
+				src={profileImageUrl}
 				size="lg"
 			/>
 			<div className="flex flex-col">

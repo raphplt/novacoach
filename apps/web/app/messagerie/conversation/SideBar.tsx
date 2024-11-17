@@ -1,6 +1,8 @@
 "use client";
 
-import useFetchData from "@/hooks/useFetchData";
+import useFetchData from "@hooks/useFetchData";
+import { Icon } from "@iconify/react/dist/iconify.js";
+import { Avatar } from "@nextui-org/react";
 import { useAuth } from "contexts/AuthProvider";
 import { useEffect, useState } from "react";
 import { UserType } from "type/user";
@@ -58,7 +60,18 @@ export default function SideBar() {
 					className="flex items-center justify-start py-2 border-b border-gray-200 gap-2 mx-2"
 					href={`/messagerie/conversation/${user.id}`}
 				>
-					<div className="w-10 h-10 rounded-full bg-gray-200"></div>
+					{user.profileImageUrl ? (
+						<Avatar
+							src={user.profileImageUrl}
+							alt="profile"
+							size="md"
+						/>
+					) : (
+						<Icon
+							icon="codicon:account"
+							className="text-green-500"
+						/>
+					)}
 					<div className="flex-1">
 						<div className="text-sm font-semibold">
 							{user.firstName} {user.lastName}

@@ -1,7 +1,8 @@
 "use client";
 
-import useFetchData from "@/hooks/useFetchData";
-import { Icon } from "@iconify/react";
+import useFetchData from "@hooks/useFetchData";
+import { Icon } from "@iconify/react/dist/iconify.js";
+import { Avatar } from "@nextui-org/react";
 import { useAuth } from "contexts/AuthProvider";
 import { useEffect, useState } from "react";
 import { UserType } from "type/user";
@@ -52,26 +53,36 @@ export default function MainSection() {
 
 	return (
 		<div className="w-10/12 mx-auto">
-			<h1 className="text-xl font-semibold mb-4">Section principale</h1>
-			{Object.keys(students).length > 0 ? (
-				students.map((student) => (
-					<a
-						key={student.id}
-						className="flex items-center py-2 border-b border-gray-200 gap-2"
-						href={`messagerie/conversation/${student.id}`}
-					>
-						<Icon
-							icon="codicon:account"
-							className="text-green-500"
-						/>
-						{student.firstName} {student.lastName}
-					</a>
-				))
-			) : (
-				<div className="text-center text-gray-500">
-					Vous n'avez encore de coach ou d'élève.
-				</div>
-			)}
+			<h1 className="text-xl font-semibold mb-4">Mes conversations</h1>
+			<section className="flex flex-col gap-4 w-2/3 mx-auto h-full hover:bg-gray-100">
+				{Object.keys(students).length > 0 ? (
+					students.map((student) => (
+						<a
+							key={student.id}
+							className="flex items-center py-2 border-b border-gray-200 gap-2"
+							href={`messagerie/conversation/${student.id}`}
+						>
+							{student.profileImageUrl ? (
+								<Avatar
+									src={student.profileImageUrl}
+									alt="profile"
+									size="md"
+								/>
+							) : (
+								<Icon
+									icon="codicon:account"
+									className="text-green-500"
+								/>
+							)}
+							{student.firstName} {student.lastName}
+						</a>
+					))
+				) : (
+					<div className="text-center text-gray-500">
+						Vous n'avez encore de coach ou d'élève.
+					</div>
+				)}
+			</section>
 		</div>
 	);
 }

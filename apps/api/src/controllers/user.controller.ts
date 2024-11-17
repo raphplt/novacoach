@@ -28,6 +28,32 @@ export class UserController {
 		}
 	}
 
+		// Mettre à jour l'image de profil d'un utilisateur
+		async updateUserProfileImage(req: Request, res: Response): Promise<void> {
+			try {
+				const { userId } = req.params;
+				if (!req.file) {
+					res.status(400).json({ error: "No file provided" });
+					return;
+				}
+		
+				const filePath = req.file.path;
+				const updatedUser = await this.userService.uploadUserProfileImage(userId, filePath);
+		
+				res.status(200).json(updatedUser);
+				return;
+			} catch (error: any) {
+				if (error instanceof UserNotFoundError) {
+					res.status(404).json({ error: error.message });
+				} else {
+					res.status(500).json({ error: error.message });
+				}
+				return;
+			}
+		}
+		
+		
+
 	async getUserByCoachId(req: Request, res: Response): Promise<void> {
 		try {
 			const { coachId } = req.params;
@@ -104,6 +130,7 @@ export class UserController {
 				res.status(200).json({
 					message: "Login successful",
 					userId: user.id,
+					user: user,
 				});
 			} else {
 				res.status(401).json({ message: "Invalid credentials" });

@@ -1,6 +1,6 @@
 import request from 'supertest';
 
-const baseUrl = 'http://localhost:3002';
+const baseUrl = process.env.BASE_URL!;
 
 describe('Nutrition Program Meal API', () => {
 
@@ -26,10 +26,26 @@ describe('Nutrition Program Meal API', () => {
     }
   });
 
+  it('should create a new nutrition program meal and return 201', async () => {
+    const newNutritionProgramMeal = {
+      nutritionProgram: { id: 2 },
+      meal: { id: 2 },
+    };
+
+    const response = await request(baseUrl)
+      .post('/api/nutritionProgramsMeal')
+      .send(newNutritionProgramMeal)
+      .set('Accept', 'application/json');
+
+    expect(response.statusCode).toBe(201);
+    expect(response.body.nutritionProgram).toHaveProperty('id', newNutritionProgramMeal.nutritionProgram.id);
+    expect(response.body.meal).toHaveProperty('id', newNutritionProgramMeal.meal.id);
+  });
+
   it('should update an existing nutrition program meal and return 200', async () => {
     const programMealId = 1;
     const updatedNutritionProgramMeal = {
-      mealId: 2,
+      meal: { id: 3 },
     };
 
     const response = await request(baseUrl)
@@ -38,7 +54,7 @@ describe('Nutrition Program Meal API', () => {
       .set('Accept', 'application/json');
 
     if (response.statusCode === 200) {
-      expect(response.body).toMatchObject(updatedNutritionProgramMeal);
+      expect(response.body.meal).toHaveProperty('id', updatedNutritionProgramMeal.meal.id);
     } else {
       expect(response.statusCode).toBe(404);
     }

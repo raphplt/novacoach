@@ -56,8 +56,6 @@ export const getStructureById = cache(async () => {
 
 		const coach = await response2.json();
 
-		console.log("coach", coach);
-
 		const response3 = await fetch(
 			`${baseUrl}/structures/${coach.structureId}`,
 		);

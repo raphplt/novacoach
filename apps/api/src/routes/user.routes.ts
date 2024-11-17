@@ -1,7 +1,10 @@
 import { Router } from "express";
 import { UserController } from "../controllers/user.controller";
+import multer from "multer";
+import { storage } from "../cloudinaryConfig";
 
 const router = Router();
+const upload = multer({ storage });
 const userController = new UserController();
 
 /**
@@ -46,6 +49,48 @@ router.get("/users", (req, res) => userController.getAllUsers(req, res));
  *         description: User not found
  */
 router.get("/users/:id", (req, res) => userController.getUserById(req, res));
+
+
+/**
+ * @swagger
+ * /api/users/{userId}/profile-image:
+ *   put:
+ *     tags: [Users]
+ *     summary: Update the profile image of a user
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         description: The ID of the user to update the profile image for
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       200:
+ *         description: User profile image updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       400:
+ *         description: No file provided
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Internal server error
+ */
+router.put("/users/:userId/profile-image", upload.single("file"), (req, res) => 
+	userController.updateUserProfileImage(req, res)
+);
 
 /**
  * @swagger

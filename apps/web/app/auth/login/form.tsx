@@ -1,16 +1,14 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import useLoginForm from "@/hooks/useLoginForm";
+import useLoginForm from "@hooks/useLoginForm";
 import { Input, Button, Link } from "@nextui-org/react";
-import { loginSchema } from "@/utils/schemas/login.schema";
+import { loginSchema } from "@utils/schemas/login.schema";
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { LoginData } from "type/login";
-import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
 	const [isSubmitting, setIsSubmitting] = useState(false);
-	const router = useRouter();
 
 	const methods = useForm({
 		resolver: zodResolver(loginSchema),
@@ -25,20 +23,14 @@ export default function LoginForm() {
 		clearErrors,
 	} = methods;
 
-	const { handleCreateAccount } = useLoginForm(methods);
+	const { handleLogin } = useLoginForm(methods);
 
 	// Submit form
 	const onSubmit: SubmitHandler<FieldValues> = async (data) => {
 		try {
 			setIsSubmitting(true);
 			clearErrors("apiError");
-			const res = await handleCreateAccount(data as LoginData);
-			console.log("res", res);
-			if (Object.keys(errors).length === 0 && res) {
-				router.push("/");
-			} else {
-				console.error("error during login", res, errors);
-			}
+			await handleLogin(data as LoginData);
 		} catch (error: any) {
 			console.error("error during login", error);
 			setError("apiError", {

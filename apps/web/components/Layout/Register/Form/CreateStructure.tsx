@@ -1,11 +1,12 @@
 "use client";
 
-import FormWrapper from "@/components/Common/Container/FormWrapper";
+import FormWrapper from "@components/Common/Container/FormWrapper";
 import { zodResolver } from "@hookform/resolvers/zod";
-import useRegisterForm from "@/hooks/useRegisterForm";
-import { Icon } from "@iconify/react";
+import useRegisterForm from "@hooks/useRegisterForm";
+import { Icon } from "@iconify/react/dist/iconify.js";
 import { Button, Input, Link } from "@nextui-org/react";
-import { structureSchema } from "@/utils/schemas/structure.schema";
+import { structureSchema } from "@utils/schemas/structure.schema";
+import { useAuth } from "contexts/AuthProvider";
 import { useRegister } from "contexts/RegisterProvider";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -23,7 +24,11 @@ export default function CreateStructure({
 }) {
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [coachId, setCoachId] = useState<number | null>(null);
+	const [address, setAddress] = useState<string | undefined>(undefined);
+	const [phone, setPhone] = useState<string | undefined>(undefined);
 	const { step, setStep, user } = useRegister();
+	const [selectedFile, setSelectedFile] = useState<File | null>(null);
+	const { user: currentUser } = useAuth();
 	const router = useRouter();
 
 	const methods = useForm({
@@ -35,6 +40,7 @@ export default function CreateStructure({
 		handleSubmit,
 		formState: { errors },
 		register,
+		setValue,
 	} = methods;
 
 	const { handleCreateStructure } = useRegisterForm(methods, "coach");
@@ -67,7 +73,9 @@ export default function CreateStructure({
 			const mergedData = {
 				...data,
 				coachId: coachId || null,
+				selectedFile,
 			};
+
 			await handleCreateStructure(mergedData as any);
 			if (forceRedirect) {
 				router.push("/coach/dashboard");
@@ -80,6 +88,15 @@ export default function CreateStructure({
 			setIsSubmitting(false);
 		}
 	};
+
+	useEffect(() => {
+		if (currentUser?.address) {
+			setAddress(currentUser.address);
+		}
+		if (currentUser?.phone) {
+			setPhone(currentUser.phone);
+		}
+	}, [currentUser]);
 
 	return (
 		<FormWrapper>
@@ -107,12 +124,14 @@ export default function CreateStructure({
 							{...register("name")}
 							label="Nom de la structure"
 							isInvalid={!!errors.name}
+							isClearable
 						/>
 						<Input
 							{...register("description")}
 							label="Description"
 							isInvalid={!!errors.description}
 							type="textarea"
+							isClearable
 						/>
 						<Input
 							{...register("address")}
@@ -120,20 +139,54 @@ export default function CreateStructure({
 							placeholder="Adresse"
 							isInvalid={!!errors.address}
 							type="text"
+							value={address}
+							defaultValue={currentUser?.address}
+							onChange={(e) => setAddress(e.target.value)}
+							isClearable
 						/>
+						{!address && (
+							<Button
+								onClick={() => {
+									setValue("address", currentUser?.address);
+									setAddress(currentUser?.address);
+								}}
+							>
+								Utiliser mon adresse
+							</Button>
+						)}
 						<Input
 							{...register("phone")}
 							label="Téléphone"
 							placeholder="Téléphone"
 							isInvalid={!!errors.phone}
 							type="tel"
+							value={phone}
+							defaultValue={currentUser?.phone}
+							onChange={(e) => setPhone(e.target.value)}
+							isClearable
 						/>
+
+						{!phone && (
+							<Button
+								onClick={() => {
+									setValue("phone", currentUser?.phone);
+									setPhone(currentUser?.phone);
+								}}
+							>
+								Utiliser mon numéro de téléphone
+							</Button>
+						)}
+
 						<Input
-							{...register("logo")}
+							type="file"
 							label="Logo"
-							placeholder="Logo"
-							isInvalid={!!errors.logo}
-							type="text"
+							accept="image/*"
+							onChange={(e) => {
+								const file = e.target.files?.[0];
+								if (file) {
+									setSelectedFile(file);
+								}
+							}}
 						/>
 						<Button
 							isLoading={isSubmitting}

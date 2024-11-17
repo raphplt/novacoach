@@ -1,39 +1,45 @@
 import {
-    Entity,
-    PrimaryGeneratedColumn,
-    Column,
-    ManyToOne,
-    OneToOne,
-    JoinColumn,
-    OneToMany,
+	Entity,
+	PrimaryGeneratedColumn,
+	Column,
+	ManyToOne,
+	OneToOne,
+	JoinColumn,
+	OneToMany,
 } from "typeorm";
 import { Structure } from "./structure";
 import { User } from "./user";
 import { SessionBooking } from "./sessionBooking";
+import { UserTrackProgram } from "./userTrackProgram";
 
 @Entity()
 export class Coach {
-    @PrimaryGeneratedColumn()
-    id!: number;
+	@PrimaryGeneratedColumn()
+	id!: number;
 
-    @Column({ nullable: true })
-    description?: string;
+	@Column({ nullable: true })
+	description?: string;
 
-    // Relations
-    @ManyToOne(() => Structure, (structure) => structure.coaches, {
-        nullable: true,
-    })
-    structure?: Structure | null;
+	@ManyToOne(() => Structure, (structure) => structure.coaches, {
+		nullable: true,
+		onDelete: "CASCADE",
+	})
+	structure?: Structure;
 
-    // Représente le user qui est le coach
-    @OneToOne(() => User)
-    @JoinColumn()
-    user!: User;
+	@OneToMany(
+		() => UserTrackProgram,
+		(userTrackProgram) => userTrackProgram.coach,
+		{ nullable: true, onDelete: "CASCADE" },
+	)
+	userTrackPrograms?: UserTrackProgram[];
 
-    // Représente les élèves du coach
-    @OneToMany(() => User, (user) => user.coach)
-    students?: User[];
+	@OneToOne(() => User, { onDelete: "CASCADE" })
+	@JoinColumn()
+	user!: User;
 
-    @OneToMany(() => SessionBooking, (sessionBooking) => sessionBooking.coach)
-    sessionBooking?: SessionBooking[];
+	@OneToMany(() => User, (user) => user.coach)
+	students?: User[];
+
+	@OneToMany(() => SessionBooking, (sessionBooking) => sessionBooking.coach)
+	sessionBooking?: SessionBooking[];
 }

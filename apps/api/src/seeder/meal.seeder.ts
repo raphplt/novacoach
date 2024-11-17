@@ -10,7 +10,6 @@ export const seedMeals = async (count: number) => {
 			mealStarter: faker.lorem.word(),
 			mealMainCourse: faker.lorem.word(),
 			mainDessert: faker.lorem.word(),
-			endDate: faker.date.future(),
 			complements: faker.lorem.words(),
 			dayTime: faker.date.recent(),
 		});

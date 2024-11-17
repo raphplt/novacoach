@@ -1,6 +1,6 @@
 import request from 'supertest';
 
-const baseUrl = 'http://localhost:3002';
+const baseUrl = process.env.BASE_URL!;
 
 describe('Sport Program API', () => {
 
@@ -34,6 +34,25 @@ describe('Sport Program API', () => {
 
     expect(response.statusCode).toBe(200);
     expect(Array.isArray(response.body)).toBe(true);
+  });
+
+  it('should create a new sport program and return 201', async () => {
+    const newSportProgram = {
+      name: 'Strength Training',
+      description: 'A comprehensive strength program',
+      difficulty: 'Intermediate',
+      duration: 60,
+      frequency: 3,
+      sport: { id: 1 },
+    };
+  
+    const response = await request(baseUrl)
+      .post('/api/sportPrograms')
+      .send(newSportProgram)
+      .set('Accept', 'application/json');
+  
+    expect(response.statusCode).toBe(201);
+    expect(response.body).toHaveProperty('name', newSportProgram.name);
   });
 
   it('should update an existing sport program and return 200', async () => {

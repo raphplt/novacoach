@@ -1,8 +1,9 @@
 "use client";
-import { createSession } from "@/lib/session";
-import { registerSchema } from "@/utils/schemas/register.schema";
-import { structureSchema } from "@/utils/schemas/structure.schema";
+import { createSession } from "@lib/session";
+import { registerSchema } from "@utils/schemas/register.schema";
+import { structureSchema } from "@utils/schemas/structure.schema";
 import axios from "axios";
+import { useAuth } from "contexts/AuthProvider";
 import { useRegister } from "contexts/RegisterProvider";
 import { UseFormReturn, FieldValues } from "react-hook-form";
 import { RegisterData } from "type/register";
@@ -12,7 +13,6 @@ import { StructureData } from "type/structure";
 const urlBase = process.env.NEXT_PUBLIC_API_URL;
 
 const useRegisterForm = (methods: UseFormReturn<FieldValues>, role: Role) => {
-
 	if (!methods) {
 		throw new Error("useRegisterForm must be used within a FormProvider");
 	}
@@ -22,6 +22,7 @@ const useRegisterForm = (methods: UseFormReturn<FieldValues>, role: Role) => {
 	}
 
 	const { setUser } = useRegister();
+	const { setIsAuth, setUser: setUserAuth, setCoachRoleData } = useAuth();
 
 	const handleCreateAccount = async (
 		registerData: RegisterData,
@@ -71,6 +72,8 @@ const useRegisterForm = (methods: UseFormReturn<FieldValues>, role: Role) => {
 
 			// Set user in context
 			setUser(data);
+			setIsAuth(true);
+			setUserAuth(data);
 
 			if (role === "coach") {
 				// Create coach
@@ -87,6 +90,8 @@ const useRegisterForm = (methods: UseFormReturn<FieldValues>, role: Role) => {
 				});
 
 				const coachData = await coachResponse.json();
+
+				setCoachRoleData(coachData);
 
 				if (!coachResponse.ok) {
 					throw new Error(

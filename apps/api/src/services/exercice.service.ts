@@ -1,12 +1,14 @@
 import { AppDataSource } from "../../ormconfig";
 import { Exercice } from "../entity/exercice";
 import { SportProgramHasExercice } from "../entity/sportProgramHasExercice";
+import { Structure } from "../entity/structure";
 
 export class ExerciceServices {
 	private exerciceRepository = AppDataSource.getRepository(Exercice);
 	private SportProgramHasExerciceRepository = AppDataSource.getRepository(
 		SportProgramHasExercice,
 	);
+	private structureRepository = AppDataSource.getRepository(Structure);
 
 	async getAllExercice(): Promise<Exercice[]> {
 		return this.exerciceRepository.find();
@@ -19,24 +21,26 @@ export class ExerciceServices {
 		});
 	}
 
-	async createExercice(exercice: Partial<Exercice>): Promise<Exercice> {
-		const newExercice = this.exerciceRepository.create(exercice);
-		return this.exerciceRepository.save(newExercice);
-	}
+	async getExerciceByStructureId(structureId: string): Promise<Exercice[]> {
+		try {
+			const parseId = parseInt(structureId, 10);
 
-	async updateExercice(
-		id: string,
-		exercice: Partial<Exercice>,
-	): Promise<Exercice | null> {
-		const parsedId = parseInt(id, 10);
-		const exerciceToUpdate = await this.exerciceRepository.findOneBy({
-			id: parsedId,
-		});
-		if (exerciceToUpdate) {
-			Object.assign(exerciceToUpdate, exercice);
-			return this.exerciceRepository.save(exerciceToUpdate);
+			const exercises = await this.exerciceRepository.find({
+				where: { structure: { id: parseId } },
+			});
+
+			if (exercises.length === 0) {
+				console.log(`No exercises found for structure ID: ${parseId}`);
+				return [];
+			}
+
+			return exercises;
+		} catch (error) {
+			console.error("Error fetching exercises:", error);
+			throw new Error(
+				`Failed to fetch exercises for structure ID: ${structureId}`,
+			);
 		}
-		return null;
 	}
 
 	async getExerciceBySportProgramId(
@@ -67,6 +71,45 @@ export class ExerciceServices {
 				`Failed to fetch exercises for sport program ID: ${sportProgramId}`,
 			);
 		}
+	}
+
+	async createExercice({ ...exercice }): Promise<Exercice> {
+		try {
+			const { idStructure, ...rest } = exercice;
+
+			const structure = await this.structureRepository.findOneBy({
+				id: idStructure,
+			});
+
+			if (!structure) {
+				throw new Error("Structure not found");
+			}
+
+			const newExercice = this.exerciceRepository.create({
+				...rest,
+				structure,
+			});
+
+			return this.exerciceRepository.save(newExercice);
+		} catch (error) {
+			console.error("Error creating exercise:", error);
+			throw new Error("Failed to create exercise");
+		}
+	}
+
+	async updateExercice(
+		id: string,
+		exercice: Partial<Exercice>,
+	): Promise<Exercice | null> {
+		const parsedId = parseInt(id, 10);
+		const exerciceToUpdate = await this.exerciceRepository.findOneBy({
+			id: parsedId,
+		});
+		if (exerciceToUpdate) {
+			Object.assign(exerciceToUpdate, exercice);
+			return this.exerciceRepository.save(exerciceToUpdate);
+		}
+		return null;
 	}
 
 	async deleteExercice(id: string): Promise<boolean> {

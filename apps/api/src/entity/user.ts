@@ -15,6 +15,7 @@ import { Role } from "./role";
 import { UserDetails } from "./userDetails";
 import { Structure } from "./structure";
 import { Message } from "./message";
+import { Bill } from "./bill";
 
 @Entity()
 export class User {
@@ -44,6 +45,9 @@ export class User {
 
 	@UpdateDateColumn({ type: "timestamp" })
 	updateDate!: Date;
+
+	@Column({ nullable: true })
+	profileImageUrl?: string;
 
 	// Relations
 
@@ -75,4 +79,7 @@ export class User {
 
 	@OneToMany(() => Message, (message) => message.sender)
 	messages?: Message[];
+
+	@OneToMany(() => Bill, (bill) => bill.user)
+	bills?: Bill[];
 }

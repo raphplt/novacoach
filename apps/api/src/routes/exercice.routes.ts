@@ -121,9 +121,55 @@ router.put("/exercices/:id", (req, res) => exerciceController.updateExercice(req
  */
 router.delete("/exercices/:id", (req, res) => exerciceController.deleteExercice(req, res));
 
-router.get("/exercices/sportProgramId/:sportProgramId", (req, res) =>
-	exerciceController.getExerciceBySportProgramId(req, res),
-);
+/**
+ * @swagger
+ * /api/exercices/structure/{structureId}:
+ *   get:
+ *     tags: [Exercices]
+ *     summary: Retrieve a list of exercices by structure id
+ *     parameters:
+ *       - in: path
+ *         name: structureId
+ *         required: true
+ *         description: The id of the structure
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: A list of exercices
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#../entity/exercice'
+ */
+router.get("/exercices/sportProgramId/:sportProgramId", (req, res) => exerciceController.getExerciceBySportProgramId(req, res));
+
+/**
+ * @swagger
+ * /api/exercices/structure/{structureId}:
+ *   get:
+ *     tags: [Exercices]
+ *     summary: Retrieve a list of exercices by structure id
+ *     parameters:
+ *       - in: path
+ *         name: structureId
+ *         required: true
+ *         description: The id of the structure
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: A list of exercices
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#../entity/exercice'
+ */
+router.get("/exercices/structure/:structureId", (req, res) => exerciceController.getExerciceByStructureId(req, res));
 
 
 export default router;

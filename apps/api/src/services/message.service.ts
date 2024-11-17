@@ -29,31 +29,35 @@ export class MessageService {
 		conversationId: string,
 		senderId: string,
 		content: string,
+		fileUrl?: string, 
 	): Promise<Message> {
 		const conversation = await this.conversationRepository.findOne({
 			where: { id: parseInt(conversationId, 10) },
 		});
-
+	
 		const sender = await this.userRepository.findOne({
 			where: { id: parseInt(senderId, 10) },
 		});
-
+	
 		if (!conversation) {
 			throw new Error("Conversation not found");
 		}
-
+	
 		if (!sender) {
 			throw new Error("Sender not found");
 		}
+	
 
 		const newMessage = this.messageRepository.create({
 			content,
 			conversation,
 			sender,
+			fileUrl, 
 		});
-
+	
 		return this.messageRepository.save(newMessage);
 	}
+	
 
 	// Mettre à jour un message
 	async updateMessage(

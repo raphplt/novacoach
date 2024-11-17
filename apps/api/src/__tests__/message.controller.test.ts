@@ -1,6 +1,6 @@
 import request from 'supertest';
 
-const baseUrl = 'http://localhost:3002';
+const baseUrl = process.env.BASE_URL!;
 
 describe('Message API', () => {
 

@@ -9,7 +9,7 @@ export class NutritionProgramMeal {
 
     @ManyToOne(() => NutritionProgram, (nutritionProgram) => nutritionProgram.nutritionProgramsMeal)
     nutritionProgram!: NutritionProgram;
-
+    
     @ManyToOne(
         () => Meal,
         (meal) => meal.nutritionProgramsMeal

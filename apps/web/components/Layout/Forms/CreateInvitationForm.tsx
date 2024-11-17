@@ -1,8 +1,8 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Input } from "@nextui-org/react";
-import { invitationSchema } from "@/utils/schemas/invitation.schema";
-import { useState } from "react";
+import { invitationSchema } from "@utils/schemas/invitation.schema";
+import { useEffect, useState } from "react";
 import {
 	FieldValues,
 	FormProvider,
@@ -10,7 +10,7 @@ import {
 	useForm,
 } from "react-hook-form";
 import axios from "axios";
-import { Icon } from "@iconify/react";
+import { Icon } from "@iconify/react/dist/iconify.js";
 import { useAuth } from "contexts/AuthProvider";
 
 const urlBase = process.env.NEXT_PUBLIC_API_URL;

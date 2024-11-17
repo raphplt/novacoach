@@ -29,9 +29,9 @@ export class MealController {
 
 	async getMealsByNutritionProgramId(req: Request, res: Response) {
         try {
-			const { nutritionProgramId } = req.params;
+			const { structureId } = req.params;
 
-            const meals = await this.mealService.getMealsByNutritionProgramId(nutritionProgramId);
+            const meals = await this.mealService.getMealsByNutritionProgramId(structureId);
 
             if (meals.length === 0) {
                 return res.status(404).json({ message: "No meals found for this Nutrition Program" });
@@ -44,10 +44,24 @@ export class MealController {
         }
     }
 
+	async getMealByStructureId(req: Request, res: Response): Promise<void> {
+		try {
+			const { structureId } = req.params;
+			console.log("structureId", structureId);
+			const meal = await this.mealService.getMealByStructureId(structureId);
+			if (meal) {
+				res.status(200).json(meal);
+			}
+		}
+		catch (error: any) {
+			res.status(500).json({ error: error.message });
+		}
+	}
+
 	async createMeal(req: Request, res: Response): Promise<void> {
 		try {
-			const exercice = await this.mealService.createMeal(req.body);
-			res.status(201).json(exercice);
+			const meal = await this.mealService.createMeal(req.body);
+			res.status(201).json(meal);
 		} catch (error: any) {
 			res.status(500).json({ error: error.message });
 		}

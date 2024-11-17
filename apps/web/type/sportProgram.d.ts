@@ -1,15 +1,16 @@
+import { ExerciceType } from "./exercice";
 import { SportType } from "./sportType";
 
 export type SportProgramType = {
-    id: number;
-    name: string;
-    difficulty: string;
-    duration: number;
-    frequency: number;
-    sport: {
-        id: number;
-        name: string;
-    };
-    idStructure: number;
-    sport: SportType;
+	id: number;
+	name: string;
+	difficulty: string;
+	duration: number;
+	frequency: number;
+	sport: SportType;
+	idStructure: number;
+	sportProgramHasExercices: {
+		id: number;
+		exercice: ExerciceType;
+	}[];
 };

@@ -53,6 +53,4 @@ export class UserDetails {
 	@OneToMany(() => Licence, (licence) => licence.userDetails)
 	licences!: Licence[];
 
-	@OneToMany(() => Bill, (bill) => bill.userDetails)
-	bills!: Bill[];
 }

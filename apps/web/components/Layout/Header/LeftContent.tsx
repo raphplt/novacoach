@@ -1,19 +1,19 @@
-/* eslint-disable @next/next/no-img-element */
-"use client";
-
+import Image from "next/image";
 import Link from "next/link";
 
 export default function LeftContent() {
 	return (
-		<div className="flex items-center">
-			<Link href="/">
-				<img
-					src="/images/novacoach.png"
-					alt="Novacoach"
-					width={100}
-					height={100}
-				/>
-			</Link>
-		</div>
+		<Link
+			href="/"
+			className="cursor-pointer"
+		>
+			<Image
+				src="/images/novacoach.png"
+				alt="Novacoach"
+				width={200}
+				height={200}
+				className="w-24"
+			/>
+		</Link>
 	);
 }

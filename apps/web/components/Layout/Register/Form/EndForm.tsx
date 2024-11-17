@@ -8,7 +8,7 @@ export default function EndForm() {
 	};
 	return (
 		<div className="flex flex-col items-center justify-center w-full h-screen">
-			<h1 className="text-3xl font-bold text-center my-5">
+			<h1 className="text-3xl font-bold text-center my-5 w-10/12 mx-auto">
 				Félicitations, vous êtes inscrit sur Novacoach. Vous allez
 				recevoir un email de confirmation.
 			</h1>

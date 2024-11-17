@@ -1,15 +1,16 @@
 "use client";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import PageLoader from "@/components/Common/Loaders/PageLoader";
-import SportSelect from "@/components/Common/Select/sportSelect";
-import {useAuth} from "../../../../../contexts/AuthProvider";
-import {FieldValues, SubmitHandler, useForm} from "react-hook-form";
-import {zodResolver} from "@hookform/resolvers/zod";
-import { handleValidationErrors } from "@/utils/functions/validation";
-import { sportProgramSchema } from "@/utils/schemas/sportProgram.schema";
-import {Button, Input} from "@nextui-org/react";
+import PageLoader from "@components/Common/Loaders/PageLoader";
+import SportSelect from "@components/Common/Select/sportSelect";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { handleValidationErrors } from "@utils/functions/validation";
+import { sportProgramSchema } from "@utils/schemas/sportProgram.schema";
+import { Button, Input } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "contexts/AuthProvider";
+import { toast } from "sonner";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -30,6 +31,7 @@ const Page = () => {
 		register,
 		reset,
 	} = methods;
+
 	useEffect(() => {
 		const fetchSports = async () => {
 			try {
@@ -54,7 +56,6 @@ const Page = () => {
 			<section className="container mx-auto p-6 mt-4 min-h-screen">
 				<div className="flex flex-col items-center justify-center min-h-screen">
 					<h1 className="text-2xl font-bold mb-6">
-						{" "}
 						Impossible de créer un programme sportif car vous n'avez
 						pas de structure.
 					</h1>
@@ -80,10 +81,14 @@ const Page = () => {
 			);
 
 			if (response.status === 201) {
+				toast.success("Programme créé avec succès");
+
 				setProgramCreated(true);
 				reset();
-				router.push("/coach/dashboard/SportProgram");
-
+				router.push(
+					`/coach/dashboard/SportProgram/addExercices` +
+						`/${response.data.id}`,
+				);
 			} else {
 				console.error(
 					"Erreur lors de la création du programme :",
@@ -149,7 +154,7 @@ const Page = () => {
 
 					<Input
 						type="number"
-						label="Durée"
+						label="Durée (en jours)"
 						{...register("duration", { valueAsNumber: true })}
 						isInvalid={!!errors.duration}
 						className="mb-3"
@@ -157,7 +162,7 @@ const Page = () => {
 					/>
 
 					<Input
-						label="Fréquence"
+						label="Fréquence (jours par semaine)"
 						{...register("frequency", { valueAsNumber: true })}
 						isInvalid={!!errors.frequency}
 						className="mb-3"

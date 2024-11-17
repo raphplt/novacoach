@@ -5,6 +5,9 @@ node_modules
 .pnp
 .pnp.js
 pnpm-lock.yaml
+yarn.lock
+package-lock.json
+
 
 # Local env files
 .env
@@ -19,6 +22,8 @@ coverage
 # Turbo
 .turbo
 
+# Vercel
+.vercel
 
 # Build Outputs
 .next/

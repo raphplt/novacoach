@@ -17,7 +17,7 @@ export default function SportSelect({
 				htmlFor="sportSelect"
 				className="block text-sm font-medium mb-2 text-gray-700"
 			>
-				Liste des sports
+				Choisir un sport
 			</label>
 			<select
 				id="sportSelect"

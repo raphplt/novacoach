@@ -7,14 +7,80 @@ import {
 } from "../errors/users.errors";
 import { Role } from "../entity/role";
 import { Coach } from "../entity/coach";
+import { v2 as cloudinary } from "cloudinary";
+import { Structure } from "../entity/structure";
 
 export class UserService {
 	private userRepository = AppDataSource.getRepository(User);
 	private coachRepository = AppDataSource.getRepository(Coach);
 	private roleRepository = AppDataSource.getRepository(Role);
+	private structureRepository = AppDataSource.getRepository(Structure);
 
 	async getAllUsers(): Promise<User[]> {
 		return this.userRepository.find();
+	}
+
+	// Upload ou met à jour l'image de profil d'un utilisateur
+	async uploadUserProfileImage(
+		userId: string,
+		filePath: string,
+	): Promise<User> {
+		const parsedId = parseInt(userId, 10);
+		const user = await this.userRepository.findOne({
+			where: { id: parsedId },
+		});
+
+		if (!user) {
+			throw new UserNotFoundError();
+		}
+
+		// Supprime l'ancienne image de profil de Cloudinary, si elle existe
+		if (user.profileImageUrl) {
+			const publicId = this.getCloudinaryPublicId(user.profileImageUrl);
+			await cloudinary.uploader.destroy(publicId);
+		}
+
+		// Upload de la nouvelle image sur Cloudinary
+		const uploadResult = await cloudinary.uploader.upload(filePath, {
+			folder: "user_profiles", // Dossier optionnel dans Cloudinary
+			resource_type: "image",
+		});
+
+		// Met à jour l'URL de l'image de profil dans l'entité utilisateur
+		user.profileImageUrl = uploadResult.secure_url;
+		await this.userRepository.save(user);
+
+		// Récupère l'utilisateur avec les relations spécifiées
+		const updatedUser = await this.userRepository.findOne({
+			where: { id: parsedId },
+			relations: [
+				"role",
+				"userDetails.weights",
+				"userDetails.fatMasses",
+				"userDetails.bmis",
+				"userDetails.heights",
+				"userDetails.muscleMasses",
+				"userDetails.sports",
+				"userDetails.goals",
+				"userDetails.licences",
+				"coach",
+				"coachRole",
+				"userSportPrograms",
+				"sessionBooking",
+				"structure",
+				"userSportPrograms.sportProgram",
+			],
+		});
+
+		if (!updatedUser) return user;
+
+		return updatedUser;
+	}
+
+	// Helper pour obtenir le publicId à partir de l'URL complète
+	private getCloudinaryPublicId(url: string): string {
+		const parts = url.split("/");
+		return parts[parts.length - 1].split(".")[0];
 	}
 
 	async getUserById(id: string): Promise<User | null> {
@@ -23,7 +89,14 @@ export class UserService {
 			where: { id: parsedId },
 			relations: [
 				"role",
-				"userDetails",
+				"userDetails.weights",
+				"userDetails.fatMasses",
+				"userDetails.bmis",
+				"userDetails.heights",
+				"userDetails.muscleMasses",
+				"userDetails.sports",
+				"userDetails.goals",
+				"userDetails.licences",
 				"coach",
 				"coachRole",
 				"userSportPrograms",
@@ -39,7 +112,26 @@ export class UserService {
 	}
 
 	async getUserByEmail(email: string): Promise<User | null> {
-		return this.userRepository.findOneBy({ email });
+		return this.userRepository.findOne({
+			where: { email },
+			relations: [
+				"role",
+				"userDetails.weights",
+				"userDetails.fatMasses",
+				"userDetails.bmis",
+				"userDetails.heights",
+				"userDetails.muscleMasses",
+				"userDetails.sports",
+				"userDetails.goals",
+				"userDetails.licences",
+				"coach",
+				"coachRole",
+				"userSportPrograms",
+				"sessionBooking",
+				"structure",
+				"userSportPrograms.sportProgram",
+			],
+		});
 	}
 
 	async getUserByCoachID(id: string): Promise<{ user: User; coach: Coach }> {
@@ -92,7 +184,6 @@ export class UserService {
 				"userDetails.sports",
 				"userDetails.goals",
 				"userDetails.licences",
-				"userDetails.bills",
 			],
 		});
 		return students;
@@ -135,24 +226,47 @@ export class UserService {
 		const parsedId = parseInt(id, 10);
 		const userToUpdate = await this.userRepository.findOne({
 			where: { id: parsedId },
-			relations: ["role", "userDetails", "coach", "userSportPrograms"],
+			relations: [
+				'role',
+				'userDetails',
+				'coach',
+				'userSportPrograms',
+				'structure',
+			],
 		});
+
 		if (userToUpdate) {
+				const structure = await this.structureRepository.findOne({
+					where: { id: user.structure?.id },
+				});
+
+				console.log("structure", structure);
+				if (structure) {
+					userToUpdate.structure = structure;
+				} else {
+					console.log(`Structure with id ${user.structure} not found.`);
+					return null;
+			}
+
 			Object.assign(userToUpdate, user);
 			await this.userRepository.save(userToUpdate);
 			const updatedUser = await this.userRepository.findOne({
 				where: { id: parsedId },
 				relations: [
-					"role",
-					"userDetails",
-					"coach",
-					"userSportPrograms",
+					'role',
+					'userDetails',
+					'coach',
+					'userSportPrograms',
+					'structure',
 				],
 			});
+
+			console.log('josé update', updatedUser);
 			return updatedUser;
 		}
 		return null;
 	}
+
 
 	async deleteUser(id: string): Promise<boolean> {
 		const parsedId = parseInt(id, 10);

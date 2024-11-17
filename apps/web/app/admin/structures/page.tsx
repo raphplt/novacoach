@@ -13,34 +13,32 @@ type Structure = {
 
 export default function StructuresPage() {
   const [structures, setStructures] = useState<Structure[]>([]);
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingStructure, setEditingStructure] =
-		useState<Partial<Structure> | null>(null);
+  const [searchQuery, setSearchQuery] = useState<string>(''); 
+  const [currentPage, setCurrentPage] = useState(1); 
+  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [editingStructure, setEditingStructure] = useState<Partial<Structure> | null>(null);
+  const [total, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const itemsPerPage = 5;
+  const itemsPerPage = 5; 
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   // Fonction pour récupérer les structures depuis l'API
   const fetchStructures = async () => {
-		try {
-			setIsLoading(true);
-			const response = await fetch(`${apiUrl}/structures`);
-			const data = await response.json();
-			if (!response.ok) {
-				throw new Error(
-					data.error ||
-						"Erreur lors de la récupération des structures",
-				);
-			}
-			setStructures(data);
-			setIsLoading(false);
-		} catch (error: any) {
-			setError(error.message);
-			setIsLoading(false);
-		}
+    try {
+      setIsLoading(true);
+      const response = await fetch(`${apiUrl}/structures`);
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || 'Erreur lors de la récupération des structures');
+      }
+      setStructures(data);
+      setTotal(data.length);
+      setIsLoading(false);
+    } catch (error: any) {
+      setError(error.message);
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {

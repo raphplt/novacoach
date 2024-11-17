@@ -1,6 +1,6 @@
 import request from 'supertest';
 
-const baseUrl = 'http://localhost:3002';
+const baseUrl = process.env.BASE_URL!;
 
 describe('Goal API', () => {
 
@@ -13,10 +13,34 @@ describe('Goal API', () => {
     expect(Array.isArray(response.body)).toBe(true);
   });
 
+  it('should create a new goal and return 201', async () => {
+    const newGoal = {
+      name: 'New Goal',
+      description: 'This is a test goal',
+      value: 100,
+      startDate: '2023-11-01',
+      endDate: '2023-12-31',
+      idUserDetails: 1
+    };
+
+    const response = await request(baseUrl)
+      .post('/api/goals')
+      .send(newGoal)
+      .set('Accept', 'application/json');
+
+    expect(response.statusCode).toBe(201);
+    expect(response.body).toHaveProperty('name', newGoal.name);
+  });
+
   it('should update an existing goal and return 200', async () => {
     const goalId = 1;
     const updatedGoal = {
-      description: 'Updated goal description'
+      name: 'Updated Goal Name',
+      description: 'Updated goal description',
+      value: 150,
+      startDate: '2023-12-01',
+      endDate: '2024-01-31',
+      idUserDetails: 1
     };
 
     const response = await request(baseUrl)

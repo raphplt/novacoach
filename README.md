@@ -1,6 +1,3 @@
-Voici le contenu du README en format Markdown pour votre projet **Novacoach** :
-
-```markdown
 # Novacoach - Guide d'Installation et de Configuration
 
 ## Introduction
@@ -12,7 +9,7 @@ Bienvenue dans le projet **Novacoach**. Ce projet utilise **Turborepo** pour la 
 Avant de commencer, assurez-vous d'avoir les prérequis suivants installés sur votre machine :
 
 1. **PostgreSQL**
-2. **pnpm** (Gestionnaire de paquets)
+2. **npm** (Gestionnaire de paquets)
 3. **Turbo** (Turborepo CLI)
 
 ### Installation des Prérequis
@@ -20,11 +17,9 @@ Avant de commencer, assurez-vous d'avoir les prérequis suivants installés sur 
 1. **PostgreSQL** :
    - Suivez les instructions sur le site officiel pour installer PostgreSQL : [PostgreSQL Downloads](https://www.postgresql.org/download/)
 
-2. **pnpm** :
-   - Si vous n'avez pas pnpm installé, vous pouvez l'installer via npm :
-     ```sh
-     npm install -g pnpm
-     ```
+2. **npm** :
+   - npm est généralement installé avec Node.js. Si vous n'avez pas npm installé, vous pouvez installer Node.js qui inclut npm : [Node.js Downloads](https://nodejs.org/)
+
 
 3. **Turbo** :
    - Installez Turbo CLI globalement :
@@ -47,10 +42,10 @@ Une fois les prérequis installés, suivez ces étapes pour installer les dépen
    cd novacoach
    ```
 
-3. Installez les dépendances avec pnpm :
+3. Installez les dépendances avec npm :
 
    ```sh
-   pnpm install
+   npm install
    ```
 
 ## Configuration du Projet
@@ -66,7 +61,7 @@ Une fois les prérequis installés, suivez ces étapes pour installer les dépen
 3. Remplir la base de données :
 
 ```sh
- pnpm run seed
+ npm run seed
 ```
 (depuis la racine ou le dossier API)
 
@@ -74,7 +69,7 @@ Une fois les prérequis installés, suivez ces étapes pour installer les dépen
 
 ```sh
  cd apps/api
- pnpm run clear
+ npm run clear
 ```
 
 ## Lancer le Projet

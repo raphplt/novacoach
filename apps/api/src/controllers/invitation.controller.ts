@@ -20,7 +20,6 @@ export class InvitationController {
 	async acceptInvitation(req: Request, res: Response): Promise<void> {
 		try {
 			const { token, studentId } = req.body;
-			console.log("Accept invitation", token, studentId);
 			await this.invitationService.acceptInvitation(token, studentId);
 			res.status(200).json({ message: "Invitation accepted" });
 		} catch (error: any) {

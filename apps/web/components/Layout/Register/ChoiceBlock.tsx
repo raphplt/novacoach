@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useRegister } from "contexts/RegisterProvider";
 import { useRouter } from "next/navigation";
+import { Link } from "@nextui-org/react";
 
 export default function ChoiceBlock() {
 	const router = useRouter();
@@ -19,18 +20,32 @@ export default function ChoiceBlock() {
 	};
 
 	const buttonStyle =
-		"w-fit flex flex-col items-center justify-center text-lg bg-white/30 hover:bg-white/50 backdrop-blur-sm rounded-xl px-20 py-10";
+		"w-full flex flex-col items-center justify-center text-lg hover:bg-primary backdrop-blur-sm rounded-xl border hover:text-white px-14 py-8 transition duration-300 ease-in-out";
 
-	const boxStyle = "w-1/2 h-full flex items-center justify-center ";
+	const boxStyle = "flex-1 flex items-center justify-center w-1/2";
 
 	return (
-		<div className="flex flex-col items-center justify-center w-full">
-			<div className="flex flex-row justify-center items-center w-full mx-auto h-screen">
-				<div
-					className={
-						boxStyle + " bg-gradient-to-r from-zinc-800 to-zinc-600"
-					}
-				>
+		<div className="flex flex-col items-center justify-evenly gap-20 w-full min-h-screen pb-16">
+			<div className="flex flex-col items-center justify-center gap-10">
+				<Image
+					src="/images/novacoach.png"
+					alt="Logo"
+					width={200}
+					height={200}
+					priority={true}
+				/>
+				<h1 className="text-4xl font-bold text-center">
+					Choisissez votre rôle pour continuer votre inscription
+				</h1>
+				<p className="text-lg text-center text-default-700 w-1/2 mx-auto">
+					En tant que coach, vous pourrez proposer vos services de
+					coaching et accompagner des élèves dans leur progression. Et
+					en tant qu'élève, vous pourrez trouver un coach qui répondra
+					à vos besoins.
+				</p>
+			</div>
+			<div className="flex flex-row justify-center items-center w-8/12 mx-auto gap-10">
+				<div className={boxStyle}>
 					<button
 						onClick={() =>
 							handleClick({
@@ -46,17 +61,13 @@ export default function ChoiceBlock() {
 						<Image
 							src="/images/illustrations/coach.png"
 							alt="Coach"
-							width={400}
+							width={200}
 							height={100}
 							priority={true}
 						/>
 					</button>
 				</div>
-				<div
-					className={
-						boxStyle + "bg-gradient-to-r from-sky-700 to-sky-900"
-					}
-				>
+				<div className={boxStyle}>
 					<button
 						onClick={() =>
 							handleClick({
@@ -71,14 +82,20 @@ export default function ChoiceBlock() {
 						</div>
 						<Image
 							src="/images/illustrations/student.png"
-							alt="Coach"
-							width={400}
+							alt="Student"
+							width={200}
 							height={100}
 							priority={true}
 						/>
 					</button>
 				</div>
 			</div>
+			<Link
+				href="/auth/login"
+				className="text-primary hover:text-secondary"
+			>
+				J'ai déjà un compte
+			</Link>
 		</div>
 	);
 }

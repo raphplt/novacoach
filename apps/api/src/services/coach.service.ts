@@ -65,7 +65,6 @@ export class CoachService {
 
 	async createCoach(coachData: CoachInput): Promise<Coach> {
 		const newCoach = new Coach();
-		console.log("coachData", coachData);
 		newCoach.description = coachData.description;
 		newCoach.user = coachData.user;
 

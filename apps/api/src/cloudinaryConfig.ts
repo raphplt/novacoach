@@ -13,7 +13,7 @@ export const storage = new CloudinaryStorage({
 		folder: "uploads",
 		resource_type: "auto",
 		allowed_formats: ["jpg", "jpeg", "png", "gif", "mp4", "webm"],
-	} as any, //TODO : type any
+	} as any, 
 });
 
 export default cloudinary.v2;

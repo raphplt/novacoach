@@ -1,6 +1,6 @@
 // hooks/useSession.ts
 import { useEffect, useState } from "react";
-import { decrypt } from "@/lib/session";
+import { decrypt } from "@lib/session";
 import { cookies } from "next/headers";
 import { JWTPayload } from "jose";
 

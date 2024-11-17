@@ -1,48 +1,30 @@
 {
-  "extends": "@repo/typescript-config/nextjs.json",
-  "compilerOptions": {
-    "jsx": "preserve",
-    "declaration": false,
-    "declarationMap": false,
-    "baseUrl": ".",
-    "paths": {
-      "@app/*": [
-        "app/*"
-      ],
-      "@/components/*": [
-        "components/*"
-      ],
-      "@/hooks/*": [
-        "hooks/*"
-      ],
-      "@/lib/*": [
-        "lib/*"
-      ],
-      "@/utils/*": [
-        "utils/*"
-      ],
-      "@public/*": [
-        "public/*"
-      ],
-      "@/contexts/*": [
-        "contexts/*"
-      ]
-    },
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
-  },
-  "include": [
-    "next-env.d.ts",
-    "next.config.mjs",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "build/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+	"extends": "@repo/typescript-config/nextjs.json",
+	"compilerOptions": {
+		"jsx": "preserve",
+		"declarationMap": false,
+		"baseUrl": ".",
+		"paths": {
+			"@app/*": ["app/*"],
+			"@components/*": ["components/*"],
+			"@hooks/*": ["hooks/*"],
+			"@lib/*": ["lib/*"],
+			"@utils/*": ["utils/*"],
+			"@public/*": ["public/*"]
+		},
+		"plugins": [
+			{
+				"name": "next"
+			}
+		]
+	},
+	"include": [
+		"next-env.d.ts",
+		"next.config.mjs",
+		"**/*.ts",
+		"**/*.tsx",
+		".next/types/**/*.ts",
+		"app/student/dashboard/accept-invitation"
+	],
+	"exclude": ["node_modules"]
 }

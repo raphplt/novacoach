@@ -1,4 +1,7 @@
 "use client";
+
+import { Table } from "@nextui-org/react";
+
 interface User {
 	id: number;
 	name: string;

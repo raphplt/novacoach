@@ -1,25 +1,24 @@
 "use client";
-import useFetchData from "@/hooks/useFetchData";
+import useFetchData from "@hooks/useFetchData";
 import { useAuth } from "contexts/AuthProvider";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { UserType } from "type/user";
 
 const Page = () => {
 	const { user } = useAuth();
 	const [students, setStudents] = useState<UserType[]>([]);
-	const [coachId, setCoachId] = useState<number | undefined>();
-	const [showModal, setShowModal] = useState<boolean>(false); // État pour afficher la modale
-	const [modalContent, setModalContent] = useState<string>(""); // Contenu de la modale
+	const [showModal, setShowModal] = useState<boolean>(false);
+	const [modalContent, setModalContent] = useState<string>("");
+	const router = useRouter();
 
-	useEffect(() => {
-		if (user?.coachRole?.id) {
-			setCoachId(user.coachRole?.id);
-		}
-	}, [user]);
+	if (!user || !user.coachRole) {
+		return null;
+	}
 
 	const { data: studentsData } = useFetchData({
-		url: `/user/studentsByCoachId/${coachId}`,
-		enabled: !!coachId,
+		url: `/user/studentsByCoachId/${user.coachRole?.id}`,
+		enabled: !!user.coachRole?.id,
 	});
 
 	useEffect(() => {
@@ -37,10 +36,14 @@ const Page = () => {
 		setShowModal(false);
 	};
 
+	const handleClick = (id: number) => {
+		router.push(`/coach/dashboard/students/profil/${id}`);
+	};
+
 	return (
 		<div className="container mx-auto p- min-h-screen">
 			{/* Section Title */}
-			<h2 className="text-4xl font-extrabold text-gray-900 mt-10 text-center">
+			<h2 className="text-4xl font-extrabold text-gray-900 mt-14 text-center">
 				Mes élèves
 			</h2>
 
@@ -48,21 +51,23 @@ const Page = () => {
 			<div className="mt-10 overflow-x-auto">
 				<table className="table-auto w-full text-left border-collapse">
 					<thead>
-						<tr className="bg-indigo-600 text-white">
+						<tr className="bg-primary text-white">
 							<th className="px-4 py-2 text-center">
 								Nom complet
 							</th>
-							<th className="px-4 py-2 text-center">Mass (kg)</th>
 							<th className="px-4 py-2 text-center">
-								Muscle Mass (kg)
+								Poids (kg)
 							</th>
 							<th className="px-4 py-2 text-center">
-								Height (cm)
+								Masse musculaire (kg)
 							</th>
 							<th className="px-4 py-2 text-center">
-								Fat Mass (%)
+								Taille (cm)
 							</th>
-							<th className="px-4 py-2 text-center">BMI</th>
+							<th className="px-4 py-2 text-center">
+								Masse grasse (%)
+							</th>
+							<th className="px-4 py-2 text-center">IMC</th>
 							<th className="px-4 py-2 text-center">Actions</th>
 						</tr>
 					</thead>
@@ -82,7 +87,10 @@ const Page = () => {
 									key={student.id}
 									className="bg-white border-b hover:bg-gray-100 transition-colors"
 								>
-									<td className="px-4 py-2 text-center align-middle text-indigo-600 font-semibold">
+									<td
+										onClick={() => handleClick(student.id)}
+										className="px-4 py-2 text-center align-middle text-primary font-semibold cursor-pointer"
+									>
 										{student.firstName} {student.lastName}
 									</td>
 									<td className="px-4 py-2 text-center align-middle">
@@ -130,22 +138,22 @@ const Page = () => {
 										<button
 											onClick={() =>
 												handleButtonClick(
-													"Nutrition Program",
+													"Programme de nutrition",
 												)
 											}
-											className="bg-indigo-600 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-indigo-700 transition-colors"
+											className="bg-primary text-white px-4 py-2 rounded-lg shadow-lg hover:bg-secondary transition-colors"
 										>
 											Programmes de nutrition
 										</button>
 										<button
 											onClick={() =>
 												handleButtonClick(
-													"Sport Program",
+													"Programme de sport",
 												)
 											}
-											className="bg-indigo-600 text-white px-4 py-2 ml-1 rounded-lg shadow-lg hover:bg-indigo-700 transition-colors"
+											className="bg-primary text-white px-4 py-2 ml-1 rounded-lg shadow-lg hover:bg-secondary transition-colors"
 										>
-											Programmes de sports
+											Programmes de sport
 										</button>
 									</td>
 								</tr>
@@ -162,12 +170,12 @@ const Page = () => {
 						<h3 className="text-2xl font-semibold mb-4">
 							{modalContent}
 						</h3>
-						<p className="text-gray-700">Not implemented</p>
+						<p className="text-gray-700">Non implémenté</p>
 						<button
 							onClick={closeModal}
 							className="mt-4 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700"
 						>
-							Close
+							Fermer
 						</button>
 					</div>
 				</div>

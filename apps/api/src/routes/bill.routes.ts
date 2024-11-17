@@ -49,6 +49,34 @@ router.get("/bills/:id", (req, res) => billController.getBillById(req, res));
 
 /**
  * @swagger
+ * /api/bills/structure/{id}:
+ *   get:
+ *     tags: [Bills]
+ *     summary: Retrieve a single bill by structure id
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The id of the structure to retrieve the bill
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: The bill
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Bill'
+ *       404:
+ *         description: Bill not found
+ */
+router.get("/bills/structure/:id", (req, res) =>
+	billController.getBillsByStructure(req, res),
+);
+
+
+/**
+ * @swagger
  * /api/bills:
  *   post:
  *     tags: [Bills]

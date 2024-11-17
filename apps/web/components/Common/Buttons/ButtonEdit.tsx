@@ -1,4 +1,4 @@
-import { Icon } from "@iconify/react";
+import { Icon } from "@iconify/react/dist/iconify.js";
 import { Button } from "@nextui-org/react";
 
 export default function ButtonEdit({

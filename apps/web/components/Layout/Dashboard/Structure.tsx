@@ -1,8 +1,8 @@
 "use client";
-import { Icon } from "@iconify/react";
+import { Icon } from "@iconify/react/dist/iconify.js";
 import { useAuth } from "contexts/AuthProvider";
 import { useRouter } from "next/navigation";
-import PanelBox from "@/components/Common/Box/PanelBox";
+import PanelBox from "@components/Common/Box/PanelBox";
 
 export default function DashboardStructure() {
 	const { coachRoleData, loadingCoachData } = useAuth();
@@ -22,6 +22,10 @@ export default function DashboardStructure() {
 					: router.push("/coach/dashboard/create-structure")
 			}
 		>
+			<Icon
+				icon="akar-icons:home"
+				width={24}
+			/>
 			<h2 className="font-semibold text-xl">Ma structure</h2>
 			{structure ? (
 				<div>

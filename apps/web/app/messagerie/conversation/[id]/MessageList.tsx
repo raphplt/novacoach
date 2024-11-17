@@ -1,4 +1,6 @@
-import { Icon } from "@iconify/react";
+"use client";
+
+import { Icon } from "@iconify/react/dist/iconify.js";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
@@ -13,6 +15,7 @@ export default function MessageList({
 }) {
 	const messagesEndRef = useRef<HTMLDivElement>(null);
 	const [selectedFile, setSelectedFile] = useState<File | null>(null);
+	const [enlargedImage, setEnlargedImage] = useState<string | null>(null);
 
 	const scrollToBottom = () => {
 		messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -29,6 +32,14 @@ export default function MessageList({
 			(a, b) =>
 				new Date(a.sendDate).getTime() - new Date(b.sendDate).getTime(),
 		);
+
+	const handleImageClick = (imageUrl: string) => {
+		setEnlargedImage(imageUrl);
+	};
+
+	const handleCloseImage = () => {
+		setEnlargedImage(null);
+	};
 
 	return (
 		<>
@@ -48,15 +59,30 @@ export default function MessageList({
 							<div className="bg-gray-200 p-2 rounded-md">
 								{message.content}
 
-								{message.fileUrl && (
-									<Image
-										width={200}
-										height={200}
-										src={message.fileUrl}
-										alt="file"
-										className="max-w-1/2 h-fit"
-									/>
-								)}
+								{message.fileUrl &&
+									(message.fileUrl.endsWith(".mp4") ||
+									message.fileUrl.endsWith(".mov") ? (
+										<video
+											width={500}
+											height={500}
+											src={message.fileUrl}
+											controls
+											className="max-w-2/3 h-fit"
+										/>
+									) : (
+										<Image
+											width={200}
+											height={200}
+											src={message.fileUrl}
+											alt="file"
+											className="max-w-1/2 h-fit cursor-pointer"
+											onClick={() =>
+												handleImageClick(
+													message.fileUrl,
+												)
+											}
+										/>
+									))}
 							</div>
 
 							<p className="text-xs text-gray-500">
@@ -128,6 +154,20 @@ export default function MessageList({
 					/>
 				</button>
 			</div>
+			{enlargedImage && (
+				<div
+					className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
+					onClick={handleCloseImage}
+				>
+					<Image
+						src={enlargedImage}
+						alt="Enlarged file"
+						width={800}
+						height={800}
+						className="max-w-full max-h-full"
+					/>
+				</div>
+			)}
 		</>
 	);
 }

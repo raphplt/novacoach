@@ -35,25 +35,15 @@ export class MessageController {
 	async createMessage(req: Request, res: Response): Promise<void> {
 		try {
 			const { room, senderId, content } = req.body;
-			console.log(room, senderId, content);
 
 			let newMessage;
+
 			if (req.file) {
-				const fileUrl = await this.fileUploadService.uploadFile(
-					req.file.path,
-				);
-				newMessage = await this.fileUploadService.saveMessageWithFile(
-					room,
-					senderId,
-					content,
-					fileUrl,
-				);
+				const fileType = req.file.mimetype.startsWith("video/") ? "video" : "image";
+				const fileUrl = await this.fileUploadService.uploadFile(req.file.path, fileType);
+				newMessage = await this.messageService.createMessage(room, senderId, content, fileUrl);
 			} else {
-				newMessage = await this.messageService.createMessage(
-					room,
-					senderId,
-					content,
-				);
+				newMessage = await this.messageService.createMessage(room, senderId, content);
 			}
 
 			res.status(201).json(newMessage);
@@ -61,6 +51,7 @@ export class MessageController {
 			res.status(500).json({ error: error.message });
 		}
 	}
+
 
 	// Mettre à jour un message
 	async updateMessage(req: Request, res: Response): Promise<void> {

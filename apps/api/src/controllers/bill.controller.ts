@@ -25,15 +25,36 @@ export class BillController {
         } catch (error: any) {
             res.status(500).json({ error: error.message });
         }
-    }
+	}
+
+	async getBillsByStructure(req: Request, res: Response): Promise<void> {
+		try {
+			const { id } = req.params;
+			const bill = await this.billService.getBillsByStructure(id);
+			if (bill) {
+				res.status(200).json(bill);
+			}
+			else {
+				res.status(404).json({ message: "Bill not found" });
+			}
+		}
+		catch (error: any) {
+			res.status(500).json({ error: error.message });
+		}
+	}
 
     async createBill(req: Request, res: Response): Promise<void> {
-        try {
-            const bill = await this.billService.createBill(req.body);
-            res.status(201).json(bill);
-        } catch (error: any) {
-            res.status(500).json({ error: error.message });
-        }
+		try {
+			const { userId, structureId, ...billData } = req.body;
+			const bill = await this.billService.createBill(
+				req.body,
+				structureId,
+				userId,
+			);
+			res.status(201).json(bill);
+		} catch (error: any) {
+			res.status(500).json({ error: error.message });
+		}
     }
 
     async updateBill(req: Request, res: Response): Promise<void> {

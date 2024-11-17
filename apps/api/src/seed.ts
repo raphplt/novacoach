@@ -24,15 +24,27 @@ const askQuestion = (question: string): Promise<string> => {
 	return new Promise((resolve) => rl.question(question, resolve));
 };
 
+const dropTableIfExists = async (tableName: string) => {
+	try {
+		console.log(`🗑️ Dropping table ${tableName}...`);
+		await AppDataSource.query(
+			`DROP TABLE IF EXISTS "${tableName}" CASCADE`,
+		);
+		console.log(`🗑️ Table ${tableName} has been dropped!`);
+	} catch (err) {
+		console.error(`❌ Error during dropping table ${tableName}:`, err);
+	}
+};
+
 const dropDatabase = async () => {
 	try {
-		await AppDataSource.dropDatabase();
+		await dropTableIfExists("user_track_program");
+		// Ajoutez d'autres tables si nécessaire
 		console.log("🗑️ Database has been dropped!");
 	} catch (err) {
 		console.error("❌ Error during database drop:", err);
 	}
 };
-
 const synchronizeDatabase = async () => {
 	try {
 		await AppDataSource.synchronize();
@@ -44,6 +56,7 @@ const synchronizeDatabase = async () => {
 
 const seedDatabase = async (count: number, dropDb: boolean) => {
 	try {
+		console.log("🌱 Seeding the database...");
 		await AppDataSource.initialize();
 		console.log("🚀 Data Source has been initialized!");
 
@@ -102,26 +115,27 @@ const seedDatabase = async (count: number, dropDb: boolean) => {
 };
 
 const main = async () => {
-    const countStr = await askQuestion(
-        "Enter the number of seeds to generate: ",
-    );
-    const count = parseInt(countStr, 10);
+	const countStr = await askQuestion(
+		"Enter the number of seeds to generate: ",
+	);
+	const count = parseInt(countStr, 10);
 
-    if (isNaN(count) || count <= 0) {
-        console.error(
-            "❌ Invalid number of seeds. Please enter a positive integer.",
-        );
-        rl.close();
-        return;
-    }
+	if (isNaN(count) || count <= 0) {
+		console.error(
+			"❌ Invalid number of seeds. Please enter a positive integer.",
+		);
+		rl.close();
+		return;
+	}
 
-    const dropDbStr = await askQuestion(
+	const dropDbStr = await askQuestion(
 		"Do you want to drop the database first? (yes/no): ",
 	);
-	const dropDb = dropDbStr.toLowerCase() === "yes";
+	const dropDb =
+		dropDbStr.toLowerCase() === "yes" || dropDbStr.toLowerCase() === "y";
 
 	await seedDatabase(count, dropDb);
-    rl.close();
+	rl.close();
 };
 
 main();

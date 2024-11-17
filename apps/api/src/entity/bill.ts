@@ -1,23 +1,27 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { UserDetails } from "./userDetails";
+import { User } from "./user";
+import { Structure } from "./structure";
 
 @Entity()
 export class Bill {
-    @PrimaryGeneratedColumn()
-    idBill!: number;
+	@PrimaryGeneratedColumn()
+	idBill!: number;
 
-    @Column()
-    amount!: number;
+	@Column()
+	amount!: number;
 
-    @Column()
-    dateIssued!: Date;
+	@Column()
+	dateIssued!: Date;
 
-    @Column()
-    dateDue!: Date;
+	@Column()
+	dateDue!: Date;
 
-    @Column()
-    status!: string;
+	@Column()
+	status!: string;
 
-    @ManyToOne(() => UserDetails, (userDetails) => userDetails.bills)
-    userDetails!: UserDetails;
+	@ManyToOne(() => User, (user) => user.bills)
+	user!: User;
+
+	@ManyToOne(() => Structure, (structure) => structure.bills)
+	structure!: Structure;
 }
