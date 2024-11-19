@@ -2,6 +2,7 @@ import { Router } from "express";
 import { UserController } from "../controllers/user.controller";
 import multer from "multer";
 import { storage } from "../cloudinaryConfig";
+import loginLimiter from "../middlewares/loginLimiter";
 
 const router = Router();
 const upload = multer({ storage });
@@ -141,7 +142,8 @@ router.post("/auth/register", (req, res) =>
  *             schema:
  *               $ref: '#../entity/user'
  */
-router.post("/auth/login", (req, res) => userController.loginUser(req, res));
+router.post("/auth/login", loginLimiter, (req, res) => userController.loginUser(req, res)
+);
 
 /**
  * @swagger

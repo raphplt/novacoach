@@ -10,11 +10,11 @@ import React from "react";
 
 export default async function Dashboard() {
 	return (
-		<main className="min-h-screen">
-			<h1 className="pt-20 text-4xl font-extrabold text-gray-900  text-center">
+		<main className="min-h-screen pb-12">
+			<h1 className="pt-20 text-3xl font-extrabold text-gray-900 text-center">
 				Mon tableau de bord
 			</h1>
-			<div className="flex items-center justify-between flex-wrap w-11/12 py-12 mx-auto gap-5">
+			<div className="flex items-center justify-center lg:justify-start flex-wrap w-11/12 py-12 mx-auto gap-5">
 				<DashboardStructure />
 				<DashboardInvitation />
 				<DashboardNutritionProgram />
@@ -22,7 +22,7 @@ export default async function Dashboard() {
 				<Students />
 				<Bill />
 			</div>
-			<div className="flex flex-row items-between justify-center w-11/12 mx-auto gap-5">
+			<div className="flex flex-col lg:flex-row items-between justify-center w-11/12 mx-auto gap-5">
 				<StudentsCards />
 				<BillsCards />
 			</div>

@@ -84,3 +84,21 @@ export const getAllStructures = cache(async () => {
 	}
 });
 
+export const getAllCoach = cache(async () => {
+	const session = await verifySession();
+	if (!session.isAuth) {
+		return null;
+	}
+
+	try {
+		const response = await fetch(
+			`${baseUrl}/coaches`,
+		);
+		const user = await response.json();
+		return user;
+	} catch (error) {
+		console.log("Failed to fetch coaches data");
+		return null;
+	}
+});
+

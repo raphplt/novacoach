@@ -29,7 +29,7 @@ const ActionsNutritionPrograms = ({ data }: { data: any }) => {
 				</button>
 
 				<button
-					className="bg-green text-white px-4 py-2 rounded transition duration-200 hover:bg-greenDark"
+					className="bg-greenPrimary text-white px-4 py-2 rounded transition duration-200 hover:bg-greenDark"
 					onClick={() =>
 						router.push(
 							`/coach/dashboard/NutritionProgram/addMeals/${data.id}`,

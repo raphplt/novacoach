@@ -5,5 +5,5 @@ export type CoachType = {
 	id: number;
 	description?: string;
 	structure?: StructureData;
-	userId?: UserType;
+	user?: UserType;
 };

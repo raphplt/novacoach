@@ -29,6 +29,28 @@ export class BillService {
 		});
 	}
 
+	async getBillsByUser(id: string): Promise<Bill[]> {
+		const parsedId = parseInt(id, 10);
+		return this.billRepository.find({
+			where: {
+				user: { id: parsedId },
+			},
+			relations: ["user", "structure"],
+		});
+	}
+
+	async payBill(id: string): Promise<Bill | null> {
+		const parsedId = parseInt(id, 10);
+		const billToPay = await this.billRepository.findOneBy({
+			idBill: parsedId,
+		});
+		if (billToPay) {
+			billToPay.status = "Paid";
+			return this.billRepository.save(billToPay);
+		}
+		return null;
+	}
+
 	async createBill(
 		bill: Partial<Bill>,
 		idStructure: string,

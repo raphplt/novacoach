@@ -10,7 +10,7 @@ const Footer = () => {
 		return null;
 
 	return (
-		<footer className="bg-gray-800 text-white py-8">
+		<footer className="bg-gray-800 text-white py-8 sm:px-0 px-3">
 			<div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
 				<div>
 					<h3 className="text-lg font-bold mb-4">Entreprise</h3>

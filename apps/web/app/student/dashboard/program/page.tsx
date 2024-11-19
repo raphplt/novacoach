@@ -27,17 +27,31 @@ const Program = () => {
 	if (!userProgram) {
 		return (
 			<main className="h-screen ">
-				<h1 className="text-3xl font-bold text-center mb-4 mx-2 pt-12">
+				<h1 className="text-3xl font-bold text-center mb-4 mx-2 pt-20">
 					Mon programme
 				</h1>
 				<p className="text-center">Aucun programme trouvé</p>
 			</main>
 		);
 	}
+
+	const { sportProgram } = userProgram;
+
+	if (!sportProgram) {
+		return (
+			<main className="h-screen ">
+				<h1 className="text-3xl font-bold text-center mb-4 mx-2 pt-20">
+					Mon programme
+				</h1>
+				<p className="text-center">Aucun programme trouvé</p>
+			</main>
+		);
+	}
+
 	return (
 		<main className="h-screen ">
 			<h1 className="text-3xl font-bold text-center mb-4 mx-2 pt-16">
-				Mon programme : {userProgram.sportProgram.name}
+				Mon programme : {sportProgram.name}
 			</h1>
 			<div className="w-3/4 mx-auto bg-gray-200 rounded-xl p-4">
 				<p>
@@ -50,14 +64,14 @@ const Program = () => {
 				</p>
 				<p>
 					<strong>Difficulté : </strong>
-					{userProgram.sportProgram.difficulty}
+					{sportProgram.difficulty}
 				</p>
 				<div>
 					<h3 className="text-2xl font-bold text-center mb-4 mx-2 pt-5">
 						Exercices :{" "}
 					</h3>
 
-					{userProgram.sportProgram.sportProgramHasExercices.map(
+					{sportProgram.sportProgramHasExercices.map(
 						(exerciseWrapper) => (
 							<div
 								key={exerciseWrapper.id}

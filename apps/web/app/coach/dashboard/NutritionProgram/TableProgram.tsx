@@ -3,7 +3,7 @@ import ActionsNutritionPrograms from "@components/Common/Buttons/ActionsNutritio
 import DataTable from "@components/Common/Table/DataTable";
 import useFetchData from "@hooks/useFetchData";
 import { useAuth } from "contexts/AuthProvider";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NutritionProgramType } from "type/nutritionProgram";
 
 const TablePrograms = () => {

@@ -1,39 +1,47 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
-import useFetchData from "@hooks/useFetchData";
-import { Icon } from "@iconify/react/dist/iconify.js";
-import { Spinner } from "@nextui-org/react";
+import BillItem from "@app/coach/dashboard/Bills/_components/BillItem";
+import axios from "axios";
+import { Button, Spinner } from "@nextui-org/react";
 import { useAuth } from "contexts/AuthProvider";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { BillType } from "type/billType";
 
+const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+
 const BillsCards = () => {
 	const { coachRoleData } = useAuth();
-	const router = useRouter();
+
+	const [bills, setBills] = useState<BillType[]>([]);
+	const [isLoading, setIsLoading] = useState<boolean>(false);
+
+	useEffect(() => {
+		const fetchBills = async () => {
+			if (coachRoleData?.structure?.id) {
+				setIsLoading(true);
+				try {
+					const response = await axios.get(
+						`${baseUrl}/bills/structure/${coachRoleData.structure.id}`,
+					);
+					setBills(response.data);
+				} catch (error) {
+					console.error("Error fetching bills:", error);
+				} finally {
+					setIsLoading(false);
+				}
+			}
+		};
+
+		fetchBills();
+	}, [coachRoleData]);
 
 	if (!coachRoleData || !coachRoleData?.structure?.id) {
 		return null;
 	}
 
-	const [bills, setBills] = useState<BillType[]>([]);
-
-	const { data: billsData, isLoading } = useFetchData({
-		url: `/bills/structure/${coachRoleData?.structure?.id}`,
-		enabled: !!coachRoleData?.structure?.id,
-	});
-
-	useEffect(() => {
-		if (billsData) {
-			setBills(billsData.data as any);
-		}
-	}, [billsData]);
-
 	return (
 		<div className="flex-1 mx-auto py-10 px-5 border rounded-lg bg-slate-50 drop-shadow-sm">
 			<h2 className="text-2xl font-extrabold text-gray-900 text-center mb-4">
-				Mes factures ({bills?.length})
+				Mes factures ({bills?.length ?? 0})
 			</h2>
 
 			{isLoading && (
@@ -43,7 +51,28 @@ const BillsCards = () => {
 				</div>
 			)}
 
-			<div className="flex flex-row flex-wrap gap-5 items-start justify-start"></div>
+			<div className="flex flex-row flex-wrap items-start justify-start">
+				<>
+					{bills &&
+						bills.slice(0, 3).map((bill: BillType) => (
+							<BillItem
+								bill={bill}
+								key={bill.idBill}
+							/>
+						))}
+
+					{bills.length > 3 && (
+						<Button
+							color="primary"
+							className="text-white"
+							as={"a"}
+							href={"/coach/dashboard/Bills"}
+						>
+							<p className="text-sm font-bold">Voir plus</p>
+						</Button>
+					)}
+				</>
+			</div>
 		</div>
 	);
 };

@@ -74,6 +74,55 @@ router.get("/bills/structure/:id", (req, res) =>
 	billController.getBillsByStructure(req, res),
 );
 
+/**
+ * @swagger
+ * /api/bills/user/{id}:
+ *   get:
+ *     tags: [Bills]
+ *     summary: Retrieve a single bill by user id
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The id of the user to retrieve the bill
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: The bill
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Bill'
+ *       404:
+ *         description: Bill not found
+ */
+router.get("/bills/user/:id", (req, res) => billController.getBillsByUser(req, res));
+
+/**
+ * @swagger
+ * /api/bills/pay/{id}:
+ *   put:
+ *     tags: [Bills]
+ *     summary: Pay a bill
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The id of the bill to pay
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: The paid bill
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Bill'
+ *       404:
+ *         description: Bill not found
+ */
+router.put("/bills/pay/:id", (req, res) => billController.payBill(req, res));
 
 /**
  * @swagger

@@ -5,9 +5,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { UserType } from "type/user";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { useRouter } from "next/navigation";
 
 export default function MyCoach() {
 	const { user } = useAuth();
+	const router = useRouter();
 	const [coach, setCoach] = useState<UserType>();
 	const [isLoading, setIsLoading] = useState(true);
 	const [isError, setIsError] = useState(false);
@@ -58,7 +60,9 @@ export default function MyCoach() {
 	}
 
 	return (
-		<PanelBox>
+		<PanelBox
+		onPress={() => router.push("/student/dashboard/coach")}
+		>
 			<Icon
 				icon="mdi:teacher"
 				width={24}

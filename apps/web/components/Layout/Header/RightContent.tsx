@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { deleteSession } from "@lib/session";
@@ -14,13 +13,12 @@ import {
 import { useAuth } from "contexts/AuthProvider";
 
 export default function RightContent({ isAuth }: { isAuth: boolean }) {
-	const { user, setUser, setIsAuth } = useAuth();
+	const { user } = useAuth();
 
 	const handleLogout = async () => {
 		deleteSession();
-		setUser(null);
-		setIsAuth(false);
 	};
+
 	return (
 		<div className="flex items-center gap-4">
 			{isAuth && user ? (
@@ -29,8 +27,8 @@ export default function RightContent({ isAuth }: { isAuth: boolean }) {
 						as={Link}
 						href="/messagerie"
 						color="primary"
-						variant="ghost"
-						className="font-semibold"
+						variant="bordered"
+						className="font-semibold bg-white hover:bg-primary hover:text-white"
 					>
 						Messagerie
 					</Button>
@@ -40,7 +38,7 @@ export default function RightContent({ isAuth }: { isAuth: boolean }) {
 								<Button
 									color="primary"
 									variant="ghost"
-									className="font-semibold hover:text-white"
+									className="font-semibold bg-white hover:bg-primary hover:text-white"
 								>
 									Mes programmes
 								</Button>
@@ -70,7 +68,7 @@ export default function RightContent({ isAuth }: { isAuth: boolean }) {
 								: "/coach/dashboard"
 						}
 						variant="ghost"
-						className="font-semibold hover:text-white"
+						className="font-semibold bg-white hover:bg-primary hover:text-white"
 					>
 						Mon tableau de bord
 					</Button>

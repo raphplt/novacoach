@@ -2,8 +2,8 @@
 import React, { useState } from "react";
 import { useBills } from "contexts/BillsProvider";
 import { BillType } from "type/billType";
-import { Button } from "@nextui-org/react";
 import BillItem from "./BillItem";
+import { Button } from "@nextui-org/react";
 
 const BillsList = () => {
 	const { bills } = useBills();

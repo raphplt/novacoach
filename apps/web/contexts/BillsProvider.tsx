@@ -32,14 +32,11 @@ export const BillsProvider = ({ children }: { children: ReactNode }) => {
 
 	useEffect(() => {
 		if (data) {
-			console.log("data", data);
 			setBills(data.data as any);
 		} else if (error) {
 			console.error("Failed to fetch bills:", error);
 		}
 	}, [data, error]);
-
-	console.log("bills", bills);
 
 	return (
 		<BillContext.Provider value={{ bills, setBills }}>

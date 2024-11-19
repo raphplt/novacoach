@@ -5,16 +5,18 @@ import UserDetails from "./(dashboardItems)/UserDetails";
 import Graphics from "./(dashboardItems)/Graphics";
 import MyProgram from "./(dashboardItems)/MyProgram";
 import Structure from "./(dashboardItems)/Structure";
+import Bills from "./(dashboardItems)/Bills";
 
 export default function DashboardStudent() {
 	return (
 		<>
-			<div className="flex items-center justify-center flex-wrap w-10/12 py-12 mx-auto gap-9">
+			<div className="flex items-center justify-start flex-wrap w-10/12 py-12 mx-auto gap-9">
 				<MyCoach />
 				<Invitations />
 				<UserDetails />
 				<MyProgram />
 				<Graphics />
+				<Bills />
 				<Structure />
 			</div>
 			<DataGraph />

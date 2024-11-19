@@ -32,7 +32,9 @@ export const registerSchema = z.object({
 		.regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, {
 			message: "L'email doit être au format correct",
 		}),
-	password: z.string().min(6, {
-		message: "Le mot de passe doit contenir au moins 8 caractères",
-	}),
+		password: z.string()
+		.min(8, { message: "Le mot de passe doit contenir au moins 8 caractères" })
+		.regex(/[A-Z]/, { message: "Le mot de passe doit contenir au moins une majuscule" })
+		.regex(/[0-9]/, { message: "Le mot de passe doit contenir au moins un chiffre" })
+		.regex(/[^a-zA-Z0-9]/, { message: "Le mot de passe doit contenir au moins un caractère spécial" })
 });

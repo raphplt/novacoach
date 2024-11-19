@@ -1,6 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
-import useFetchData from "@hooks/useFetchData";
+import axios from "axios";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { Avatar, Button, Spinner } from "@nextui-org/react";
 import { useAuth } from "contexts/AuthProvider";
@@ -9,35 +8,43 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { UserType } from "type/user";
 
+const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+
 const StudentsCards = () => {
 	const { user } = useAuth();
 	const router = useRouter();
+
+	const [students, setStudents] = useState<UserType[]>([]);
+	const [isLoading, setIsLoading] = useState<boolean>(false);
+
+	useEffect(() => {
+		const fetchStudents = async () => {
+			if (user && user.coachRole?.id) {
+				setIsLoading(true);
+				try {
+					const response = await axios.get(
+						`${baseUrl}/user/studentsByCoachId/${user.coachRole.id}`,
+					);
+					setStudents(response.data);
+				} catch (error) {
+					console.error("Error fetching students:", error);
+				} finally {
+					setIsLoading(false);
+				}
+			}
+		};
+
+		fetchStudents();
+	}, [user]);
 
 	if (!user || !user.coachRole?.id) {
 		return null;
 	}
 
-	const [students, setStudents] = useState<UserType[]>([]);
-
-	const { data: studentsData, isLoading } = useFetchData({
-		url: `/user/studentsByCoachId/${user.coachRole?.id}`,
-		enabled: !!user.coachRole?.id,
-	});
-
-	useEffect(() => {
-		if (studentsData) {
-			setStudents(studentsData.data as any);
-		}
-	}, [studentsData]);
-
-	if (!user || !user.coachRole) {
-		return null;
-	}
-
 	return (
-		<div className="flex-1 mx-auto py-10 px-5 border rounded-lg bg-slate-50 drop-shadow-sm">
+		<div className="sm:flex-1 mx-auto py-10 sm:px-5 border rounded-lg bg-slate-50 drop-shadow-sm">
 			<h2 className="text-2xl font-extrabold text-gray-900 text-center mb-4">
-				Mes élèves ({students.length})
+				Mes élèves ({students?.length ?? 0})
 			</h2>
 
 			{isLoading && (
@@ -48,8 +55,8 @@ const StudentsCards = () => {
 			)}
 
 			<div className="flex flex-row flex-wrap gap-5 items-start justify-start">
-				{students ? (
-					students.map((student) => {
+				{students && students.length > 0 ? (
+					students.slice(0, 3).map((student) => {
 						return (
 							<button
 								onClick={() => {
@@ -114,7 +121,7 @@ const StudentsCards = () => {
 									<Button
 										color="danger"
 										as={Link}
-										href={`/coach/dashboard/students/facture/${student.id}`}
+										href={`/coach/dashboard/Bills`}
 									>
 										Ajouter une facture
 									</Button>
@@ -126,7 +133,7 @@ const StudentsCards = () => {
 					<div>
 						<h2>Vous n'avez pas encore d'élèves</h2>
 						<Link href="/coach/dashboard/invitation">
-							<a>Inviter un élève</a>
+							Inviter un élève
 						</Link>
 					</div>
 				)}

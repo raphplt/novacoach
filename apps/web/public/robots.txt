@@ -1,0 +1,11 @@
+# Bloque l'accès aux répertoires sensibles
+User-agent: *
+Disallow: /admin/
+Disallow: /auth/
+
+# Autorise tout le reste du site à être exploré
+User-agent: *
+Allow: /
+
+# Spécifie l'emplacement du sitemap
+Sitemap: https://novacoach-web.vercel.app/sitemap.xml
