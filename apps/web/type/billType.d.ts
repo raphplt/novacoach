@@ -2,7 +2,7 @@ import { StructureType } from "./structure";
 import { UserType } from "./user";
 
 export type BillType = {
-	id: number;
+	idBill: number;
 	amount: number;
 	dateIssued: Date;
 	dateDue: Date;
