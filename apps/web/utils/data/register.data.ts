@@ -14,4 +14,5 @@ export const initialUser: UserType = {
 	},
 	createDate: "",
 	updateDate: "",
+	profileImageUrl: "",
 };
