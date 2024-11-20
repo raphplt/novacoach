@@ -21,7 +21,6 @@ const Page = () => {
 
 	const { programme, error, loading } = useFetchProgram(id);
 
-	console.log("Programme", programme);
 
 	const methods = useForm({
 		resolver: zodResolver(sportProgramSchema),
@@ -34,11 +33,9 @@ const Page = () => {
 		register,
 		reset,
 	} = methods;
-	console.log("Error", error);
 
 	const handleUpdate: SubmitHandler<FieldValues> = async (data) => {
 		try {
-			console.log("data", data);
 			const validateFields = sportProgramSchema.safeParse(data);
 			const isValid = handleValidationErrors(validateFields, methods);
 			if (!isValid) throw new Error("Invalid form data");

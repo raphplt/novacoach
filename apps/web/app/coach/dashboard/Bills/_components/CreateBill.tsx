@@ -64,10 +64,8 @@ const CreateBill = () => {
 
 	const handleCreate: SubmitHandler<FieldValues> = async (data) => {
 		try {
-			console.log(data);
 
 			const response = await axios.post(urlBase + "/bills", data);
-			console.log(response);
 
 			if (response.status === 201) {
 				toast.success("Facture créée avec succès");

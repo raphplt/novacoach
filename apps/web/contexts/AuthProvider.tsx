@@ -79,9 +79,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		const fetchUserDetail = async () => {
 			try {
 				if (!user) return;
-
-				console.log("user", user);
-
 				const response = await axios.get(
 					`${url}/userdetails/user/${user.id}`,
 				);
@@ -97,7 +94,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	useEffect(() => {
 		const fetchCoachRole = async () => {
 			try {
-				console.log("user", user, user?.id, user?.role.name);
 				if (!user || !user.id || user.role.name !== "coach") {
 					setLoadingCoachData(false);
 					return;
@@ -110,7 +106,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 				if (!response.data) {
 					console.error("No coach role found");
 				} else {
-					console.log("coach role data", response.data);
 					setCoachRoleData(response.data);
 				}
 			} catch (error) {
@@ -139,9 +134,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		(coachRole: CoachRoleType | null) => setCoachRoleData(coachRole),
 		[],
 	);
-
-    console.log("////////////// user auth", user);
-	console.log("////////////// coachRoleData auth", coachRoleData);
 
     const contextValue = useMemo(
 		() => ({

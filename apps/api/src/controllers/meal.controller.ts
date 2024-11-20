@@ -53,7 +53,6 @@ export class MealController {
 	async getMealByStructureId(req: Request, res: Response): Promise<void> {
 		try {
 			const { structureId } = req.params;
-			console.log("structureId", structureId);
 			const meal = await this.mealService.getMealByStructureId(structureId);
 			if (meal) {
 				res.status(200).json(meal);

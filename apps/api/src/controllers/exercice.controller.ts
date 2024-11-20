@@ -58,7 +58,6 @@ export class ExerciceController {
     async createExercice(req: Request, res: Response): Promise<void> {
 		try {
 			const { idStructure, ...rest } = req.body;
-			console.log("idStructure", idStructure, "rest", rest);
 
 			const exercice = await this.exerciceService.createExercice({
 				...rest,

@@ -36,8 +36,6 @@ const BillsCards = () => {
 		}
 	}, [coachRoleData, loadingCoachData]);
 
-	console.log("coachRoleData", coachRoleData);
-
 	if (loadingCoachData || !coachRoleData || !coachRoleData?.structure?.id) {
 		return <p>Chargement...</p>;
 	}

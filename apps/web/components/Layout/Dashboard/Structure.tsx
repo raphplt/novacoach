@@ -10,17 +10,9 @@ export default function DashboardStructure() {
 
 	const structure = coachRoleData?.structure;
 
-	console.log(
-		"coachRoleData",
-		coachRoleData,
-		"loadingCoachData",
-		loadingCoachData,
-		"structure",
-		structure,
-	);
-	// if (loadingCoachData) {
-	// 	return <PanelBox>Chargement...</PanelBox>;
-	// }
+	if (loadingCoachData) {
+		return <p>Chargement...</p>;
+	}
 
 	return (
 		<PanelBox

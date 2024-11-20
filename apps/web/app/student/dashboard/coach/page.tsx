@@ -47,8 +47,6 @@ export default function ListCoaches() {
 		}
 	};
 
-    console.log("list coaches", tCoaches);
-
 	return (
 		<main className="min-h-screen py-4">
 			<Button

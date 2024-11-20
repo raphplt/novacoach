@@ -240,7 +240,6 @@ export class UserService {
 					where: { id: user.structure?.id },
 				});
 
-				console.log("structure", structure);
 				if (structure) {
 					userToUpdate.structure = structure;
 				} else {

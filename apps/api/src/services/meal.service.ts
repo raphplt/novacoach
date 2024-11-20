@@ -22,9 +22,7 @@ export class MealServices {
 	async getMealsByNutritionProgramId(
 		nutritionProgramId: string,
 	): Promise<Meal[]> {
-		console.log("nutritionProgramId", nutritionProgramId);
 		const parseId = parseInt(nutritionProgramId, 10);
-		console.log("parseId", parseId);
 		const nutritionProgramMeals =
 			await this.nutritionProgramMealRepository.find({
 				where: { nutritionProgram: { id: parseId } },
@@ -39,7 +37,6 @@ export class MealServices {
 	async getMealByStructureId(structureId: string): Promise<Meal[]> {
 		try {
 			const parseId = parseInt(structureId, 10);
-			console.log("parseId", parseId);
 			const meal = await this.mealRepository.find({
 				where: { structure: { id: parseId } },
 			});
