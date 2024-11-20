@@ -1,60 +1,38 @@
 import { Request, Response } from "express";
-import { AppDataSource } from "../../ormconfig";
-import { UserTrackProgram } from "../entity/userTrackProgram";
+import { UserTrackProgramService } from "../services/userTrackProgram.service";
 
 export class UserTrackProgramController {
-	private userTrackProgramRepository = AppDataSource.getRepository(UserTrackProgram);
+	private userTrackProgramService = new UserTrackProgramService();
 
-	// Créer un UserTrackProgram
 	async createUserTrackProgram(req: Request, res: Response): Promise<void> {
 		try {
-			const {
-				userSportProgramId,
-				coachId,
-				startDate,
-				endDate,
-				iteration,
-				levelDifficulty,
-				commentaire,
-			} = req.body;
-
-			const newUserTrackProgram = this.userTrackProgramRepository.create({
-				userSportProgram: { id: userSportProgramId },
-				coach: { id: coachId },
-				startDate,
-				endDate,
-				iteration,
-				levelDifficulty,
-				commentaire,
-			});
-
-			const savedUserTrackProgram = await this.userTrackProgramRepository.save(newUserTrackProgram);
-			res.status(201).json(savedUserTrackProgram);
+			const newUserTrackProgram =
+				await this.userTrackProgramService.createUserTrackProgram(
+					req.body,
+				);
+			res.status(201).json(newUserTrackProgram);
 		} catch (error: any) {
 			res.status(500).json({ error: error.message });
 		}
 	}
 
-	// Récupérer tous les UserTrackPrograms
 	async getAllUserTrackPrograms(req: Request, res: Response): Promise<void> {
 		try {
-			const userTrackPrograms = await this.userTrackProgramRepository.find({
-				relations: ["userSportProgram", "sportProgram", "coach"],
-			});
+			const userTrackPrograms =
+				await this.userTrackProgramService.getAllUserTrackPrograms();
 			res.status(200).json(userTrackPrograms);
 		} catch (error: any) {
 			res.status(500).json({ error: error.message });
 		}
 	}
 
-	// Récupérer un UserTrackProgram par ID
 	async getUserTrackProgramById(req: Request, res: Response): Promise<void> {
 		try {
 			const { id } = req.params;
-			const userTrackProgram = await this.userTrackProgramRepository.findOne({
-				where: { id: parseInt(id, 10) },
-				relations: ["userSportProgram", "sportProgram", "coach"],
-			});
+			const userTrackProgram =
+				await this.userTrackProgramService.getUserTrackProgramById(
+					parseInt(id, 10),
+				);
 			if (userTrackProgram) {
 				res.status(200).json(userTrackProgram);
 			} else {
@@ -65,16 +43,15 @@ export class UserTrackProgramController {
 		}
 	}
 
-	// Mettre à jour un UserTrackProgram
 	async updateUserTrackProgram(req: Request, res: Response): Promise<void> {
 		try {
 			const { id } = req.params;
-			const { startDate, endDate, iteration, levelDifficulty, commentaire } = req.body;
-
-			const userTrackProgram = await this.userTrackProgramRepository.findOneBy({ id: parseInt(id, 10) });
-			if (userTrackProgram) {
-				Object.assign(userTrackProgram, { startDate, endDate, iteration, levelDifficulty, commentaire });
-				const updatedUserTrackProgram = await this.userTrackProgramRepository.save(userTrackProgram);
+			const updatedUserTrackProgram =
+				await this.userTrackProgramService.updateUserTrackProgram(
+					parseInt(id, 10),
+					req.body,
+				);
+			if (updatedUserTrackProgram) {
 				res.status(200).json(updatedUserTrackProgram);
 			} else {
 				res.status(404).json({ message: "UserTrackProgram not found" });
@@ -84,17 +61,34 @@ export class UserTrackProgramController {
 		}
 	}
 
-	// Supprimer un UserTrackProgram
 	async deleteUserTrackProgram(req: Request, res: Response): Promise<void> {
 		try {
 			const { id } = req.params;
-			const userTrackProgram = await this.userTrackProgramRepository.findOneBy({ id: parseInt(id, 10) });
-			if (userTrackProgram) {
-				await this.userTrackProgramRepository.remove(userTrackProgram);
+			const isDeleted =
+				await this.userTrackProgramService.deleteUserTrackProgram(
+					parseInt(id, 10),
+				);
+			if (isDeleted) {
 				res.status(204).end();
 			} else {
 				res.status(404).json({ message: "UserTrackProgram not found" });
 			}
+		} catch (error: any) {
+			res.status(500).json({ error: error.message });
+		}
+	}
+
+	async getUserTrackProgramsLast7Days(
+		req: Request,
+		res: Response,
+	): Promise<void> {
+		try {
+			const { userId } = req.params;
+			const userTrackPrograms =
+				await this.userTrackProgramService.getUserTrackProgramsLast7Days(
+					parseInt(userId, 10),
+				);
+			res.status(200).json(userTrackPrograms);
 		} catch (error: any) {
 			res.status(500).json({ error: error.message });
 		}

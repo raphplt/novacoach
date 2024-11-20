@@ -6,6 +6,7 @@ import Graphics from "./(dashboardItems)/Graphics";
 import MyProgram from "./(dashboardItems)/MyProgram";
 import Structure from "./(dashboardItems)/Structure";
 import Bills from "./(dashboardItems)/Bills";
+import TrackProgram from "./(dashboardItems)/TrackProgram";
 
 export default function DashboardStudent() {
 	return (
@@ -15,6 +16,7 @@ export default function DashboardStudent() {
 				<Invitations />
 				<UserDetails />
 				<MyProgram />
+				<TrackProgram />
 				<Graphics />
 				<Bills />
 				<Structure />

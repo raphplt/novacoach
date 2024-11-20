@@ -19,6 +19,7 @@ import userDetailsRoutes from "./userDetails.routes";
 import InvitationRoutes from "./invitation.routes";
 import ConversationRoutes from "./conversation.routes";
 import MessageRoutes from "./message.routes";
+import UserTrackProgramRoutes from "./userTrackProgram.routes";
 
 const router = Router();
 
@@ -44,6 +45,7 @@ router.use(baseRoute, nutritionProgramMealRoutes);
 router.use(baseRoute, InvitationRoutes);
 router.use(baseRoute, ConversationRoutes);
 router.use(baseRoute, MessageRoutes);
+router.use(baseRoute, UserTrackProgramRoutes);
 
 
 export default router;

@@ -6,7 +6,7 @@ const userTrackProgramController = new UserTrackProgramController();
 
 /**
  * @swagger
- * /user-track-programs:
+ * /userTrackPrograms:
  *   get:
  *     tags: [UserTrackPrograms]
  *     summary: Retrieve a list of user track programs
@@ -20,11 +20,13 @@ const userTrackProgramController = new UserTrackProgramController();
  *               items:
  *                 $ref: '#/components/schemas/UserTrackProgram'
  */
-router.get('/user-track-programs', (req, res) => userTrackProgramController.getAllUserTrackPrograms(req, res));
+router.get("/userTrackPrograms", (req, res) =>
+	userTrackProgramController.getAllUserTrackPrograms(req, res),
+);
 
 /**
  * @swagger
- * /user-track-programs:
+ * /userTrackPrograms:
  *   post:
  *     tags: [UserTrackPrograms]
  *     summary: Create a new user track program
@@ -42,11 +44,13 @@ router.get('/user-track-programs', (req, res) => userTrackProgramController.getA
  *             schema:
  *               $ref: '#/components/schemas/UserTrackProgram'
  */
-router.post('/user-track-programs', (req, res) => userTrackProgramController.createUserTrackProgram(req, res));
+router.post("/userTrackPrograms", (req, res) =>
+	userTrackProgramController.createUserTrackProgram(req, res),
+);
 
 /**
  * @swagger
- * /user-track-programs/{id}:
+ * /userTrackPrograms/{id}:
  *   get:
  *     tags: [UserTrackPrograms]
  *     summary: Retrieve a single user track program by ID
@@ -67,11 +71,13 @@ router.post('/user-track-programs', (req, res) => userTrackProgramController.cre
  *       404:
  *         description: User track program not found
  */
-router.get('/user-track-programs/:id', (req, res) => userTrackProgramController.getUserTrackProgramById(req, res));
+router.get("/userTrackPrograms/:id", (req, res) =>
+	userTrackProgramController.getUserTrackProgramById(req, res),
+);
 
 /**
  * @swagger
- * /user-track-programs/{id}:
+ * /userTrackPrograms/{id}:
  *   put:
  *     tags: [UserTrackPrograms]
  *     summary: Update a user track program
@@ -98,11 +104,13 @@ router.get('/user-track-programs/:id', (req, res) => userTrackProgramController.
  *       404:
  *         description: User track program not found
  */
-router.put('/user-track-programs/:id', (req, res) => userTrackProgramController.updateUserTrackProgram(req, res));
+router.put("/userTrackPrograms/:id", (req, res) =>
+	userTrackProgramController.updateUserTrackProgram(req, res),
+);
 
 /**
  * @swagger
- * /user-track-programs/{id}:
+ * /userTrackPrograms/{id}:
  *   delete:
  *     tags: [UserTrackPrograms]
  *     summary: Delete a user track program
@@ -119,6 +127,35 @@ router.put('/user-track-programs/:id', (req, res) => userTrackProgramController.
  *       404:
  *         description: User track program not found
  */
-router.delete('/user-track-programs/:id', (req, res) => userTrackProgramController.deleteUserTrackProgram(req, res));
+router.delete("/userTrackPrograms/:id", (req, res) =>
+	userTrackProgramController.deleteUserTrackProgram(req, res),
+);
+
+/**
+ * @swagger
+ * /userTrackPrograms/last7Days/{userId}:
+ *   get:
+ *     tags: [UserTrackPrograms]
+ *     summary: Retrieve a list of user track programs for the last 7 days
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         description: The ID of the user to retrieve the track programs for
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: A list of user track programs
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/UserTrackProgram'
+ */
+router.get("/userTrackPrograms/last7Days/:userId", (req, res) =>
+	userTrackProgramController.getUserTrackProgramsLast7Days(req, res),
+);
 
 export default router;

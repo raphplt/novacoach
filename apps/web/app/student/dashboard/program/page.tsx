@@ -3,6 +3,7 @@ import axios from "axios";
 import { useAuth } from "contexts/AuthProvider";
 import React, { useEffect, useState } from "react";
 import { UserSportProgramType } from "type/userSportProgram";
+import LastDays from "./LastDays";
 
 const url = process.env.NEXT_PUBLIC_API_URL;
 
@@ -105,6 +106,7 @@ const Program = () => {
 					)}
 				</div>
 			</div>
+			<LastDays />
 		</main>
 	);
 };

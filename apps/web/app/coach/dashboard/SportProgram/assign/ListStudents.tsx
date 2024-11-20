@@ -59,16 +59,16 @@ const ListStudents = ({ program }: { program: SportProgramType | null }) => {
 			</h1>
 
 			{studentsData && studentsData && (
-				<ul className="rounded-xl px-5 py-3 bg-white flex flex-row items-center justify-start">
+				<ul className="rounded-xl px-5 py-3  flex flex-col gap-2  items-center justify-start">
 					{studentsData.data.map((student: any) => (
 						<li
 							key={student.id}
-							className="flex flex-row justify-between items-center w-full"
+							className="flex flex-row justify-between items-center w-full bg-white my- rounded-xl p-2"
 						>
 							<div className="flex items-center gap-2">
 								<Icon
 									icon="solar:user-bold"
-									className="text-green-500"
+									className="text-black"
 								/>
 								{student.firstName} {student.lastName}
 							</div>
