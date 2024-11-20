@@ -25,47 +25,50 @@ describe('Bill API', () => {
     }
   });
 
-  it('should create a new bill and return 201', async () => {
-    const newBill = {
-      amount: 1000,
-      dateIssued: "2023-11-07",
-      dateDue: "2023-12-31",
-      status: "unpaid",
-      userDetails: {
-        id: 2
-      }
-    };
+it("should create a new bill and return 201", async () => {
+	const newBill = {
+		amount: 1000,
+		dateIssued: "2023-11-07",
+		dateDue: "2023-12-31",
+		status: "unpaid",
+		structureId: "2",
+		userId: "2",
+	};
 
-    const response = await request(baseUrl)
-      .post('/api/bills')
-      .send(newBill)
-      .set('Accept', 'application/json');
+	const response = await request(baseUrl)
+		.post("/api/bills")
+		.send(newBill)
+		.set("Accept", "application/json");
 
-    expect(response.statusCode).toBe(201);
-    expect(response.body).toHaveProperty('amount', newBill.amount);
-  });
+	if (response.statusCode === 500) {
+		console.error(response.body);
+	}
 
-  it('should update an existing bill and return 200', async () => {
-    const billId = 1;
-    const updatedData = {
-      amount: 1500,
-      dateIssued: '2023-11-07',
-      dateDue: '2023-12-31',
-      status: 'paid',
-      userDetails: { id: 2 }
-    };
-  
-    const response = await request(baseUrl)
-      .put(`/api/bills/${billId}`)
-      .send(updatedData)
-      .set('Accept', 'application/json');
-  
-    if (response.statusCode === 200) {
-      expect(response.body).toHaveProperty('amount', updatedData.amount);
-    } else {
-      expect(response.statusCode).toBe(404);
-    }
-  });
+	expect(response.statusCode).toBe(201);
+	expect(response.body).toHaveProperty("amount", newBill.amount);
+});
+
+it("should update an existing bill and return 200", async () => {
+	const billId = 1;
+	const updatedData = {
+		amount: 1500,
+		dateIssued: "2023-11-07",
+		dateDue: "2023-12-31",
+		status: "paid",
+		userDetails: { id: 2 },
+	};
+
+	const response = await request(baseUrl)
+		.put(`/api/bills/${billId}`)
+		.send(updatedData)
+		.set("Accept", "application/json");
+
+	if (response.statusCode === 200) {
+		expect(response.body).toHaveProperty("amount", updatedData.amount);
+	} else {
+		expect(response.statusCode).toBe(404);
+	}
+});
 
   it('should delete a bill and return 204', async () => {
     const billId = 1;

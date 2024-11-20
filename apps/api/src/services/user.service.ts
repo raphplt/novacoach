@@ -261,7 +261,6 @@ export class UserService {
 				],
 			});
 
-			console.log('josé update', updatedUser);
 			return updatedUser;
 		}
 		return null;

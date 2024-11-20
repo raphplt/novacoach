@@ -27,7 +27,7 @@ describe('Meal API', () => {
   });
 
   it('should retrieve meals by nutrition program ID and return 200', async () => {
-    const nutritionProgramId = 2; 
+    const nutritionProgramId = 2;
     const response = await request(baseUrl)
       .get(`/api/meal/nutritionProgram/${nutritionProgramId}`)
       .set('Accept', 'application/json');
