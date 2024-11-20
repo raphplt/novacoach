@@ -45,7 +45,7 @@ export const AuthContext = createContext<AuthContextProps>({
 const url = process.env.NEXT_PUBLIC_API_URL;
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-	const [isAuth, setIsAuth] = useState<boolean>(false);
+    const [isAuth, setIsAuth] = useState<boolean>(false);
 	const [user, setUser] = useState<UserType | null>(initialUser);
 	const [userDetails, setUserDetails] = useState<UserDetailsType | null>(
 		null,
@@ -98,29 +98,31 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		const fetchCoachRole = async () => {
 			try {
 				console.log("user", user, user?.id, user?.role.name);
-				if (!user || !user.id || user.role.name !== "coach") return;
+				if (!user || !user.id || user.role.name !== "coach") {
+					setLoadingCoachData(false);
+					return;
+				}
 
 				const response = await axios.get(
 					`${url}/coaches/user/${user.id}`,
 				);
 
 				if (!response.data) {
-					setLoadingCoachData(false);
 					console.error("No coach role found");
-					return;
+				} else {
+					console.log("coach role data", response.data);
+					setCoachRoleData(response.data);
 				}
-
-				console.log("coach role data", response.data);
-				setCoachRoleData(response.data);
-				setLoadingCoachData(false);
 			} catch (error) {
 				console.error("Failed to fetch coach role:", error);
+			} finally {
+				setLoadingCoachData(false);
 			}
 		};
 		fetchCoachRole();
 	}, [user]);
 
-	const setIsAuthCallback = useCallback(
+    const setIsAuthCallback = useCallback(
 		(auth: boolean) => setIsAuth(auth),
 		[],
 	);
@@ -133,15 +135,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		[],
 	);
 
-	const setCoachRoleDataCallback = useCallback(
+    const setCoachRoleDataCallback = useCallback(
 		(coachRole: CoachRoleType | null) => setCoachRoleData(coachRole),
 		[],
 	);
 
-	console.log("////////////// user auth", user);
+    console.log("////////////// user auth", user);
 	console.log("////////////// coachRoleData auth", coachRoleData);
 
-	const contextValue = useMemo(
+    const contextValue = useMemo(
 		() => ({
 			isAuth,
 			setIsAuth: setIsAuthCallback,
@@ -163,10 +165,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 			setUserCallback,
 			setUserDetailsCallback,
 			loading,
+			coachRoleData,
+			loadingCoachData,
 		],
 	);
 
-	return (
+    return (
 		<AuthContext.Provider value={contextValue}>
 			{children}
 		</AuthContext.Provider>

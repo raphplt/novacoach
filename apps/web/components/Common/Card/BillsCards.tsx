@@ -9,7 +9,7 @@ import { BillType } from "type/billType";
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const BillsCards = () => {
-	const { coachRoleData } = useAuth();
+	const { coachRoleData, loadingCoachData } = useAuth();
 
 	const [bills, setBills] = useState<BillType[]>([]);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -31,13 +31,15 @@ const BillsCards = () => {
 			}
 		};
 
-		fetchBills();
-	}, [coachRoleData]);
+		if (!loadingCoachData) {
+			fetchBills();
+		}
+	}, [coachRoleData, loadingCoachData]);
 
 	console.log("coachRoleData", coachRoleData);
 
-	if (!coachRoleData || !coachRoleData?.structure?.id) {
-		return null;
+	if (loadingCoachData || !coachRoleData || !coachRoleData?.structure?.id) {
+		return <p>Chargement...</p>;
 	}
 
 	return (
