@@ -5,6 +5,7 @@ import { structureSchema } from "@utils/schemas/structure.schema";
 import axios from "axios";
 import { useAuth } from "contexts/AuthProvider";
 import { useRegister } from "contexts/RegisterProvider";
+import { cp } from "fs";
 import { UseFormReturn, FieldValues } from "react-hook-form";
 import { RegisterData } from "type/register";
 import { Role } from "type/role";

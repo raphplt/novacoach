@@ -113,7 +113,7 @@ export default function CreateAccount() {
 							label="Mot de passe"
 							isInvalid={!!errors.password}
 						/>
-						
+
 						<div className="mt-2">
 							<p className={`text-sm ${passwordCriteria.length ? "text-green-500" : "text-red-500"}`}>
 								• Au moins 8 caractères
