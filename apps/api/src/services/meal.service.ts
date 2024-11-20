@@ -5,7 +5,8 @@ import { Structure } from "../entity/structure";
 
 export class MealServices {
 	private mealRepository = AppDataSource.getRepository(Meal);
-	private nutritionProgramMealRepository = AppDataSource.getRepository(NutritionProgramMeal);
+	private nutritionProgramMealRepository =
+		AppDataSource.getRepository(NutritionProgramMeal);
 	private structureRepository = AppDataSource.getRepository(Structure);
 	async getAllMeal(): Promise<Meal[]> {
 		return this.mealRepository.find();
@@ -18,17 +19,22 @@ export class MealServices {
 		});
 	}
 
-	async getMealsByNutritionProgramId(nutritionProgramId: string): Promise<Meal[]> {
+	async getMealsByNutritionProgramId(
+		nutritionProgramId: string,
+	): Promise<Meal[]> {
+		console.log("nutritionProgramId", nutritionProgramId);
 		const parseId = parseInt(nutritionProgramId, 10);
-        const nutritionProgramMeals = await this.nutritionProgramMealRepository.find({
-            where: { nutritionProgram: { id: parseId } },
-            relations: ['meal'],
-        });
+		console.log("parseId", parseId);
+		const nutritionProgramMeals =
+			await this.nutritionProgramMealRepository.find({
+				where: { nutritionProgram: { id: parseId } },
+				relations: ["meal"],
+			});
 
-        const meals = nutritionProgramMeals.map(npm => npm.meal);
+		const meals = nutritionProgramMeals.map((npm) => npm.meal);
 
-        return meals;
-    }
+		return meals;
+	}
 
 	async getMealByStructureId(structureId: string): Promise<Meal[]> {
 		try {
@@ -52,20 +58,23 @@ export class MealServices {
 		}
 	}
 
-	
-async createMeal(meal: Partial<Meal> & { idStructure: number }): Promise<Meal> {
-	const structure = await this.structureRepository.findOne({ where: { id: meal.idStructure } });
-	if (!structure) {
-		throw new Error(`Structure with id ${meal.idStructure} not found`);
+	async createMeal(
+		meal: Partial<Meal> & { idStructure: number },
+	): Promise<Meal> {
+		const structure = await this.structureRepository.findOne({
+			where: { id: meal.idStructure },
+		});
+		if (!structure) {
+			throw new Error(`Structure with id ${meal.idStructure} not found`);
+		}
+
+		const newMeal = this.mealRepository.create({
+			...meal,
+			structure: structure,
+		});
+
+		return this.mealRepository.save(newMeal);
 	}
-
-	const newMeal = this.mealRepository.create({
-		...meal,
-		structure: structure, 
-	});
-
-	return this.mealRepository.save(newMeal);
-}
 
 	async updateMeal(id: string, meal: Partial<Meal>): Promise<Meal | null> {
 		const parsedId = parseInt(id, 10);

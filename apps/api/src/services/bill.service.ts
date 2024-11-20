@@ -59,8 +59,6 @@ export class BillService {
 		const parsedIdStructure = parseInt(idStructure, 10);
 		const parsedIdUser = parseInt(idUser, 10);
 
-		console.log(parsedIdStructure, parsedIdUser);
-
 		const user = await this.userRepository.findOneBy({ id: parsedIdUser });
 		const structure = await this.structureRepository.findOneBy({
 			id: parsedIdStructure,

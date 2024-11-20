@@ -60,7 +60,6 @@ const Page = () => {
                 datas,
 			);
 
-			console.log("qui a atalante a part moi", response);
 
 			if (response.status === 201) {
 				console.log("Programme créé avec succès :", response.data);

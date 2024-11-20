@@ -7,6 +7,7 @@ export const seedMeals = async (count: number) => {
 
 	for (let i = 0; i < count; i++) {
 		const meal = mealRepository.create({
+			name: faker.lorem.word(),
 			mealStarter: faker.lorem.word(),
 			mealMainCourse: faker.lorem.word(),
 			mainDessert: faker.lorem.word(),

@@ -28,21 +28,27 @@ export class MealController {
 	}
 
 	async getMealsByNutritionProgramId(req: Request, res: Response) {
-        try {
-			const { structureId } = req.params;
+		try {
+			const { nutritionProgramId } = req.params;
 
-            const meals = await this.mealService.getMealsByNutritionProgramId(structureId);
+			const meals =
+				await this.mealService.getMealsByNutritionProgramId(
+					nutritionProgramId,
+				);
 
-            if (meals.length === 0) {
-                return res.status(404).json({ message: "No meals found for this Nutrition Program" });
-            }
+			if (meals.length === 0) {
+				return res
+					.status(404)
+					.json({
+						message: "No meals found for this Nutrition Program",
+					});
+			}
 
-            return res.json(meals);
-        } catch (error) {
-            console.error(error);
-            return res.status(500).json({ message: "Server error" });
-        }
-    }
+			return res.json(meals);
+		} catch (error) {
+			return res.status(500).json({ message: "Server error" });
+		}
+	}
 
 	async getMealByStructureId(req: Request, res: Response): Promise<void> {
 		try {
