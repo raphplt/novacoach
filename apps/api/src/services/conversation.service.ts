@@ -56,4 +56,29 @@ export class ConversationService {
 		}
 		return this.createConversation([user1, user2]);
 	}
+
+	// Nouvelle méthode pour obtenir la conversation par les IDs des participants
+	async getConversationByParticipants(
+		user1Id: number,
+		user2Id: number,
+	): Promise<Conversation | null> {
+		const conversations = await this.conversationRepository.find({
+			relations: ["participants"],
+			where: [
+				{ participants: { id: user1Id } },
+				{ participants: { id: user2Id } },
+			],
+		});
+		return (
+			conversations.find(
+				(conversation) =>
+					conversation.participants.some(
+						(participant) => participant.id === user1Id,
+					) &&
+					conversation.participants.some(
+						(participant) => participant.id === user2Id,
+					),
+			) || null
+		);
+	}
 }

@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
@@ -83,6 +82,34 @@ const UserTrackProgramForm = () => {
 		fetchUserSportPrograms();
 	}, [user]);
 
+	const sendMessage = async (content: string) => {
+		try {
+			// Récupérer l'ID de la conversation
+			const conversationResponse = await axios.post(
+				`${urlBase}/conversations/byParticipants`,
+				{
+					user1Id: user?.id,
+					user2Id: userSportPrograms?.sportProgram.id,
+				},
+			);
+
+			const conversationId = conversationResponse.data.id;
+
+			console.log("ID de la conversation :", conversationId);
+
+			const response = await axios.post(`${urlBase}/messages`, {
+				content,
+				room: conversationId,
+				senderId: user?.id,
+			});
+			if (response.status === 201) {
+				console.log("Message envoyé avec succès !");
+			}
+		} catch (error) {
+			console.error("Erreur lors de l'envoi du message :", error);
+		}
+	};
+
 	const onSubmit = async (data: any) => {
 		try {
 			const response = await axios.post(`${urlBase}/userTrackPrograms`, {
@@ -93,6 +120,18 @@ const UserTrackProgramForm = () => {
 			if (response.status === 201) {
 				console.log("Séance enregistrée avec succès !");
 				toast.success("Séance enregistrée avec succès !");
+
+				// Envoyer un message après l'enregistrement de la séance
+				await sendMessage(
+					`J'ai enregistré une séance pour le programme sportif ${userSportPrograms?.sportProgram.name}.
+					Voici les détails :
+					- Date de début : ${new Date(data.startDate).toLocaleDateString()}
+					- Date de fin : ${new Date(data.endDate).toLocaleDateString()}
+					- Nombre d'itérations : ${data.iteration}
+					- Niveau de difficulté : ${data.levelDifficulty}
+					- Commentaires : ${data.commentaire}
+					`,
+				);
 
 				reset();
 			}
