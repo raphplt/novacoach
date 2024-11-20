@@ -95,13 +95,20 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	useEffect(() => {
 		const fetchCoachRole = async () => {
 			try {
+				console.log("user", user, user?.id, user?.role.name);
 				if (!user || !user.id || user.role.name !== "coach") return;
 
 				const response = await axios.get(
 					`${url}/coaches/user/${user.id}`,
 				);
-				if (!response.data) return;
 
+				if (!response.data) {
+					setLoadingCoachData(false);
+					console.error("No coach role found");
+					return;
+				}
+
+				console.log("coach role data", response.data);
 				setCoachRoleData(response.data);
 				setLoadingCoachData(false);
 			} catch (error) {
