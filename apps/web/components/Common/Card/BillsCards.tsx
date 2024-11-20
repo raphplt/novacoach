@@ -34,6 +34,8 @@ const BillsCards = () => {
 		fetchBills();
 	}, [coachRoleData]);
 
+	console.log("coachRoleData", coachRoleData);
+
 	if (!coachRoleData || !coachRoleData?.structure?.id) {
 		return null;
 	}

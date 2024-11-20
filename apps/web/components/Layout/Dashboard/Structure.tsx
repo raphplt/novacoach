@@ -18,9 +18,9 @@ export default function DashboardStructure() {
 		"structure",
 		structure,
 	);
-	if (loadingCoachData) {
-		return <PanelBox>Chargement...</PanelBox>;
-	}
+	// if (loadingCoachData) {
+	// 	return <PanelBox>Chargement...</PanelBox>;
+	// }
 
 	return (
 		<PanelBox

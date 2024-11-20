@@ -80,6 +80,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 			try {
 				if (!user) return;
 
+				console.log("user", user);
+
 				const response = await axios.get(
 					`${url}/userdetails/user/${user.id}`,
 				);
@@ -135,6 +137,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		(coachRole: CoachRoleType | null) => setCoachRoleData(coachRole),
 		[],
 	);
+
+	console.log("////////////// user auth", user);
+	console.log("////////////// coachRoleData auth", coachRoleData);
 
 	const contextValue = useMemo(
 		() => ({
