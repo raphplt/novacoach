@@ -5,7 +5,6 @@ import { UserDetailsType } from "./userDetails";
 import { UserSportProgramType } from "./userSportProgram";
 
 export type UserType = {
-	lastMessage: any;
 	id: number;
 	firstName: string;
 	lastName: string;
