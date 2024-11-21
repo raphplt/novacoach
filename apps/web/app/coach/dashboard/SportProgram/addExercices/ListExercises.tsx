@@ -152,7 +152,7 @@ const ListExercises = ({ programId }: { programId: number }) => {
 			</div>
 			<Button
 				as={"a"}
-				href={`/coach/dashboard/Exercices/create`}
+				href={`/coach/dashboard/SportProgram/createExercise`}
 				color="primary"
 				className="text-white mx-auto"
 			>
