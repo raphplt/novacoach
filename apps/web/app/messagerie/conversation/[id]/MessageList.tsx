@@ -53,8 +53,8 @@ export default function MessageList({
 									? "self-end"
 									: "self-start"
 							}
-                                maw-[80%]
-                                `}
+							max-w-[70%] p-1
+							`}
 						>
 							<div className="bg-gray-200 p-2 rounded-md">
 								{message.content}
