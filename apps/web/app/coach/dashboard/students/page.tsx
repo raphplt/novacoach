@@ -86,7 +86,7 @@ const Page = () => {
 	return (
 		<div className="container mx-auto  min-h-screen">
 			<h2 className="text-4xl font-extrabold text-gray-900 mt-14 text-center">
-				Mes élèves
+				Mes élèves ({students.length ?? 0})
 			</h2>
 
 			<div className="mt-10 overflow-x-auto">
@@ -127,7 +127,7 @@ const Page = () => {
 											}
 										>
 											{column.key === "actions" ? (
-												<>
+												<div className="flex flex-row items-center gap-2">
 													<Button
 														color="primary"
 														as={"a"}
@@ -136,7 +136,14 @@ const Page = () => {
 													>
 														Contacter
 													</Button>
-												</>
+													<Button
+														color="success"
+														as={"a"}
+														href={`/coach/dashboard/students/profil/${student.key}`}
+													>
+														Détails
+													</Button>
+												</div>
 											) : (
 												student[column.key]
 											)}

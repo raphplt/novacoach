@@ -63,11 +63,11 @@ const LastDays = () => {
 	};
 
 	return (
-		<div className="mt-4 w-3/4 mx-auto">
+		<div className="mt-4 w-fit mx-auto">
 			<h2 className="text-2xl font-bold mb-4 py-5 ">
 				Séances des 7 derniers jours
 			</h2>
-			<ul className="flex items-center justify-start mx-auto gap-5">
+			<ul className="flex flex-wrap items-center justify-start mx-auto gap-5">
 				{getLast7Days().map((date) => (
 					<li
 						key={date.toISOString()}

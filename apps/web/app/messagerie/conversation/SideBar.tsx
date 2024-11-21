@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { UserType } from "type/user";
 
 export default function SideBar() {
-	const { user } = useAuth();
+    const { user } = useAuth();
 	const [fetchUrl, setFetchUrl] = useState<string | undefined>();
 
 	// Determine fetch URL based on user's role
@@ -25,6 +25,7 @@ export default function SideBar() {
 		data: conversations,
 		isLoading,
 		isError,
+		error,
 	} = useFetchData({
 		url: fetchUrl || "",
 		enabled: !!fetchUrl,
@@ -46,6 +47,13 @@ export default function SideBar() {
 		return <div>Erreur lors du chargement des conversations</div>;
 	}
 
+	console.log("error", error);
+	console.log("conversations", conversations);
+
+	if (error) {
+		return <div>Erreur lors du chargement des conversations</div>;
+	}
+
 	// Render conversations
 	return (
 		<div className="w-1/6 flex flex-col flex-shrink-0">
@@ -54,16 +62,48 @@ export default function SideBar() {
 					Toutes les conversations
 				</h1>
 			</div>
-			{conversations?.data.map((user: UserType) => (
+			{Array.isArray(conversations?.data) ? (
+				conversations?.data?.map((user: UserType) => (
+					<a
+						key={user.id}
+						className="flex items-center justify-start py-2 border-b border-gray-200 gap-2 mx-2"
+						href={`/messagerie/conversation/${user.id}`}
+					>
+						{/* User Avatar */}
+						{user.profileImageUrl ? (
+							<Avatar
+								src={user.profileImageUrl}
+								alt="profile"
+								size="md"
+							/>
+						) : (
+							<Icon
+								icon="bi:person-circle"
+								width={20}
+							/>
+						)}
+
+						{/* User Info */}
+						<div className="flex-1">
+							<div className="text-sm font-semibold">
+								{user.firstName} {user.lastName}
+							</div>
+							<p className="text-xs text-gray-500">
+								Dernier message
+							</p>
+						</div>
+					</a>
+				))
+			) : (
 				<a
-					key={user.id}
+					key={conversations?.data?.user.id}
 					className="flex items-center justify-start py-2 border-b border-gray-200 gap-2 mx-2"
-					href={`/messagerie/conversation/${user.id}`}
+					href={`/messagerie/conversation/${conversations?.data?.user.id}`}
 				>
 					{/* User Avatar */}
-					{user.profileImageUrl ? (
+					{conversations?.data?.user.profileImageUrl ? (
 						<Avatar
-							src={user.profileImageUrl}
+							src={conversations?.data?.user.profileImageUrl}
 							alt="profile"
 							size="md"
 						/>
@@ -77,12 +117,13 @@ export default function SideBar() {
 					{/* User Info */}
 					<div className="flex-1">
 						<div className="text-sm font-semibold">
-							{user.firstName} {user.lastName}
+							{conversations?.data?.user.firstName}{" "}
+							{conversations?.data?.user.lastName}
 						</div>
 						<p className="text-xs text-gray-500">Dernier message</p>
 					</div>
 				</a>
-			))}
+			)}
 		</div>
 	);
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import PageLoader from "@components/Common/Loaders/PageLoader";
 import useFetchData from "@hooks/useFetchData";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { Avatar } from "@nextui-org/react";
@@ -40,11 +41,11 @@ export default function MainSection() {
 	}, [studentsData]);
 
 	if (!user) {
-		return <div>Chargement...</div>;
+		return <PageLoader text="Chargement des conversations" />;
 	}
 
 	if (isLoading) {
-		return <div>Chargement des élèves...</div>;
+		return <PageLoader text="Chargement des conversations" />;
 	}
 
 	if (isError) {
@@ -54,12 +55,12 @@ export default function MainSection() {
 	return (
 		<div className="w-10/12 mx-auto">
 			<h1 className="text-xl font-semibold mb-4">Mes conversations</h1>
-			<section className="flex flex-col gap-4 w-2/3 mx-auto h-full hover:bg-gray-100">
+			<section className="flex flex-col  w-2/3 mx-auto h-full">
 				{Object.keys(students).length > 0 ? (
 					students.map((student) => (
 						<a
 							key={student.id}
-							className="flex items-center py-2 border-b border-gray-200 gap-2"
+							className="flex items-center py-2 border-b border-gray-200 gap-2 hover:bg-gray-100 rounded-lg px-2"
 							href={`messagerie/conversation/${student.id}`}
 						>
 							{student.profileImageUrl ? (
@@ -71,7 +72,7 @@ export default function MainSection() {
 							) : (
 								<Icon
 									icon="codicon:account"
-									className="text-green-500"
+									className="w-8 h-8"
 								/>
 							)}
 							{student.firstName} {student.lastName}
