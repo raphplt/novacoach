@@ -117,10 +117,10 @@ const ListExercises = ({ programId }: { programId: number }) => {
 			<div className="bg-white shadow-md rounded-lg p-6 max-w-2xl mx-auto w-full py-3">
 				<h1 className="text-lg font-bold text-gray-900 mt-5 text-center mb-4">
 					<Icon
-						icon="material-symbols:add"
+						icon="material-symbols:list"
 						className="inline-block mr-2"
 					/>
-					Ajouter des exercices
+					Liste des exercices
 				</h1>
 
 				<p className="text-gray-700 text-lg py-3">
@@ -132,7 +132,7 @@ const ListExercises = ({ programId }: { programId: number }) => {
 					{availableExercisesList.map((exercise) => (
 						<div
 							key={exercise.id}
-							className="bg-gray-50 px-4 py-3 flex items-center justify-between w-full rounded-xl cursor-pointer hover:scale-105 transition duration-300 ease-in-out my-2"
+							className="bg-gray-50 hover:bg-gray-200 border px-4 py-2 flex items-center justify-between w-full rounded-xl cursor-pointer hover:scale-105  transition duration-300 ease-in-out my-2"
 						>
 							<h2>{exercise.name}</h2>
 							<Button
@@ -150,6 +150,18 @@ const ListExercises = ({ programId }: { programId: number }) => {
 					))}
 				</div>
 			</div>
+			<Button
+				as={"a"}
+				href={`/coach/dashboard/Exercices/create`}
+				color="primary"
+				className="text-white mx-auto"
+			>
+				<Icon
+					icon="mdi:weight-lifter"
+					className="inline-block mr-2"
+				/>
+				Créer un nouvel exercice
+			</Button>
 		</div>
 	);
 };

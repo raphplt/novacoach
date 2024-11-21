@@ -38,28 +38,22 @@ const TablePrograms = () => {
 		duration: program.duration,
 		frequency: program.frequency,
 		difficulty: program.difficulty,
-		exercises: program.sportProgramHasExercices,
+		exercises: program.sportProgramHasExercices.length,
 	}));
 
 	const renderCell = (data: SportProgramType, columnKey: string) => {
-		if (columnKey === "exercises") {
-			return (
-				<p>
-					{data.sportProgramHasExercices &&
-					data.sportProgramHasExercices.length > 0
-						? data.sportProgramHasExercices
-								.map((exercise: any) => exercise.name)
-								.join(", ")
-								.slice(0, 5) + "..."
-						: "Aucun exercice"}
-				</p>
-			);
-		}
+		// if (columnKey === "exercises") {
+		// 	return <p>{data?.sportProgramHasExercices?.length || "0"}</p>;
+		// }
 		if (columnKey === "actions") {
 			return <ActionsSportPrograms data={data} />;
 		}
 		return data[columnKey as keyof SportProgramType];
 	};
+
+	console.log("data", sportPrograms);
+
+	console.log("rows", rows);
 
 	return (
 		<>

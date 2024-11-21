@@ -5,6 +5,7 @@ import ListExercises from "../ListExercises";
 import ButtonBack from "@components/Common/Buttons/ButtonBack";
 import ProgramInfos from "@components/Common/Box/ProgramInfos";
 import useFetchProgram from "@hooks/useSportProgram";
+import PageLoader from "@components/Common/Loaders/PageLoader";
 
 const AddExercice = () => {
 	const params = useParams();
@@ -32,13 +33,7 @@ const AddExercice = () => {
 	}
 
 	if (loading) {
-		return (
-			<div className="min-h-screen bg-gray-100 p-6">
-				<h1 className="text-3xl font-bold pt-4 mb-6 text-center text-gray-800">
-					Chargement...
-				</h1>
-			</div>
-		);
+		return <PageLoader />;
 	}
 
 	if (error) {

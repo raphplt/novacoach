@@ -26,14 +26,12 @@ const TableExercises = () => {
 	}, [sportProgramData]);
 
 	const columnsHeaders = [
-		{ key: "name", label: "Nom du programme" },
+		{ key: "name", label: "Nom de l'exercice" },
 		{ key: "description", label: "Description" },
-		{ key: "duration", label: "Durée" },
+		{ key: "duration", label: "Durée (min)" },
 		{ key: "reps", label: "Répétitions" },
 		{ key: "sets", label: "Séries" },
-		{ key: "breakTime", label: "Temps de repos" },
-		{ key: "image", label: "Image" },
-		{ key: "actions", label: "Actions" },
+		{ key: "breakTime", label: "Temps de repos (sec)" },
 	];
 
 	const rows = exercices.map((exercice) => ({
@@ -44,7 +42,6 @@ const TableExercises = () => {
 		reps: exercice.reps,
 		sets: exercice.sets,
 		breakTime: exercice.breakTime,
-		image: exercice.image,
 	}));
 
 	const renderCell = (data: any, columnKey: string) => {

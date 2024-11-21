@@ -95,7 +95,7 @@ const Page = () => {
 				<h1 className="text-2xl font-bold mb-6">Créer un exercice</h1>
 				<form
 					onSubmit={handleSubmit(handleCreation)}
-					className="bg-gray-100 p-6 rounded shadow-md w-full max-w-md"
+					className="bg-gray-200 p-6 rounded-xl shadow-md w-1/2"
 				>
 					<Input
 						label="Nom de l'exercice"
@@ -147,14 +147,6 @@ const Page = () => {
 						isInvalid={!!errors.breakTime}
 						className="mb-3"
 						errorMessage={String(errors.breakTime?.message)}
-					/>
-
-					<Input
-						label="Image"
-						{...register("image")}
-						isInvalid={!!errors.image}
-						className="mb-3"
-						errorMessage={String(errors.image?.message)}
 					/>
 
 					<Button

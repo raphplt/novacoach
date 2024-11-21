@@ -109,7 +109,11 @@ export class SportProgramServices {
 		const parsedId = parseInt(id, 10);
 		const sportProgram = await this.sportProgramRepository.find({
 			where: { structure: { id: parsedId } },
-			relations: ["sport"],
+			relations: [
+				"sport",
+				"sportProgramHasExercices",
+				"sportProgramHasExercices.exercice",
+			],
 		});
 
 		return sportProgram;

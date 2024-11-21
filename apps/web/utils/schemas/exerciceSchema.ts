@@ -17,5 +17,4 @@ export const exerciceSchema = z.object({
 	reps: z.number({ message: "Les répétitions doivent être un nombre." }),
 	sets: z.number({ message: "Les séries doivent être un nombre." }),
 	breakTime: z.number({ message: "Le temps de pause doit être un nombre." }),
-	image: z.string().nullable(),
 });

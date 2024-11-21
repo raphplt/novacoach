@@ -38,9 +38,9 @@ interface UserSportProgram {
 const urlBase = process.env.NEXT_PUBLIC_API_URL;
 
 const UserTrackProgramForm = () => {
-	const { user } = useAuth(); // Utilisateur connecté
+	const { user } = useAuth();
 	const [userSportPrograms, setUserSportPrograms] =
-		useState<UserSportProgram | null>(null); // Changement : objet unique
+		useState<UserSportProgram | null>(null);
 	const [loading, setLoading] = useState<boolean>(true);
 
 	const {
@@ -59,7 +59,6 @@ const UserTrackProgramForm = () => {
 		},
 	});
 
-	// Récupérer les programmes sportifs de l'utilisateur
 	useEffect(() => {
 		const fetchUserSportPrograms = async () => {
 			if (user && user.id) {
@@ -84,12 +83,11 @@ const UserTrackProgramForm = () => {
 
 	const sendMessage = async (content: string) => {
 		try {
-			// Récupérer l'ID de la conversation
 			const conversationResponse = await axios.post(
 				`${urlBase}/conversations/byParticipants`,
 				{
 					user1Id: user?.id,
-					user2Id: userSportPrograms?.sportProgram.id,
+					user2Id: user?.coach?.id,
 				},
 			);
 
@@ -121,7 +119,6 @@ const UserTrackProgramForm = () => {
 				console.log("Séance enregistrée avec succès !");
 				toast.success("Séance enregistrée avec succès !");
 
-				// Envoyer un message après l'enregistrement de la séance
 				await sendMessage(
 					`J'ai enregistré une séance pour le programme sportif ${userSportPrograms?.sportProgram.name}.
 					Voici les détails :

@@ -1,5 +1,5 @@
 "use client";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import PageLoader from "@components/Common/Loaders/PageLoader";
 import SportSelect from "@components/Common/Select/sportSelect";
@@ -7,12 +7,19 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { handleValidationErrors } from "@utils/functions/validation";
 import { sportProgramSchema } from "@utils/schemas/sportProgram.schema";
-import { Button, Input } from "@nextui-org/react";
+import { Button, Input, Select, SelectItem } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "contexts/AuthProvider";
 import { toast } from "sonner";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+
+const difficultyOptions = [
+	{ key: "easy", label: "Facile" },
+	{ key: "medium", label: "Moyen" },
+	{ key: "hard", label: "Difficile" },
+];
 
 const Page = () => {
 	const router = useRouter();
@@ -30,6 +37,7 @@ const Page = () => {
 		formState: { errors },
 		register,
 		reset,
+		setValue,
 	} = methods;
 
 	useEffect(() => {
@@ -115,12 +123,17 @@ const Page = () => {
 						</span>
 					</div>
 				)}
+				<Icon
+					icon="icon-park-outline:sport"
+					width={34}
+					className="mb-2"
+				/>
 				<h1 className="text-2xl font-bold mb-6">
 					Créer un programme de sport
 				</h1>
 				<form
 					onSubmit={handleSubmit(handleCreation)}
-					className="bg-gray-100 p-6 rounded shadow-md w-full max-w-md"
+					className="bg-gray-200 p-6 rounded shadow-md w-1/2"
 				>
 					<div className="mb-4">
 						<SportSelect
@@ -144,13 +157,33 @@ const Page = () => {
 						errorMessage={String(errors.name?.message)}
 					/>
 
-					<Input
-						label="Niveau de difficulté"
-						{...register("difficulty")}
-						isInvalid={!!errors.difficulty}
-						className="mb-3"
-						errorMessage={String(errors.difficulty?.message)}
-					/>
+					<div className="mb-4">
+						<Select
+							label="Niveau de difficulté"
+							variant="bordered"
+							placeholder="Sélectionnez un niveau"
+							selectedKeys={
+								new Set([methods.getValues("difficulty")])
+							}
+							onSelectionChange={(keys) =>
+								setValue(
+									"difficulty",
+									Array.from(keys).join(""),
+								)
+							}
+						>
+							{difficultyOptions.map((option) => (
+								<SelectItem key={option.key}>
+									{option.label}
+								</SelectItem>
+							))}
+						</Select>
+						{errors.difficulty && (
+							<span className="text-danger">
+								{String(errors.difficulty?.message)}
+							</span>
+						)}
+					</div>
 
 					<Input
 						type="number"
