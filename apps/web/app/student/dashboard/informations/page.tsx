@@ -7,11 +7,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { UserDetailsFormInputs, userDetailsSchema } from "./utils";
 import { Button, Input } from "@nextui-org/react";
 import Link from "next/link";
+import { Icon } from "@iconify/react/dist/iconify.js";
+import { toast } from "sonner";
 
 const urlBase = process.env.NEXT_PUBLIC_API_URL;
 
 export default function UserDetailsForm() {
-    const [editMode, setEditMode] = useState(false);
+	const [editMode, setEditMode] = useState(false);
 	const [isSaving, setIsSaving] = useState(false);
 	const { user, userDetails } = useAuth();
 
@@ -21,6 +23,8 @@ export default function UserDetailsForm() {
 		formState: { errors },
 		reset,
 		getValues,
+		setValue,
+		watch,
 	} = useForm<UserDetailsFormInputs>({
 		resolver: zodResolver(userDetailsSchema),
 		defaultValues: {
@@ -32,13 +36,8 @@ export default function UserDetailsForm() {
 		},
 	});
 
-	const getMostRecentValue = (dataArray: any) => {
-		if (!dataArray || dataArray.length === 0) return 0;
-		return dataArray.sort(
-			(a: any, b: any) =>
-				new Date(b.date).getTime() - new Date(a.date).getTime(),
-		)[0].value;
-	};
+	const height = watch("height");
+	const weight = watch("weight");
 
 	useEffect(() => {
 		if (userDetails) {
@@ -52,14 +51,22 @@ export default function UserDetailsForm() {
 		}
 	}, [userDetails, reset]);
 
-	const handleEditModeToggle = async () => {
+	useEffect(() => {
+		if (height > 0 && weight > 0) {
+			const bmi = weight / (height / 100) ** 2;
+			setValue("bmi", parseFloat(bmi.toFixed(2)));
+		}
+	}, [height, weight, setValue]);
+
+	const getMostRecentValue = (dataArray: any) =>
+		dataArray?.sort(
+			(a: any, b: any) =>
+				new Date(b.date).getTime() - new Date(a.date).getTime(),
+		)[0]?.value ?? 0;
+
+	const handleEditModeToggle = () => {
 		if (editMode) {
-			setIsSaving(true);
-			await handleSubmit(onSubmit)();
-			setIsSaving(false);
-		} else {
-			const currentValues = getValues();
-			reset(currentValues);
+			reset(getValues());
 		}
 		setEditMode(!editMode);
 	};
@@ -92,14 +99,17 @@ export default function UserDetailsForm() {
 
 			if (!response.ok) {
 				const errorData = await response.json();
-				console.error("Registration failed:", errorData.message);
-				throw new Error(errorData.message || "Registration failed");
+				throw new Error(
+					errorData.message || "Échec de l'enregistrement",
+				);
 			}
 
 			await response.json();
+			toast.success("Données mises à jour avec succès");
 			setEditMode(false);
 		} catch (error) {
-			console.error("An error occurred:", error);
+			toast.error("Une erreur s'est produite.");
+			console.error(error);
 		}
 	};
 
@@ -127,8 +137,8 @@ export default function UserDetailsForm() {
 						{...register("height", { valueAsNumber: true })}
 						errorMessage={String(errors.height?.message)}
 						isInvalid={Boolean(errors.height)}
-						disabled={!editMode}
-						isDisabled={!editMode}
+						readOnly={!editMode}
+						startContent={<Icon icon="material-symbols:height" />}
 					/>
 
 					<Input
@@ -137,18 +147,20 @@ export default function UserDetailsForm() {
 						{...register("weight", { valueAsNumber: true })}
 						errorMessage={String(errors.weight?.message)}
 						isInvalid={Boolean(errors.weight)}
-						disabled={!editMode}
-						isDisabled={!editMode}
+						readOnly={!editMode}
+						startContent={<Icon icon="material-symbols:weight" />}
 					/>
 
 					<Input
 						label="BMI (Indice de masse corporelle)"
 						type="number"
-						{...register("bmi", { valueAsNumber: true })}
-						errorMessage={String(errors.bmi?.message)}
-						isInvalid={Boolean(errors.bmi)}
-						disabled={!editMode}
-						isDisabled={!editMode}
+						value={
+							height > 0 && weight > 0
+								? (weight / (height / 100) ** 2).toFixed(1)
+								: ""
+						}
+						readOnly
+						startContent={<Icon icon="icon-park-solid:weight" />}
 					/>
 
 					<Input
@@ -157,8 +169,8 @@ export default function UserDetailsForm() {
 						{...register("muscleMass", { valueAsNumber: true })}
 						errorMessage={String(errors.muscleMass?.message)}
 						isInvalid={Boolean(errors.muscleMass)}
-						disabled={!editMode}
-						isDisabled={!editMode}
+						readOnly={!editMode}
+						startContent={<Icon icon="icon-park-outline:muscle" />}
 					/>
 
 					<Input
@@ -167,34 +179,32 @@ export default function UserDetailsForm() {
 						{...register("fatMass", { valueAsNumber: true })}
 						errorMessage={String(errors.fatMass?.message)}
 						isInvalid={Boolean(errors.fatMass)}
-						disabled={!editMode}
-						isDisabled={!editMode}
+						readOnly={!editMode}
+						startContent={<Icon icon="mdi:stomach" />}
 					/>
 
-					{!editMode ? (
-						<p className="text-center text-sm text-gray-400">
-							Cliquez sur "Modifier" pour mettre à jour vos
-							données
-						</p>
-					) : (
+					<div className="flex space-x-4">
 						<Button
 							onClick={handleEditModeToggle}
-							className="w-full mx-auto text-black bg-gray-300"
+							className="w-full text-white"
+							color="primary"
 							size="lg"
 						>
-							Annuler
+							{editMode ? "Annuler" : "Modifier"}
 						</Button>
-					)}
 
-					<Button
-						onClick={handleEditModeToggle}
-						className="w-full mx-auto text-white"
-						color="primary"
-						size="lg"
-						disabled={isSaving}
-					>
-						{editMode ? "Enregistrer" : "Modifier"}
-					</Button>
+						{editMode && (
+							<Button
+								type="submit"
+								className="w-full text-white"
+								color="success"
+								size="lg"
+								disabled={isSaving}
+							>
+								Enregistrer
+							</Button>
+						)}
+					</div>
 				</form>
 			</div>
 		</div>

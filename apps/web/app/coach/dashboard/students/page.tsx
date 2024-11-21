@@ -1,185 +1,153 @@
 "use client";
-import useFetchData from "@hooks/useFetchData";
+import axios from "axios";
 import { useAuth } from "contexts/AuthProvider";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import {
+	Table,
+	TableHeader,
+	TableColumn,
+	TableBody,
+	TableRow,
+	TableCell,
+	Spinner,
+	Button,
+} from "@nextui-org/react";
 import { UserType } from "type/user";
+
+const columns = [
+	{ key: "fullName", label: "Nom complet" },
+	{ key: "email", label: "Email" },
+	{ key: "weight", label: "Poids (kg)" },
+	{ key: "muscleMass", label: "Masse musculaire (kg)" },
+	{ key: "height", label: "Taille (cm)" },
+	{ key: "fatMass", label: "Masse grasse (%)" },
+	{ key: "bmi", label: "IMC" },
+	{ key: "actions", label: "Actions" },
+];
 
 const Page = () => {
 	const { user } = useAuth();
-	const [students, setStudents] = useState<UserType[]>([]);
-	const [showModal, setShowModal] = useState<boolean>(false);
-	const [modalContent, setModalContent] = useState<string>("");
 	const router = useRouter();
+
+	const [students, setStudents] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
+
+	useEffect(() => {
+		const fetchStudents = async () => {
+			if (!user?.coachRole?.id) return;
+
+			try {
+				const response = await axios.get(
+					`${process.env.NEXT_PUBLIC_API_URL}/user/studentsByCoachId/${user.coachRole.id}`,
+				);
+				setStudents(
+					response.data.map((student: UserType) => ({
+						key: student.id,
+						fullName: `${student.firstName} ${student.lastName}`,
+						email: student.email || "",
+						weight: student.userDetails
+							? student.userDetails?.weights?.[0]?.value
+							: 0,
+						muscleMass: student.userDetails
+							? student.userDetails?.muscleMasses?.[0]?.value
+							: 0,
+						height: student.userDetails
+							? student.userDetails?.heights?.[0]?.value
+							: 0,
+						fatMass: student.userDetails
+							? student.userDetails?.fatMasses?.[0]?.value
+							: 0,
+						bmi: student.userDetails
+							? student.userDetails?.bmis?.[0]?.value
+							: 0,
+					})),
+				);
+			} catch (error) {
+				console.error("Error fetching students:", error);
+			} finally {
+				setIsLoading(false);
+			}
+		};
+
+		fetchStudents();
+	}, [user?.coachRole?.id]);
+
+	const handleClick = (id: any) => {
+		router.push(`/coach/dashboard/students/profil/${id}`);
+	};
 
 	if (!user || !user.coachRole) {
 		return null;
 	}
 
-	const { data: studentsData } = useFetchData({
-		url: `/user/studentsByCoachId/${user.coachRole?.id}`,
-		enabled: !!user.coachRole?.id,
-	});
-
-	useEffect(() => {
-		if (studentsData) {
-			setStudents(studentsData.data as any);
-		}
-	}, [studentsData]);
-
-	const handleButtonClick = (program: string) => {
-		setModalContent(program);
-		setShowModal(true);
-	};
-
-	const closeModal = () => {
-		setShowModal(false);
-	};
-
-	const handleClick = (id: number) => {
-		router.push(`/coach/dashboard/students/profil/${id}`);
-	};
+	console.log(students);
 
 	return (
-		<div className="container mx-auto p- min-h-screen">
-			{/* Section Title */}
+		<div className="container mx-auto  min-h-screen">
 			<h2 className="text-4xl font-extrabold text-gray-900 mt-14 text-center">
 				Mes élèves
 			</h2>
 
-			{/* Students Table */}
 			<div className="mt-10 overflow-x-auto">
-				<table className="table-auto w-full text-left border-collapse">
-					<thead>
-						<tr className="bg-primary text-white">
-							<th className="px-4 py-2 text-center">
-								Nom complet
-							</th>
-							<th className="px-4 py-2 text-center">
-								Poids (kg)
-							</th>
-							<th className="px-4 py-2 text-center">
-								Masse musculaire (kg)
-							</th>
-							<th className="px-4 py-2 text-center">
-								Taille (cm)
-							</th>
-							<th className="px-4 py-2 text-center">
-								Masse grasse (%)
-							</th>
-							<th className="px-4 py-2 text-center">IMC</th>
-							<th className="px-4 py-2 text-center">Actions</th>
-						</tr>
-					</thead>
-					<tbody>
-						{students.length === 0 ? (
-							<tr>
-								<td
-									colSpan={7}
-									className="text-center text-gray-600 py-4"
+				<Table
+					aria-label="Table des élèves"
+					selectionMode="none"
+					color="primary"
+					isStriped
+				>
+					<TableHeader>
+						{columns.map((column) => (
+							<TableColumn key={column.key}>
+								{column.label}
+							</TableColumn>
+						))}
+					</TableHeader>
+					<TableBody
+						isLoading={isLoading}
+						loadingContent={<Spinner />}
+					>
+						{students.length === 0 && !isLoading ? (
+							<TableRow>
+								<TableCell
+									colSpan={columns.length}
+									className="text-center"
 								>
 									Aucun élève trouvé.
-								</td>
-							</tr>
+								</TableCell>
+							</TableRow>
 						) : (
-							students.map((student) => (
-								<tr
-									key={student.id}
-									className="bg-white border-b hover:bg-gray-100 transition-colors"
-								>
-									<td
-										onClick={() => handleClick(student.id)}
-										className="px-4 py-2 text-center align-middle text-primary font-semibold cursor-pointer"
-									>
-										{student.firstName} {student.lastName}
-									</td>
-									<td className="px-4 py-2 text-center align-middle">
-										{Number(
-											(student.userDetails?.weights &&
-												student.userDetails?.weights[0]
-													?.value) ||
-												0,
-										)}
-									</td>
-									<td className="px-4 py-2 text-center align-middle">
-										{Number(
-											(student.userDetails
-												?.muscleMasses &&
-												student.userDetails
-													?.muscleMasses[0]?.value) ||
-												0,
-										)}
-									</td>
-									<td className="px-4 py-2 text-center align-middle">
-										{Number(
-											(student.userDetails?.heights &&
-												student.userDetails?.heights[0]
-													?.value) ||
-												0,
-										)}
-									</td>
-									<td className="px-4 py-2 text-center align-middle">
-										{Number(
-											(student.userDetails?.fatMasses &&
-												student.userDetails
-													?.fatMasses[0]?.value) ||
-												0,
-										)}
-									</td>
-									<td className="px-4 py-2 text-center align-middle">
-										{Number(
-											(student.userDetails?.bmis &&
-												student.userDetails?.bmis[0]
-													?.value) ||
-												0,
-										)}
-									</td>
-									<td className="px-4 py-2 text-center align-middle">
-										<button
+							students.map((student: any) => (
+								<TableRow key={student.key}>
+									{columns.map((column) => (
+										<TableCell
+											key={column.key}
 											onClick={() =>
-												handleButtonClick(
-													"Programme de nutrition",
-												)
+												handleClick(student.key)
 											}
-											className="bg-primary text-white px-4 py-2 rounded-lg shadow-lg hover:bg-secondary transition-colors"
 										>
-											Programmes de nutrition
-										</button>
-										<button
-											onClick={() =>
-												handleButtonClick(
-													"Programme de sport",
-												)
-											}
-											className="bg-primary text-white px-4 py-2 ml-1 rounded-lg shadow-lg hover:bg-secondary transition-colors"
-										>
-											Programmes de sport
-										</button>
-									</td>
-								</tr>
+											{column.key === "actions" ? (
+												<>
+													<Button
+														color="primary"
+														as={"a"}
+														className="text-white"
+														href={`/messagerie/conversation/${student.key}`}
+													>
+														Contacter
+													</Button>
+												</>
+											) : (
+												student[column.key]
+											)}
+										</TableCell>
+									))}
+								</TableRow>
 							))
 						)}
-					</tbody>
-				</table>
+					</TableBody>
+				</Table>
 			</div>
-
-			{/* Modal */}
-			{showModal && (
-				<div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-					<div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full text-center">
-						<h3 className="text-2xl font-semibold mb-4">
-							{modalContent}
-						</h3>
-						<p className="text-gray-700">Non implémenté</p>
-						<button
-							onClick={closeModal}
-							className="mt-4 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700"
-						>
-							Fermer
-						</button>
-					</div>
-				</div>
-			)}
 		</div>
 	);
 };

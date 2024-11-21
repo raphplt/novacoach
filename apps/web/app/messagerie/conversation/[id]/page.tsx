@@ -9,7 +9,7 @@ import PageLoader from "@components/Common/Loaders/PageLoader";
 import SideBar from "../SideBar";
 import MessageList from "./MessageList";
 import { MessageType } from "type/conversation";
-import { Avatar, Button } from "@nextui-org/react";
+import { Avatar } from "@nextui-org/react";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
 const url = process.env.NEXT_PUBLIC_API_URL;
@@ -39,7 +39,7 @@ export default function Conversation() {
 		enabled: !!userId && !!otherUserId,
 	});
 
-	const otherUser = convData?.data.participants.find(
+	const otherUser = convData?.data?.participants.find(
 		(p: any) => p.id !== userId,
 	);
 

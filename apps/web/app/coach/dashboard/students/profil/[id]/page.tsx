@@ -6,6 +6,8 @@ import { UserType } from "type/user";
 import useFetchData from "@hooks/useFetchData";
 import { getLastValueFromUserDetails } from "@utils/functions/getLastValueFromUserDetails";
 import { Chip } from "@nextui-org/react";
+import Image from "next/image";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 const UserProfile = () => {
 	const { id: userId } = useParams();
@@ -27,10 +29,27 @@ const UserProfile = () => {
 
 	return (
 		<div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-100 to-indigo-200 py-10">
-			<div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-8 border border-gray-200 mt-5">
+			<div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl p-8 border border-gray-200 mt-5">
 				<h2 className="text-3xl font-bold text-center mb-8 text-indigo-600">
-					User Profile
+					Profile de l’utilisateur
 				</h2>
+
+				{user.profileImageUrl ? (
+					<Image
+						src={user.profileImageUrl}
+						alt="Profile Image"
+						width={200}
+						height={200}
+						className="rounded-full mx-auto"
+					/>
+				) : (
+					<div className="flex justify-center items-center bg-gray-200 rounded-full mx-auto w-36 h-36">
+						<Icon
+							icon="icon-park-outline:user"
+							className="text-4xl"
+						/>
+					</div>
+				)}
 
 				<p className="mb-4 text-gray-700">
 					<span className="font-semibold text-indigo-500">Name:</span>{" "}
@@ -117,7 +136,7 @@ const UserProfile = () => {
 						</p>
 					</div>
 				)}
-				{user.userSportPrograms && (
+				{user?.userSportPrograms && (
 					<div className="mt-6 p-4 bg-indigo-50 rounded-lg border border-indigo-200">
 						<h3 className="text-xl font-semibold text-indigo-600 mb-2">
 							Programme de sport
@@ -127,39 +146,47 @@ const UserProfile = () => {
 								<span className="font-semibold">
 									Program Name:
 								</span>{" "}
-								{user.userSportPrograms.sportProgram.name}
+								{user.userSportPrograms.sportProgram?.name ??
+									"N/A"}
 							</p>
 							<p className="mb-2 text-gray-700">
 								<span className="font-semibold">
 									Difficulty:
 								</span>{" "}
-								{user.userSportPrograms.sportProgram.difficulty}
+								{user.userSportPrograms.sportProgram
+									?.difficulty ?? "N/A"}
 							</p>
 							<p className="mb-2 text-gray-700">
 								<span className="font-semibold">
 									Frequency:
 								</span>{" "}
-								{user.userSportPrograms.sportProgram.frequency}{" "}
+								{user.userSportPrograms.sportProgram
+									?.frequency ?? "N/A"}{" "}
 								sessions/week
 							</p>
 							<p className="mb-2 text-gray-700">
 								<span className="font-semibold">Duration:</span>{" "}
-								{user.userSportPrograms.sportProgram.duration}{" "}
+								{user.userSportPrograms.sportProgram
+									?.duration ?? "N/A"}{" "}
 								days
 							</p>
 							<p className="mb-2 text-gray-700">
 								<span className="font-semibold">
 									Start Date:
 								</span>{" "}
-								{new Date(
-									user.userSportPrograms.startDate,
-								).toLocaleDateString()}
+								{user.userSportPrograms.startDate
+									? new Date(
+											user.userSportPrograms.startDate,
+										).toLocaleDateString()
+									: "N/A"}
 							</p>
 							<p className="mb-2 text-gray-700">
 								<span className="font-semibold">End Date:</span>{" "}
-								{new Date(
-									user.userSportPrograms.endDate,
-								).toLocaleDateString()}
+								{user.userSportPrograms.endDate
+									? new Date(
+											user.userSportPrograms.endDate,
+										).toLocaleDateString()
+									: "N/A"}
 							</p>
 						</div>
 					</div>
