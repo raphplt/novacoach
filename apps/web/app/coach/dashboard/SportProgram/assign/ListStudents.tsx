@@ -5,6 +5,7 @@ import { useAuth } from "contexts/AuthProvider";
 import React from "react";
 import axios from "axios";
 import { SportProgramType } from "type/sportProgram";
+import { toast } from "sonner";
 
 const url = process.env.NEXT_PUBLIC_API_URL;
 
@@ -47,6 +48,7 @@ const ListStudents = ({ program }: { program: SportProgramType | null }) => {
 			};
 
 			await axios.post(`${url}/userSportPrograms`, newUserSportProgram);
+			toast.success("L'élève a bien été ajouté au programme");
 		} catch (error) {
 			console.error("Error creating UserSportProgram:", error);
 		}
