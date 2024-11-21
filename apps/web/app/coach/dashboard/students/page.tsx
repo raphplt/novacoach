@@ -81,7 +81,6 @@ const Page = () => {
 		return null;
 	}
 
-	console.log(students);
 
 	return (
 		<div className="container mx-auto  min-h-screen">
