@@ -50,7 +50,7 @@ const Program = () => {
 	}
 
 	return (
-		<main className="h-screen ">
+		<main className="min-h-screen ">
 			<h1 className="text-3xl font-bold text-center mb-4 mx-2 pt-16">
 				Mon programme : {sportProgram.name}
 			</h1>
