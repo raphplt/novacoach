@@ -116,7 +116,7 @@ export default function CreateAccount() {
 
 						<div className="mt-2">
 							<p className={`text-sm ${passwordCriteria.length ? "text-green-500" : "text-red-500"}`}>
-								• Au moins 8 caractères
+								• Au moins 12 caractères
 							</p>
 							<p className={`text-sm ${passwordCriteria.uppercase ? "text-green-500" : "text-red-500"}`}>
 								• Au moins une majuscule

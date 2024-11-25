@@ -8,6 +8,6 @@ export const loginSchema = z.object({
 			message: "L'email doit être au format correct",
 		}),
 	password: z.string().min(6, {
-		message: "Le mot de passe doit contenir au moins 8 caractères",
+		message: "Le mot de passe doit contenir au moins 12 caractères",
 	}),
 });
