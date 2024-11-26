@@ -34,7 +34,7 @@ export const registerSchema = z.object({
 		}),
 	password: z
 		.string()
-		.min(8, {
+		.min(12, {
 			message: "Le mot de passe doit contenir au moins 12 caractères",
 		})
 		.regex(/[A-Z]/, {

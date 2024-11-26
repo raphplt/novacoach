@@ -193,6 +193,7 @@ export class UserService {
 		const existingUser = await this.userRepository.findOne({
 			where: { email: user.email },
 		});
+
 		if (existingUser) {
 			throw new EmailAlreadyExistsError();
 		}

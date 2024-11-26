@@ -44,7 +44,7 @@ export default function CreateAccount() {
 
 	useEffect(() => {
 		setPasswordCriteria({
-			length: password?.length >= 8,
+			length: password?.length >= 12,
 			uppercase: /[A-Z]/.test(password),
 			number: /[0-9]/.test(password),
 			specialChar: /[^a-zA-Z0-9]/.test(password),
